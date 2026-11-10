@@ -12,6 +12,7 @@ abstract class HotelFormBase extends FormBase {
   protected function decorate(array &$form): void {
     $form['#cache']['max-age'] = 0;
     $form['#attached']['library'][] = 'roma_booking/hotel';
+    $form['#attributes']['data-hotel-feedback'] = 'true';
   }
   protected function protect(array &$form): void {
     $this->decorate($form);

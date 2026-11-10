@@ -2,3 +2,8 @@ hotel:
   css:
     theme:
       css/hotel.css: {}
+  js:
+    js/forms.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

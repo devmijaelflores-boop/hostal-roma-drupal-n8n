@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-10T22:02:04.426Z",
+  "results": [
+    "Teléfono inválido muestra explicación junto al campo",
+    "El error señala el teléfono y conserva la habitación válida",
+    "El teléfono recibe el foco y queda visible tras enviar desde el final",
+    "Los datos ingresados se conservan después del rechazo",
+    "El teléfono inválido no crea solicitudes en MariaDB",
+    "Validación del servidor asociada a departure",
+    "Validación del servidor asociada a guests",
+    "Validación del servidor asociada a customer_name",
+    "En móvil se enfoca y muestra el primer campo con error",
+    "Los errores se adaptan a 390 píxeles sin desbordamiento",
+    "Fechas, nombre y ocupación inválidos no crean solicitudes",
+    "Al corregir los campos aparece el recibo de solicitud pendiente",
+    "El recibo recibe el foco y queda visible en móvil",
+    "El recibo entrega código y clave privada sin publicarlos en la evidencia",
+    "MariaDB contiene una sola solicitud pendiente con teléfono opcional vacío",
+    "Sin errores JavaScript durante el recorrido"
+  ],
+  "javascriptErrors": [],
+  "fixture": "Una solicitud ficticia registrada y cancelada después de la comprobación; no se modifican solicitudes ajenas."
+}

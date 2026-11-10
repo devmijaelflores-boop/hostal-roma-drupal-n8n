@@ -23,7 +23,13 @@ final class BookingForm extends HotelFormBase {
     $form['guests'] = ['#type' => 'number', '#title' => 'Huéspedes', '#min' => 1, '#max' => 10, '#step' => 1, '#required' => TRUE, '#default_value' => $q->get('guests', 1)];
     $form['customer_name'] = ['#type' => 'textfield', '#title' => 'Nombre del cliente de prueba', '#maxlength' => 100, '#required' => TRUE];
     $form['email'] = ['#type' => 'email', '#title' => 'Correo electrónico de prueba', '#maxlength' => 254, '#required' => TRUE];
-    $form['phone'] = ['#type' => 'tel', '#title' => 'Teléfono de prueba (opcional)', '#maxlength' => 25];
+    $form['phone'] = [
+      '#type' => 'tel',
+      '#title' => 'Teléfono de prueba (opcional)',
+      '#maxlength' => 25,
+      '#description' => 'Puedes dejarlo vacío. Si lo completas, usa números y, opcionalmente, +, espacios, paréntesis o guiones. Ejemplo ficticio: 999 123 456.',
+      '#attributes' => ['inputmode' => 'tel', 'autocomplete' => 'tel'],
+    ];
     $form['demo_consent'] = ['#type' => 'checkbox', '#title' => 'Confirmo que utilizo datos de prueba y entiendo que no es una reserva real.', '#required' => TRUE];
     if (!$form_state->get('request_key')) { $form_state->set('request_key', bin2hex(random_bytes(24))); }
     $form['request_key'] = ['#type' => 'hidden', '#default_value' => $form_state->get('request_key')];
@@ -34,12 +40,29 @@ final class BookingForm extends HotelFormBase {
     if (!$this->guard($form, $form_state, 'roma.booking', 10)) { return; }
     try {
       $this->hotel->dates((string) $form_state->getValue('arrival'), (string) $form_state->getValue('departure'), (int) $form_state->getValue('guests'));
+    }
+    catch (\DomainException $error) {
+      $arrival = (string) $form_state->getValue('arrival');
+      $date = \DateTimeImmutable::createFromFormat('!Y-m-d', $arrival);
+      $field = !$date || $date->format('Y-m-d') !== $arrival || $arrival < $this->hotel->today() ? 'arrival' : 'departure';
+      if ((int) $form_state->getValue('guests') < 1 || (int) $form_state->getValue('guests') > 10) { $field = 'guests'; }
+      $form_state->setErrorByName($field, $error->getMessage());
+    }
+    try {
       $room = $this->hotel->room((int) $form_state->getValue('room_id'));
-      if ((int) $form_state->getValue('guests') > (int) $room['capacity']) { throw new \DomainException('La cantidad de huéspedes supera la capacidad de la habitación.'); }
-      if (mb_strlen(trim((string) $form_state->getValue('customer_name'))) < 2) { throw new \DomainException('El nombre de prueba debe tener al menos dos caracteres.'); }
-      if ($form_state->getValue('phone') && !preg_match('/^\+?[0-9 ()-]{6,25}$/D', $form_state->getValue('phone'))) { throw new \DomainException('El teléfono de prueba no es válido.'); }
+      if ((int) $form_state->getValue('guests') > (int) $room['capacity']) {
+        $form_state->setErrorByName('guests', 'La cantidad de huéspedes supera la capacidad de la habitación.');
+      }
     }
     catch (\DomainException $error) { $form_state->setErrorByName('room_id', $error->getMessage()); }
+    if (mb_strlen(trim((string) $form_state->getValue('customer_name'))) < 2) {
+      $form_state->setErrorByName('customer_name', 'El nombre de prueba debe tener al menos dos caracteres.');
+    }
+    $phone = trim((string) $form_state->getValue('phone'));
+    $form_state->setValue('phone', $phone);
+    if ($phone !== '' && !preg_match('/^\+?[0-9 ()-]{6,25}$/D', $phone)) {
+      $form_state->setErrorByName('phone', 'El teléfono no admite letras. Usa de 6 a 25 caracteres: números, + al inicio, espacios, paréntesis o guiones; también puedes dejarlo vacío.');
+    }
   }
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     try { $receipt = $this->hotel->request($form_state->getValues()); $form_state->set('receipt', $receipt); }
