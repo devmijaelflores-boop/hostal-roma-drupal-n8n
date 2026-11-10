@@ -1,0 +1,13 @@
+<div class="checkout-order-summary">
+  <h3>Resumen de tu pedido</h3>
+  <table>
+    <thead><tr><th>Noches</th><th>Estadía</th><th>Importe</th></tr></thead>
+    <tbody>
+    {% for item in order_entity.getItems %}
+      <tr><td>{{ item.getQuantity|number_format }}</td><td>{{ item.getTitle }}</td><td>{{ item.getTotalPrice|commerce_price_format }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p><strong>Total ficticio: {{ order_entity.getTotalPrice|commerce_price_format }}</strong></p>
+  <p>Moneda: soles peruanos (PEN).</p>
+</div>

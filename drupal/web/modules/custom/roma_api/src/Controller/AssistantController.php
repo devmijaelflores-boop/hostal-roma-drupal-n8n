@@ -49,6 +49,9 @@ final class AssistantController extends ApiController {
     elseif (preg_match('/estado|mi reserva|confirmad|codigo/', $text)) {
       $output = 'Por privacidad no solicito claves en el chat. [Consulta tu solicitud en el formulario seguro](/mi-reserva) usando su código y clave privada. El estado se obtiene de MariaDB; solo el panel autorizado confirma o cancela.';
     }
+    elseif (preg_match('/carrito|checkout|tienda|comprar/', $text)) {
+      $output = '[Visita la tienda de estadías](/tienda), elige habitación, fechas y huéspedes y agrega tus estadías al [carrito](/carrito). El checkout registra solicitudes pendientes y permite aprobar, rechazar o cancelar un pago de demostración. No se cobra dinero real. La confirmación de las habitaciones corresponde al administrador.';
+    }
     elseif (preg_match('/reserv|solicitud|alojar/', $text)) {
       $output = '[Solicita una reserva de prueba](/reservar). El formulario comprobará fechas, capacidad y disponibilidad. Recibirás un código y una clave privada. La solicitud quedará pendiente; no significa una confirmación ni genera un cobro.';
     }

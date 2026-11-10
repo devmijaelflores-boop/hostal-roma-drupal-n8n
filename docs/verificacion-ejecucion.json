@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-10T21:45:55.772024+00:00",
+  "date": "2026-11-10T22:56:57.663291+00:00",
   "api_checks": 15,
-  "chat_checks": 12,
+  "chat_checks": 13,
   "domain_checks": 21,
   "demo_payment_checks": 6,
   "browser_checks": 28,
@@ -11,10 +11,15 @@
   "notifications": "Avisos de solicitud, confirmación, recordatorio y cancelación capturados localmente; sin duplicación al repetir",
   "schedule": "n8n ejecución mode=trigger status=success observada",
   "limitations": [
-    "Pagos exclusivamente simulados; sin cargo ni boleta/factura",
-    "OpenAI opcional desactivado y sin prueba externa",
-    "Sin remoto GitHub indicado; no publicado"
+    "Pagos exclusivamente académicos; sin cargos ni boleta/factura ni conector bancario externo",
+    "OpenAI opcional desactivado y sin prueba externa"
   ],
   "persistence": "Recreación down/up sin eliminar volúmenes: MariaDB, archivos Drupal y SQLite n8n conservados",
-  "n8n_reservation": "Webhook autenticado registra pendiente con importe correcto; reenvío idempotente rechazado"
+  "n8n_reservation": "Webhook autenticado registra pendiente con importe correcto; reenvío idempotente rechazado",
+  "commerce_domain_checks": 18,
+  "commerce_browser_checks": 37,
+  "commerce_browser_errors": [],
+  "commerce_payment": "Drupal Commerce 3.3.14: pasarela académica local en modo test; sin proveedor bancario externo",
+  "commerce_persistence": "Productos, pedidos, pagos y enlaces de reservas conservados tras down/up sin eliminar volúmenes",
+  "github": "Repositorio privado devmijaelflores-boop/hostal-roma-drupal-n8n"
 }

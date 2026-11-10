@@ -1,0 +1,24 @@
+{
+    "date": "2026-11-10T17:44:01-05:00",
+    "checks": [
+        "Hay dos habitaciones de demostración para las fixtures",
+        "La pasarela solo ofrece modo test",
+        "Total de varias estadías calculado en PEN desde MariaDB",
+        "Cantidad manipulada rechazada",
+        "Precio de línea manipulado rechazado",
+        "Importe de pago manipulado rechazado",
+        "El rechazo de importe no crea pagos ni reservas",
+        "Checkout sin consentimiento rechazado",
+        "Un pago de prueba registra exactamente dos solicitudes",
+        "El pago no confirma automáticamente la reserva",
+        "El pago no confirma automáticamente la reserva",
+        "Pago Commerce persistido con importe correcto y modo test",
+        "El reenvío no duplica pagos ni solicitudes",
+        "Pedido pendiente mientras las reservas esperan al administrador",
+        "La reconciliación refleja todas las confirmaciones",
+        "La reconciliación refleja todas las cancelaciones",
+        "Fallo de una línea rechaza el checkout completo",
+        "La transacción revierte también la primera solicitud y el pago"
+    ],
+    "fixtures": "Pedidos y solicitudes ficticios cancelados; historial conservado."
+}

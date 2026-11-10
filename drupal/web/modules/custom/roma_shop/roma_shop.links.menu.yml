@@ -1,0 +1,6 @@
+roma_shop.orders:
+  title: 'Pedidos de demostración'
+  route_name: roma_shop.orders
+  parent: system.admin_content
+  weight: 20
+

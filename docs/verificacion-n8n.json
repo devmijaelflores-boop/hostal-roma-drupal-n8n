@@ -10,6 +10,7 @@
     "Respuesta n8n→Drupal: Quiero solicitar una reserva",
     "Respuesta n8n→Drupal: Consultar mi reserva confirmada",
     "Respuesta n8n→Drupal: Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas",
+    "El chatbot n8n orienta hacia la tienda y el checkout",
     "Webhook n8n rechaza llamadas sin credencial",
     "El chat refleja una tarifa modificada en MariaDB"
   ]

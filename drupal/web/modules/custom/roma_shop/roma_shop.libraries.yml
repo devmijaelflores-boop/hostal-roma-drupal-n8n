@@ -1,0 +1,4 @@
+shop:
+  css:
+    theme:
+      css/shop.css: {}

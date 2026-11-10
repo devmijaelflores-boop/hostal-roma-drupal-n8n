@@ -1,0 +1,22 @@
+<section class="shop-intro">
+  <span class="shop-eyebrow">ELIGE · PLANIFICA · DESCANSA</span>
+  <h2>Encuentra tu próxima pausa</h2>
+  <p>Elige una habitación, agrega tus fechas y reúne tus estadías en un solo carrito. Un proceso sencillo para conocer nuestra propuesta de atención.</p>
+  <div class="shop-intro-actions"><a class="button button-dark" href="{{ cart_url }}">Ver mi carrito <span aria-hidden="true">↗</span></a><span>Tarifas ilustrativas por noche · PEN</span></div>
+</section>
+<div class="shop-room-grid">
+  {% for room in rooms %}
+    <article class="shop-room-card">
+      <div class="shop-room-image"><img src="{{ room.image }}" alt="Imagen ilustrativa de habitación {{ room.name|lower }}" loading="lazy"><span>Imagen de referencia</span></div>
+      <div class="shop-room-content">
+        <span class="shop-eyebrow">{{ room.code }} · HASTA {{ room.capacity }} HUÉSPED(ES)</span>
+        <h3>{{ room.name }}</h3>
+        <p>{{ room.description }}</p>
+        <div class="shop-room-bottom"><div><strong>{{ room.price }}</strong><span>por noche · tarifa ficticia</span></div><a href="{{ room.url }}" aria-label="Elegir fechas para {{ room.name }}, {{ room.code }}">Elegir fechas <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </article>
+  {% else %}
+    <p>No hay habitaciones activas en este momento.</p>
+  {% endfor %}
+</div>
+<aside class="shop-how"><h2>Tu estadía, paso a paso</h2><ol><li>Elige habitación, fechas y huéspedes.</li><li>Revisa tu carrito y completa tus datos ficticios.</li><li>Prueba el pago y guarda los códigos de solicitud.</li><li>Consulta la confirmación del administrador.</li></ol><p>Prototipo académico no oficial. Habitaciones, disponibilidad y tarifas de demostración.</p></aside>

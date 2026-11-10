@@ -14,8 +14,12 @@ def compose(*args, capture=False):
 
 def snapshot():
     drupal = compose('exec', '-T', 'drupal', 'vendor/bin/drush', 'php:eval',
-                     r'echo json_encode([\Drupal::config("system.site")->get("uuid"),'
-                     r'\Drupal::entityQuery("node")->accessCheck(FALSE)->condition("type", "page")->execute()]);',
+                     r'$data=[\Drupal::config("system.site")->get("uuid"),'
+                     r'\Drupal::entityQuery("node")->accessCheck(FALSE)->condition("type", "page")->execute()];'
+                     r'foreach(["commerce_product"=>["product_id"],"commerce_order"=>["order_id","state"],'
+                     r'"commerce_payment"=>["payment_id","state","order_id"],"roma_shop_booking"=>["order_item_id","order_id","reservation_id"]] as $table=>$fields){'
+                     r'if(\Drupal::database()->schema()->tableExists($table)){$data[$table]=\Drupal::database()->select($table,"t")->fields("t",$fields)->orderBy($fields[0])->execute()->fetchAll(\PDO::FETCH_ASSOC);}}'
+                     r'echo json_encode($data);',
                      capture=True)
     n8n = compose('exec', '-T', 'n8n', 'node', '-e',
                   'const {DatabaseSync}=require("node:sqlite");'
@@ -36,4 +40,4 @@ assert snapshot() == before, 'Los datos de Drupal o SQLite cambiaron al recrear 
 compose('exec', '-T', 'drupal', 'php', '-r',
         '$p="web/sites/default/files/.roma-persistence-check";'
         'if(file_get_contents($p)!=="roma-test")exit(1);unlink($p);')
-print('Persistencia de MariaDB, archivos Drupal y SQLite n8n tras down/up: OK')
+print('Persistencia de MariaDB, productos, pedidos, pagos, enlaces de reservas, archivos Drupal y SQLite n8n tras down/up: OK')

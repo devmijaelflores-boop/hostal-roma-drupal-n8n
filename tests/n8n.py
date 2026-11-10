@@ -22,6 +22,8 @@ check(req(base+'/api/roma/chat',{'chatInput':'precios'},headers|{'Origin':'https
 for text,expected in [('¿Cuánto cuesta una habitación individual?','S/'),('¿Tienen habitaciones matrimoniales?','Matrimonial'),('¿Qué servicios ofrecen?','Wi-Fi'),('¿Dónde están ubicados?','Nueva Zelandia'),('Quiero solicitar una reserva','/reservar'),('Consultar mi reserva confirmada','/mi-reserva'),('Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas','Disponibilidad de demostración')]:
     code,data=req(base+'/api/roma/chat',{'action':'sendMessage','chatInput':text,'metadata':{'ignored':'fixture'}},headers)
     check(code==200 and not data.get('unavailable') and expected in data['output'],'Respuesta n8n→Drupal: '+text)
+code,data=req(base+'/api/roma/chat',{'chatInput':'¿Cómo uso el carrito de la tienda?','action':'sendMessage'},headers)
+check(code==200 and '/tienda' in data.get('output','') and '/carrito' in data['output'],'El chatbot n8n orienta hacia la tienda y el checkout')
 check(req('http://localhost:'+env.get('N8N_PORT','5678')+'/webhook/roma-chat',{'chatInput':'precios'})[0] in (401,403),'Webhook n8n rechaza llamadas sin credencial')
 # Los precios deben cambiar al editar MariaDB; no basta con una respuesta fija del bot.
 def php(code):

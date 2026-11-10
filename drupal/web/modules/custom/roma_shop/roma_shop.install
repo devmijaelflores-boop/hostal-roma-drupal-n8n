@@ -1,0 +1,17 @@
+<?php
+
+/** Implements hook_schema(). */
+function roma_shop_schema(): array {
+  return ['roma_shop_booking' => [
+    'description' => 'Relaciona líneas de Commerce con solicitudes hoteleras sin duplicar datos personales.',
+    'fields' => [
+      'order_item_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'order_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+      'reservation_id' => ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE],
+    ],
+    'primary key' => ['order_item_id'],
+    'unique keys' => ['reservation' => ['reservation_id']],
+    'indexes' => ['order_id' => ['order_id']],
+  ]];
+}
+

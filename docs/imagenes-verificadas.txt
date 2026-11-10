@@ -15,3 +15,7 @@ n8n observado: 2.47.3
 
 composer:2
 composer@sha256:8de2184c6de224f4689e8f80ed5f5edaf0030b6b8b7839a22a2bcb6722ac87d0
+
+Imagen local de la tienda Drupal Commerce 3.3.14 (BCMath habilitado):
+hostal-roma-drupal:local
+sha256:23f3df2bb15f690dd685f0a59f24267ec831bd76518f93a6af22393e8f1e62e9

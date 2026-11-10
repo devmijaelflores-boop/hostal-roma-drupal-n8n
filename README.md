@@ -8,9 +8,9 @@ Proyecto independiente, no autorizado ni afiliado oficialmente al establecimient
 
 ## Estado de la entrega
 
-Las fases 1–3 tienen pruebas históricas de infraestructura, diseño y gestión hotelera. En esta continuación se añadieron la API segura, el widget oficial `@n8n/chat`, tres workflows n8n, una cola de avisos con captura SMTP local, contenido administrable y un simulador persistente de pagos. La alternativa de IA se entrega desactivada y sin claves.
+La aplicación reúne el sistema hotelero y una tienda de estadías con **Drupal Commerce 3.3.14**: catálogo, carrito de varias habitaciones, checkout, pedidos, pasarela local de prueba y confirmación administrativa de reservas. El chatbot oficial `@n8n/chat` consulta Drupal mediante n8n. Tres workflows exportables gestionan consultas, solicitudes y automatizaciones con captura SMTP local.
 
-**Demo local comprobada el 10/11/2026:** API, chatbot sin IA mediante n8n, reservas, avisos locales y simulador de pagos pasaron las pruebas de ejecución. Los cuatro servicios están activos. OpenAI permanece desactivado y no hay pasarela con dinero real. Ver [resultados y límites](docs/verificacion-continuacion.md).
+La opción de la consigna implementada es **Drupal/PHP + chat n8n + Docker Compose**. El pago académico permite aprobar, rechazar y cancelar sin dinero real. Una aprobación no confirma habitaciones: cada solicitud requiere decisión administrativa. OpenAI es opcional y permanece desactivado; no hay integración bancaria externa. Ver [tienda y alcance](docs/tienda-commerce.md), [guía para usarla](docs/guia-tienda.md) y [resultados de la entrega](docs/verificacion-tienda.md).
 
 ## Arranque y comprobación
 
@@ -25,12 +25,16 @@ El generador conserva `.env` y añade únicamente variables faltantes; no cambia
 | Pantalla local | Función |
 | --- | --- |
 | `http://localhost:8080` | Página pública y chatbot |
+| `/tienda` | Catálogo comercial de estadías de demostración |
+| `/carrito` | Varias habitaciones, fechas, huéspedes e importes en PEN |
+| `/checkout` | Datos, revisión, pago de prueba y recibo privado |
 | `/disponibilidad` | Consulta de habitaciones libres de la demo |
 | `/reservar` | Solicitud pendiente |
 | `/mi-reserva` | Estado privado por código y clave |
 | `/pago-demo` | Simulación explícita, sin cobros |
 | `/contacto` | Mensajes de prueba |
 | `/admin/roma` | Panel hotelero Drupal |
+| `/admin/roma/pedidos` | Pedidos Commerce y reservas relacionadas |
 | `http://localhost:5678` | Editor n8n; crear propietario si sigue el asistente inicial |
 | `http://localhost:8025` | Correos de prueba capturados en Mailpit |
 
@@ -39,6 +43,8 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 ## Documentación
 
 - [Gestión hotelera y reglas de integridad](docs/fase-3-gestion-hotelera.md).
+- [Tienda Drupal Commerce y checkout](docs/tienda-commerce.md).
+- [Guía rápida de la tienda](docs/guia-tienda.md).
 - [API y autorización](docs/api.md).
 - [Chat, workflows y automatizaciones n8n](docs/n8n.md).
 - [IA opcional](docs/fase-6-ia-opcional.md).
@@ -49,7 +55,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 
 ## Guardar con Git
 
-Guardar código propio, Composer y su lock, configuración Docker, flujos sin secretos, recursos con licencias, pruebas y documentación. `.env`, dependencias, bases de datos y cachés se excluyen. No hay remoto identificado ni publicación en GitHub.
+Repositorio privado: [devmijaelflores-boop/hostal-roma-drupal-n8n](https://github.com/devmijaelflores-boop/hostal-roma-drupal-n8n). Se guardan código propio, Composer y su lock, configuración Docker, flujos sin secretos, recursos con licencias, pruebas y documentación. `.env`, dependencias, bases de datos y cachés se excluyen.
 
 ```bash
 git status --short
@@ -60,14 +66,15 @@ git diff --cached
 git commit -m "feat: prototipo hotelero Drupal y automatizaciones n8n"
 ```
 
-Revisa los cambios antes de confirmar. Cuando se indique el repositorio correcto, podrá vincularse sin forzar ni sobrescribir historial ajeno.
+Revisa los cambios antes de confirmar. Para subir nuevos commits, ejecuta `git push origin main`. Conserva las credenciales exclusivamente en el entorno local.
 
 ## Versiones elegidas
 
 | Componente | Selección | Motivo |
 | --- | --- | --- |
 | Drupal | 11.4.12, bloqueado en `composer.lock` | Versión estable publicada el 6/11/2026. La restricción `~11.4.12` admite futuros parches 11.4 al actualizar expresamente Composer. |
-| PHP | 8.4, Apache, Debian Bookworm | Rama compatible con Drupal 11.4; imagen con GD, Intl, PDO MySQL, Mbstring, Zip y OPcache. |
+| Drupal Commerce | 3.3.14, bloqueado en Composer | Commerce 3.x es compatible con Drupal 11; aporta las entidades de producto, carrito, pedido, checkout y pago. |
+| PHP | 8.4, Apache, Debian Bookworm | Rama compatible con Drupal 11.4; imagen con GD, Intl, PDO MySQL, Mbstring, Zip, OPcache y BCMath. |
 | MariaDB | 11.4 LTS | Rama mantenida, superior al mínimo requerido por Drupal 11; aislamiento READ COMMITTED y UTF-8 completo. |
 | n8n | 2.47.3 | Versión identificada como estable en la documentación oficial consultada. |
 | Drush | 13.8.0, bloqueado en Composer | Instalación y administración por línea de comandos. |

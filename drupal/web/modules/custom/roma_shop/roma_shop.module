@@ -1,0 +1,7 @@
+<?php
+
+/** Implements hook_theme(). */
+function roma_shop_theme(): array {
+  return ['roma_shop_catalog'=>['variables'=>['rooms'=>[],'cart_url'=>'']]];
+}
+

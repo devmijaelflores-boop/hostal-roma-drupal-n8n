@@ -1,0 +1,13 @@
+name: 'ROMA — Tienda y checkout'
+type: module
+description: 'Tienda académica de estadías con Drupal Commerce, carrito y checkout de prueba.'
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_booking:roma_booking
+  - roma_api:roma_api
+  - commerce:commerce_product
+  - commerce:commerce_cart
+  - commerce:commerce_checkout
+  - commerce:commerce_payment
+

@@ -1,5 +1,7 @@
 # Instalación local — fase 1
 
+Este documento conserva la descripción de la primera fase. Para instalar la aplicación completa, usa `sh scripts/start.sh`; también instala Drupal Commerce y configura la tienda. Consulta [la tienda actual](tienda-commerce.md) y [su guía de uso](guia-tienda.md).
+
 Dirigido a estudiantes y docentes. Resultado buscado: Drupal en español con aviso académico, MariaDB persistente y editor n8n accesible. La instalación y las comprobaciones de ejecución se completaron el 10/11/2026.
 
 ## Preparar el entorno
@@ -26,8 +28,9 @@ Estos son los comandos internos, útiles para identificar en qué paso falla:
 ```bash
 docker compose build --pull drupal
 docker compose up -d --wait mariadb
+docker compose stop drupal
 docker compose run --rm install
-docker compose up -d --wait drupal n8n
+docker compose up -d --wait drupal n8n mailpit
 sh tests/smoke.sh
 python3 tests/http_checks.py
 ```

@@ -1,0 +1,31 @@
+roma_shop_order:
+  id: roma_shop_order
+  group: commerce_order
+  label: 'Pedido de estadías académicas'
+  states:
+    draft:
+      label: 'Carrito'
+    awaiting_confirmation:
+      label: 'Solicitudes pendientes de confirmación'
+    completed:
+      label: 'Reservas confirmadas'
+    canceled:
+      label: 'Reservas canceladas'
+  transitions:
+    place:
+      label: 'Registrar pedido de demostración'
+      from: [draft]
+      to: awaiting_confirmation
+    confirm:
+      label: 'Todas las reservas confirmadas'
+      from: [awaiting_confirmation]
+      to: completed
+    cancel:
+      label: 'Todas las reservas canceladas'
+      from: [draft, awaiting_confirmation, completed]
+      to: canceled
+    review:
+      label: 'Revisar cambios en las reservas'
+      from: [completed]
+      to: awaiting_confirmation
+

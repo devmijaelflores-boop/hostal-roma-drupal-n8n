@@ -1,0 +1,14 @@
+services:
+  roma_shop.store:
+    class: Drupal\roma_shop\Service\ShopService
+    arguments: ['@database', '@roma_booking.hotel', '@entity_type.manager', '@request_stack']
+  roma_shop.order_processor:
+    class: Drupal\roma_shop\Service\RoomOrderProcessor
+    arguments: ['@roma_booking.hotel']
+    tags:
+      - { name: commerce_order.order_processor, priority: 250 }
+  roma_shop.routes:
+    class: Drupal\roma_shop\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+

@@ -8,7 +8,7 @@ Conectar el widget oficial `@n8n/chat` con n8n y la API Drupal. La ruta principa
 | --- | --- | --- |
 | `roma-chat.json` | Webhook privado `roma-chat` | Reenviar la consulta a la API del asistente y devolver su respuesta. |
 | `roma-reservation.json` | Webhook privado `roma-reservation` | Registrar una solicitud mediante la API autenticada. No confirma. |
-| `roma-automation.json` | Cada minuto y webhook de prueba privado | Procesar avisos pendientes, recordatorios de mañana y un reporte diario. |
+| `roma-automation.json` | Cada minuto y webhook de prueba privado | Procesar avisos, recordatorios y reporte diario; reconciliar pedidos Commerce con los estados de sus reservas. |
 
 El widget envía sus consultas a `/api/roma/chat` en el mismo origen de Drupal. El servidor verifica sesión CSRF y límites antes de llamar a n8n. El secreto del webhook y el token Bearer no llegan al navegador. El endpoint de sesión no se almacena en caché. Se omite la carga de historial y no se ofrece envío de archivos.
 
@@ -34,6 +34,7 @@ Importación manual alternativa: abre el editor, selecciona importar desde archi
 - Fechas: «Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas». Admite ISO o `dd/mm/aaaa`; si faltan fechas pide completarlas. No interpreta fechas relativas ambiguas ni inventa disponibilidad.
 - Solicitar: facilita un enlace al formulario que valida fechas y capacidad y guarda la solicitud pendiente.
 - Estado: dirige al formulario privado con código y clave; el chat no solicita claves personales.
+- Tienda: «¿Cómo uso el carrito de la tienda?» enlaza al catálogo y explica el checkout y el pago académico.
 
 La API externa también permite registrar solicitudes; el workflow correspondiente exige la cabecera privada y `demo_consent=true`. El widget no tiene credenciales de escritura. Para probar registro por n8n debe utilizarse una llamada servidor a servidor, nunca poner el secreto en JavaScript.
 
@@ -56,4 +57,4 @@ docker compose exec -T drupal vendor/bin/drush php:script /tmp/roma-automation.p
 
 La prueba del chat exige respuesta real de n8n y modifica temporalmente una tarifa en MariaDB para comprobar que el bot la refleja; la restaura al terminar. La prueba de avisos crea y elimina solo sus propias fixtures. Ambas requieren servicios en ejecución. Un fallo de n8n muestra una explicación explícita de indisponibilidad y enlaces a formularios, sin simular una respuesta conectada.
 
-Verificación del 10/11/2026: los tres flujos se importaron y publicaron. Pasaron 12 comprobaciones del chat y su seguridad, incluido un cambio temporal de tarifa en MariaDB reflejado por el bot y restaurado al finalizar. El widget oficial también respondió en la prueba de navegador. Los avisos de solicitud, confirmación, recordatorio y cancelación se capturaron en Mailpit. n8n registró ejecuciones programadas exitosas. Evidencia: `verificacion-n8n.json`, `verificacion-final-browser.json` y `verificacion-ejecucion.json`.
+Verificación del 10/11/2026: los tres flujos se importaron y publicaron. El conjunto del chat incluye orientación sobre la tienda y un cambio temporal de tarifa reflejado por el bot y restaurado al finalizar. El widget oficial también respondió en navegador. Se capturaron avisos en Mailpit y se verificó la reconciliación de pedidos tras confirmar y cancelar sus reservas mediante el webhook n8n. Evidencia: `verificacion-n8n.json`, `verificacion-final-browser.json`, `verificacion-commerce-browser.json` y `verificacion-ejecucion.json`.
