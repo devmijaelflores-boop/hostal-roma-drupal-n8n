@@ -1,0 +1,8 @@
+* text=auto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.woff2 binary
+*.pdf binary
+*.docx binary
+drupal/web/themes/custom/roma_elegante/assets/n8n-chat/** -whitespace -diff

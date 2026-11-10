@@ -1,0 +1,21 @@
+<?php
+namespace Drupal\roma_booking\Form;
+use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormStateInterface;
+final class HotelContentForm extends ConfigFormBase {
+  public function getFormId(): string { return 'roma_hotel_content_form'; }
+  protected function getEditableConfigNames(): array { return ['roma_booking.content']; }
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $config=$this->config('roma_booking.content');
+    $defaults=['presentation'=>'Entre nuevos caminos y días por descubrir, siempre hay espacio para una pausa. Esta propuesta reúne ambientes acogedores y una experiencia de reservas de demostración.', 'location_text'=>'Juliaca, en Puno, Perú, es la ciudad de referencia de este proyecto académico independiente.', 'address'=>'Nueva Zelandia 196, Juliaca 21101, Puno, Perú'];
+    foreach (['presentation'=>'Presentación del proyecto','location_text'=>'Descripción de ubicación','address'=>'Dirección de referencia'] as $key=>$label) { $form[$key]=['#type'=>$key==='address'?'textfield':'textarea','#title'=>$label,'#required'=>TRUE,'#default_value'=>$config->get($key) ?? $defaults[$key], '#maxlength'=>$key==='address'?200:1500]; }
+    $form['notice']=['#markup'=>'<p>Texto sin HTML, escapado al mostrarlo. Mantén el carácter académico. El aviso de prototipo no oficial seguirá visible.</p>'];
+    return parent::buildForm($form,$form_state);
+  }
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $config=$this->config('roma_booking.content');
+    foreach (['presentation','location_text','address'] as $key) { $config->set($key,trim((string)$form_state->getValue($key))); }
+    $config->save(); \Drupal::service('cache_tags.invalidator')->invalidateTags(['roma_catalog']);
+    parent::submitForm($form,$form_state);
+  }
+}

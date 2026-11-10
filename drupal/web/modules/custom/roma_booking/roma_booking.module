@@ -1,0 +1,5 @@
+<?php
+/** Implements hook_page_attachments(). */
+function roma_booking_page_attachments(array &$attachments): void {
+  $attachments['#cache']['tags'][] = 'roma_catalog';
+}

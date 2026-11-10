@@ -1,0 +1,11 @@
+name: 'ROMA — Altiplano'
+type: theme
+description: 'Diseño editorial del prototipo académico independiente Hostal ROMA.'
+core_version_requirement: ^11
+base theme: false
+libraries:
+  - roma_elegante/global
+regions:
+  highlighted: Avisos
+  content: Contenido
+  footer: Pie de página

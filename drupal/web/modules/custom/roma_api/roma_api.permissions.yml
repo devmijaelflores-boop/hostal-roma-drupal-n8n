@@ -1,0 +1,6 @@
+use roma integration:
+  title: 'Usar API de integración de reservas'
+  restrict access: true
+run roma automation:
+  title: 'Ejecutar automatizaciones de demostración'
+  restrict access: true

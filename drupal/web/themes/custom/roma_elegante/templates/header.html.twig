@@ -1,0 +1,19 @@
+{% import '@roma_elegante/icons.html.twig' as ui %}
+<div class="academic-notice"><span class="notice-dot"></span>{{ roma_notice }}</div>
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="brand" href="{{ path('<front>') }}" aria-label="ROMA — Inicio">
+      <span class="brand-mark" aria-hidden="true">R<span>✧</span></span>
+      <span class="brand-text"><strong>ROMA</strong><span>GOLDEN · JULIACA</span></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">{{ ui.icon('menu') }}</button>
+    <nav id="main-navigation" class="main-navigation" aria-label="Navegación principal">
+      <a href="{{ path('<front>') }}#inicio"{% if is_front %} class="is-current"{% endif %}>Inicio</a>
+      <a href="{{ path('<front>') }}#habitaciones">Habitaciones</a>
+      <a href="{{ path('<front>') }}#servicios">Servicios</a>
+      <a href="{{ path('<front>') }}#ubicacion">Ubicación</a>
+      <a href="{{ path('roma_booking.contact') }}">Contacto</a>
+    </nav>
+    <a class="button button-dark header-cta" href="{{ path('<front>') }}#planifica">Consulta disponibilidad {{ ui.icon('diagonal') }}</a>
+  </div>
+</header>

@@ -1,0 +1,7 @@
+roma_booking.content:
+  type: config_object
+  label: 'Contenido informativo del prototipo'
+  mapping:
+    presentation: { type: text, label: 'Presentación' }
+    location_text: { type: text, label: 'Texto de ubicación' }
+    address: { type: label, label: 'Dirección de referencia' }

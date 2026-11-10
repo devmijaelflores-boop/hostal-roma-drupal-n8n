@@ -1,0 +1,14 @@
+<?php
+function roma_payments_schema(): array {
+  return ['roma_demo_payment'=>[
+    'fields'=>[
+      'id'=>['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE],
+      'reservation_id'=>['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE],
+      'receipt'=>['type'=>'varchar','length'=>32,'not null'=>TRUE],
+      'amount'=>['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE],
+      'outcome'=>['type'=>'varchar','length'=>20,'not null'=>TRUE],
+      'request_key'=>['type'=>'varchar','length'=>64,'not null'=>TRUE],
+      'created'=>['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE],
+    ],'primary key'=>['id'],'unique keys'=>['request_key'=>['request_key'],'receipt'=>['receipt']],'indexes'=>['reservation'=>['reservation_id']],
+  ]];
+}

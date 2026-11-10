@@ -1,0 +1,13 @@
+{
+  "name": "@n8n/chat",
+  "version": "1.46.2",
+  "integrity": "sha512-azD/DdAdhVmrbQlPqd9Een70tHLRgiNiMWIRCgMQ+P5DJuUx8zFXXrQer4FiNAceYMKj6t86Qyv6k2uvDlQr4g==",
+  "source": "https://registry.npmjs.org/@n8n/chat/-/chat-1.46.2.tgz",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "local_files": [
+    "chat.bundle.es.js",
+    "node-icons-NCjfCF3z-CpeH7gX_.mjs",
+    "runtime-core.esm-bundler-BQ2TTr4C.mjs",
+    "style.css"
+  ]
+}

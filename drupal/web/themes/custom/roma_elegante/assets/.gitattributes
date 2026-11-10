@@ -1,0 +1,4 @@
+fonts/*.woff2 -text -diff -merge -whitespace
+images/*.jpg -text -diff -merge -whitespace
+n8n-chat/** -whitespace -diff
+fonts/*-OFL.txt -whitespace

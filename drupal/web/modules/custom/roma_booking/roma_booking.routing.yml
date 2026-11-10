@@ -1,0 +1,110 @@
+roma_booking.availability:
+  path: '/disponibilidad'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\AvailabilityForm'
+    _title: 'Disponibilidad de demostración'
+  requirements:
+    _permission: 'view roma availability'
+  options:
+    no_cache: true
+roma_booking.request:
+  path: '/reservar'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\BookingForm'
+    _title: 'Solicita una reserva de prueba'
+  requirements:
+    _permission: 'request roma reservations'
+  options:
+    no_cache: true
+roma_booking.lookup:
+  path: '/mi-reserva'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\LookupForm'
+    _title: 'Consulta tu solicitud'
+  requirements:
+    _permission: 'request roma reservations'
+  options:
+    no_cache: true
+roma_booking.contact:
+  path: '/contacto'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\ContactForm'
+    _title: 'Contacto de demostración'
+  requirements:
+    _permission: 'send roma contact'
+  options:
+    no_cache: true
+roma_booking.dashboard:
+  path: '/admin/roma'
+  defaults:
+    _controller: '\Drupal\roma_booking\Controller\AdminController::dashboard'
+    _title: 'Hotel ROMA — Panel de demostración'
+  requirements:
+    _permission: 'access roma dashboard'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.catalog:
+  path: '/admin/roma/catalogo'
+  defaults:
+    _controller: '\Drupal\roma_booking\Controller\AdminController::catalog'
+    _title: 'Habitaciones, tipos, tarifas y servicios'
+  requirements:
+    _permission: 'administer roma catalog'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.catalog_edit:
+  path: '/admin/roma/catalogo/{kind}/{id}'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\CatalogForm'
+    _title: 'Editar catálogo de demostración'
+    id: '0'
+  requirements:
+    _permission: 'administer roma catalog'
+    kind: 'type|room|service'
+    id: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.reservations:
+  path: '/admin/roma/reservas'
+  defaults:
+    _controller: '\Drupal\roma_booking\Controller\AdminController::reservations'
+    _title: 'Solicitudes de reserva de prueba'
+  requirements:
+    _permission: 'manage roma reservations'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.transition:
+  path: '/admin/roma/reservas/{id}/{action}'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\TransitionForm'
+    _title: 'Cambiar estado de solicitud'
+  requirements:
+    _permission: 'manage roma reservations'
+    id: '\d+'
+    action: 'confirm|cancel'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.messages:
+  path: '/admin/roma/mensajes'
+  defaults:
+    _controller: '\Drupal\roma_booking\Controller\AdminController::messages'
+    _title: 'Mensajes de demostración'
+  requirements:
+    _permission: 'manage roma reservations'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_booking.content:
+  path: '/admin/roma/contenido'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\HotelContentForm'
+    _title: 'Contenido del proyecto hotelero'
+  requirements:
+    _permission: 'administer roma catalog'
+  options:
+    _admin_route: true

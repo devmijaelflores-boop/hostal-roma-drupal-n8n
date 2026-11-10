@@ -1,0 +1,18 @@
+roma_elegante.settings:
+  type: theme_settings
+  label: 'Catálogo visual de demostración ROMA'
+  mapping:
+    demo_rooms:
+      type: sequence
+      label: 'Ejemplos visuales; no inventario de habitaciones'
+      sequence:
+        type: mapping
+        mapping:
+          id: { type: string, label: Identificador }
+          name: { type: label, label: Nombre }
+          category: { type: label, label: Categoría }
+          capacity: { type: integer, label: Capacidad }
+          bed: { type: label, label: Camas }
+          price: { type: integer, label: 'Tarifa ficticia PEN' }
+          description: { type: text, label: Descripción }
+          image: { type: string, label: 'Archivo ilustrativo' }

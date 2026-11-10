@@ -1,0 +1,26 @@
+<?php
+
+// Los secretos se inyectan en el contenedor, nunca se guardan en este archivo.
+$required = ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DRUPAL_HASH_SALT'];
+foreach ($required as $key) {
+  if (!getenv($key) || getenv($key) === 'CHANGE_ME') {
+    throw new \RuntimeException('Configuración requerida ausente: ' . $key);
+  }
+}
+$databases['default']['default'] = [
+  'database' => getenv('DB_NAME'),
+  'username' => getenv('DB_USER'),
+  'password' => getenv('DB_PASSWORD'),
+  'host' => getenv('DB_HOST'),
+  'port' => '3306',
+  'driver' => 'mysql',
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+  'prefix' => '',
+];
+$settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
+$settings['trusted_host_patterns'] = ['^localhost$', '^127\\.0\\.0\\.1$', '^drupal$'];
+$settings['config_sync_directory'] = '../config/sync';
+$settings['file_scan_ignore_directories'] = ['node_modules', 'bower_components'];
+$settings['update_free_access'] = FALSE;
+// No se habilita CORS global. La integración del chat se definirá en fase 5.

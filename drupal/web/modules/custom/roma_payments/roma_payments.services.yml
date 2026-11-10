@@ -1,0 +1,4 @@
+services:
+  roma_payments.demo:
+    class: Drupal\roma_payments\Service\DemoPayment
+    arguments: ['@database', '@roma_booking.hotel']

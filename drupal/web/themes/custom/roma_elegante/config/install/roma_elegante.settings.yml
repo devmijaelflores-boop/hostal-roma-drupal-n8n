@@ -1,0 +1,25 @@
+demo_rooms:
+  - id: individual
+    name: Individual
+    category: UN ESPACIO PARA TI
+    capacity: 1
+    bed: Una cama individual
+    price: 85
+    description: 'Una propuesta acogedora para quienes viajan a su propio ritmo.'
+    image: individual.jpg
+  - id: matrimonial
+    name: Matrimonial
+    category: MOMENTOS COMPARTIDOS
+    capacity: 2
+    bed: Una cama matrimonial
+    price: 130
+    description: 'Luz cálida, tonos naturales y un ambiente pensado para desconectar.'
+    image: matrimonial.jpg
+  - id: doble
+    name: Doble
+    category: MEJOR EN COMPAÑÍA
+    capacity: 2
+    bed: Dos camas individuales
+    price: 150
+    description: 'Comodidad para compartir el viaje y conservar tu propio espacio.'
+    image: doble.jpg

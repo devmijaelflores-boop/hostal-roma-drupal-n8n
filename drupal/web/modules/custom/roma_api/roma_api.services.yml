@@ -1,0 +1,9 @@
+services:
+  roma_api.authentication:
+    class: Drupal\roma_api\Authentication\IntegrationToken
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: authentication_provider, provider_id: roma_token, priority: 150 }
+  roma_api.automation:
+    class: Drupal\roma_api\Service\AutomationService
+    arguments: ['@database', '@roma_booking.hotel', '@datetime.time', '@lock']

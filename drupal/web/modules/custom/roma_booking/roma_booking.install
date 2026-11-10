@@ -1,0 +1,68 @@
+<?php
+
+/** Implements hook_schema(). */
+function roma_booking_schema(): array {
+  $serial = ['type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE];
+  $int = ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0];
+  $str = static fn(int $length = 255): array => ['type' => 'varchar', 'length' => $length, 'not null' => TRUE, 'default' => ''];
+  $table = static fn(array $fields): array => ['fields' => $fields, 'primary key' => ['id']];
+  $schema['roma_guard'] = $table(['id' => $int]);
+  $schema['roma_room_type'] = $table(['id' => $serial, 'name' => $str(80), 'capacity' => $int, 'description' => ['type' => 'text', 'not null' => TRUE], 'image' => $str(40), 'category' => $str(100), 'active' => $int]);
+  $schema['roma_room'] = $table(['id' => $serial, 'type_id' => $int, 'code' => $str(30), 'active' => $int]);
+  $schema['roma_room']['unique keys']['code'] = ['code'];
+  $schema['roma_room']['indexes']['type_active'] = ['type_id', 'active'];
+  $schema['roma_rate'] = $table(['id' => $serial, 'type_id' => $int, 'amount' => $int]);
+  $schema['roma_rate']['unique keys']['type_id'] = ['type_id'];
+  $schema['roma_service'] = $table(['id' => $serial, 'name' => $str(100), 'description' => ['type' => 'text', 'not null' => TRUE], 'active' => $int]);
+  $schema['roma_type_service'] = ['fields' => ['type_id' => $int, 'service_id' => $int], 'primary key' => ['type_id', 'service_id']];
+  $schema['roma_status'] = ['fields' => ['id' => $str(16), 'label' => $str(30)], 'primary key' => ['id']];
+  $schema['roma_reservation'] = $table([
+    'id' => $serial, 'reference' => $str(32), 'token_hash' => $str(64), 'request_key' => $str(64),
+    'customer_name' => $str(100), 'email' => $str(254), 'phone' => $str(30), 'room_id' => $int,
+    'arrival' => $str(10), 'departure' => $str(10), 'guests' => $int, 'status' => $str(16),
+    'estimated_price' => $int, 'created' => $int, 'updated' => $int,
+  ]);
+  $schema['roma_reservation']['unique keys'] = ['reference' => ['reference'], 'request_key' => ['request_key']];
+  $schema['roma_reservation']['indexes'] = ['overlap' => ['room_id', 'status', 'arrival', 'departure'], 'created' => ['created']];
+  $schema['roma_audit'] = $table(['id' => $serial, 'reservation_id' => $int, 'from_status' => $str(16), 'to_status' => $str(16), 'actor_uid' => $int, 'created' => $int]);
+  $schema['roma_contact'] = $table(['id' => $serial, 'name' => $str(100), 'email' => $str(254), 'message' => ['type' => 'text', 'not null' => TRUE], 'created' => $int]);
+  return $schema;
+}
+
+/** Implements hook_install(). */
+function roma_booking_install(): void {
+  $db = \Drupal::database();
+  $db->insert('roma_guard')->fields(['id' => 1])->execute();
+  foreach (['pending' => 'Pendiente', 'confirmed' => 'Confirmada', 'cancelled' => 'Cancelada'] as $id => $label) {
+    $db->insert('roma_status')->fields(compact('id', 'label'))->execute();
+  }
+  // Semilla ficticia y visible como tal. No se importan reservas ni clientes.
+  $services = [];
+  foreach ([['Wi-Fi', 'Conexión de demostración.'], ['Cochera', 'Servicio ilustrativo; no oferta del establecimiento real.'], ['Baño privado', 'Comodidad de demostración.'], ['Agua caliente', 'Servicio de demostración.']] as [$name, $description]) {
+    $services[] = $db->insert('roma_service')->fields(compact('name', 'description') + ['active' => 1])->execute();
+  }
+  $seed = [
+    ['Individual', 1, 8500, 'individual.jpg', 'UN ESPACIO PARA TI'],
+    ['Matrimonial', 2, 13000, 'matrimonial.jpg', 'MOMENTOS COMPARTIDOS'],
+    ['Doble', 2, 15000, 'doble.jpg', 'MEJOR EN COMPAÑÍA'],
+  ];
+  foreach ($seed as $index => [$name, $capacity, $amount, $image, $category]) {
+    $type = $db->insert('roma_room_type')->fields(compact('name', 'capacity', 'image', 'category') + ['description' => 'Habitación ficticia del catálogo académico. Fotografías referenciales.', 'active' => 1])->execute();
+    $db->insert('roma_rate')->fields(['type_id' => $type, 'amount' => $amount])->execute();
+    foreach ([1, 2] as $number) {
+      $db->insert('roma_room')->fields(['type_id' => $type, 'code' => 'DEMO-' . ($index + 1) . '0' . $number, 'active' => 1])->execute();
+    }
+    foreach ($services as $service) {
+      $db->insert('roma_type_service')->fields(['type_id' => $type, 'service_id' => $service])->execute();
+    }
+  }
+  $public = ['view roma availability', 'request roma reservations', 'send roma contact'];
+  foreach (['anonymous', 'authenticated'] as $rid) {
+    $role = \Drupal\user\Entity\Role::load($rid);
+    foreach ($public as $permission) { $role->grantPermission($permission); }
+    $role->save();
+  }
+  $role = \Drupal\user\Entity\Role::create(['id' => 'roma_manager', 'label' => 'Responsable hotelero de demostración']);
+  foreach (array_merge($public, ['access roma dashboard', 'administer roma catalog', 'manage roma reservations', 'access administration pages']) as $permission) { $role->grantPermission($permission); }
+  $role->save();
+}

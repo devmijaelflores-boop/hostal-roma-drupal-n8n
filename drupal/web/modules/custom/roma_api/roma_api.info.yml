@@ -1,0 +1,7 @@
+name: 'ROMA — API e integración'
+type: module
+description: 'API segura, puente hacia n8n y automatizaciones locales de demostración.'
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_booking:roma_booking

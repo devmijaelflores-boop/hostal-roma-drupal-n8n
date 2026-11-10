@@ -1,0 +1,14 @@
+roma_booking.dashboard:
+  title: 'Hotel ROMA — Demo'
+  description: 'Habitaciones, tarifas, solicitudes, ocupación y mensajes.'
+  route_name: roma_booking.dashboard
+  parent: system.admin
+  weight: -20
+roma_booking.reservations:
+  title: 'Solicitudes de reserva'
+  route_name: roma_booking.reservations
+  parent: roma_booking.dashboard
+roma_booking.catalog:
+  title: 'Habitaciones y tarifas'
+  route_name: roma_booking.catalog
+  parent: roma_booking.dashboard

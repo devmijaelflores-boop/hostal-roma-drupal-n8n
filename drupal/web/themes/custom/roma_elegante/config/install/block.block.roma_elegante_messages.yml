@@ -1,0 +1,16 @@
+langcode: es
+status: true
+dependencies:
+  theme: [roma_elegante]
+id: roma_elegante_messages
+theme: roma_elegante
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Avisos
+  label_display: '0'
+  provider: system
+visibility: {}

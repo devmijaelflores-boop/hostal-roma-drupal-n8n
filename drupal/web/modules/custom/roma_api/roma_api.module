@@ -1,0 +1,5 @@
+<?php
+/** Evento interno invocado dentro de la transacción de reserva. */
+function roma_api_roma_reservation_changed(int $id, string $state): void {
+  \Drupal::service('roma_api.automation')->enqueue('reservation:' . $id . ':' . $state, $id, $state);
+}

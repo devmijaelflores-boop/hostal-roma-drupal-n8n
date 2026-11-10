@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-10T20:50:40.260Z",
+  "results": [
+    "Formulario público /reservar",
+    "Formulario público /mi-reserva",
+    "Formulario público /contacto",
+    "Formulario público /disponibilidad",
+    "Acceso anónimo rechazado /admin/roma",
+    "Acceso anónimo rechazado /admin/roma/catalogo",
+    "Acceso anónimo rechazado /admin/roma/reservas",
+    "Acceso anónimo rechazado /admin/roma/mensajes",
+    "Disponibilidad muestra inventario desde MariaDB",
+    "Formulario registra solicitud pendiente real",
+    "Recibo entrega código y clave privada",
+    "Consulta privada muestra estado desde la base",
+    "Administrador accede al panel",
+    "Administrador ve inventario y tarifas",
+    "Solicitud visible en el panel protegido",
+    "Confirmación administrativa mediante POST",
+    "El cliente ve la confirmación persistida",
+    "Cancelación administrativa mediante POST",
+    "Contacto guarda mensaje sin simular correo",
+    "Mensaje visible solo en panel protegido",
+    "Formulario responsive /reservar",
+    "Formulario responsive /mi-reserva",
+    "Formulario responsive /contacto",
+    "Formulario responsive /disponibilidad"
+  ],
+  "fixture": "Una solicitud ficticia cancelada y un mensaje de prueba permanecen para la revisión."
+}

@@ -1,0 +1,4 @@
+hotel:
+  css:
+    theme:
+      css/hotel.css: {}

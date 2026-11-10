@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-10T21:45:55.772024+00:00",
+  "api_checks": 15,
+  "chat_checks": 12,
+  "domain_checks": 21,
+  "demo_payment_checks": 6,
+  "browser_checks": 28,
+  "browser_errors": [],
+  "security": "CSRF manipulado rechazado; escritura anónima y token inválido rechazados",
+  "concurrency": "Dos confirmaciones simultáneas: una confirmada y otra rechazada",
+  "notifications": "Avisos de solicitud, confirmación, recordatorio y cancelación capturados localmente; sin duplicación al repetir",
+  "schedule": "n8n ejecución mode=trigger status=success observada",
+  "limitations": [
+    "Pagos exclusivamente simulados; sin cargo ni boleta/factura",
+    "OpenAI opcional desactivado y sin prueba externa",
+    "Sin remoto GitHub indicado; no publicado"
+  ],
+  "persistence": "Recreación down/up sin eliminar volúmenes: MariaDB, archivos Drupal y SQLite n8n conservados",
+  "n8n_reservation": "Webhook autenticado registra pendiente con importe correcto; reenvío idempotente rechazado"
+}

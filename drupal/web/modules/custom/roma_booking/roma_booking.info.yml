@@ -1,0 +1,7 @@
+name: 'ROMA — Gestión hotelera'
+type: module
+description: 'Inventario, disponibilidad y solicitudes académicas con persistencia y validaciones.'
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - drupal:user

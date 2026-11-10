@@ -1,0 +1,14 @@
+access roma dashboard:
+  title: 'Acceder al panel hotelero de demostración'
+administer roma catalog:
+  title: 'Gestionar habitaciones, tarifas y servicios de demostración'
+  restrict access: true
+manage roma reservations:
+  title: 'Ver clientes y confirmar o cancelar reservas de demostración'
+  restrict access: true
+view roma availability:
+  title: 'Consultar disponibilidad de demostración'
+request roma reservations:
+  title: 'Solicitar reservas de demostración'
+send roma contact:
+  title: 'Enviar mensajes de demostración'

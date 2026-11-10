@@ -1,0 +1,152 @@
+{
+  "id": "RomaChatAiOpt01",
+  "name": "ROMA · IA opcional (requiere credencial OpenAI)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "roma-chat-ai",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Entrada segura",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "roma-chat-ai",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "RomaWebhookAuth1",
+          "name": "ROMA Webhook privado"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/responses",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ...{\"model\": \"gpt-4o-mini\", \"store\": false, \"instructions\": \"Clasifica únicamente la intención de la consulta hotelera. No generes tarifas, fechas, confirmaciones, ni texto para el cliente.\", \"text\": {\"format\": {\"type\": \"json_schema\", \"name\": \"hotel_intent\", \"schema\": {\"type\": \"object\", \"properties\": {\"intent\": {\"type\": \"string\", \"enum\": [\"prices\", \"services\", \"location\", \"availability\", \"reservation\", \"status\", \"payment\", \"other\"]}}, \"required\": [\"intent\"], \"additionalProperties\": false}, \"strict\": true}}, \"max_output_tokens\": 100}, input: String($json.body.chatInput || '').slice(0,1000) }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "optional-openai",
+      "name": "Clasificar intención (opcional)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        450,
+        300
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "CONFIGURE_OPENAI",
+          "name": "Configurar credencial OpenAI de prueba"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://drupal/api/roma/v1/assistant",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({chatInput: $('Entrada segura').first().json.body.chatInput, intent: (()=>{try{return JSON.parse($json.output.find(o=>o.type==='message').content.find(c=>c.type==='output_text').text).intent}catch{return 'other'}})()}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "drupal",
+      "name": "Consultar Drupal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "RomaDrupalApi01",
+          "name": "ROMA Drupal API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "response",
+      "name": "Responder",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        940,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Entrada segura": {
+      "main": [
+        [
+          {
+            "node": "Clasificar intención (opcional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clasificar intención (opcional)": {
+      "main": [
+        [
+          {
+            "node": "Consultar Drupal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar Drupal": {
+      "main": [
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none",
+    "saveManualExecutions": false,
+    "timezone": "America/Lima"
+  },
+  "active": false
+}

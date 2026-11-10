@@ -1,0 +1,19 @@
+{
+  "results": [
+    "Catálogo público de datos de demostración",
+    "Catálogo sin datos personales",
+    "Origen ajeno rechazado",
+    "Fecha inexistente rechazada",
+    "Disponibilidad desde MariaDB",
+    "Escritura anónima rechazada",
+    "Token incorrecto rechazado",
+    "JSON inválido rechazado",
+    "Tipos complejos rechazados",
+    "Solicitud autenticada creada",
+    "Estado y precio manipulados ignorados",
+    "Consulta sin clave rechazada",
+    "Consulta autorizada funciona",
+    "Consulta privada sin PII",
+    "Listado público de clientes no existe"
+  ]
+}

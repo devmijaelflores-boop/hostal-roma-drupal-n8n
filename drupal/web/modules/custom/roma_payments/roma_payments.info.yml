@@ -1,0 +1,7 @@
+name: 'ROMA — Pagos de demostración'
+type: module
+description: 'Simulador académico de pago sin dinero real ni datos de tarjetas.'
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_booking:roma_booking

@@ -1,0 +1,16 @@
+langcode: es
+status: true
+dependencies:
+  theme: [roma_elegante]
+id: roma_elegante_content
+theme: roma_elegante
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: Contenido
+  label_display: '0'
+  provider: system
+visibility: {}

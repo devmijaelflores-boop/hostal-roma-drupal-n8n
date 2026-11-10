@@ -1,0 +1,76 @@
+roma_api.catalog:
+  path: '/api/roma/v1/catalog'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ApiController::catalog'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    no_cache: true
+roma_api.availability:
+  path: '/api/roma/v1/availability'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ApiController::availability'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    no_cache: true
+roma_api.request:
+  path: '/api/roma/v1/reservations'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ApiController::reserve'
+  requirements:
+    _permission: 'use roma integration'
+  methods: [POST]
+  options:
+    _auth: [roma_token]
+    no_cache: true
+roma_api.status:
+  path: '/api/roma/v1/reservation-status'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ApiController::status'
+  requirements:
+    _permission: 'use roma integration'
+  methods: [POST]
+  options:
+    _auth: [roma_token]
+    no_cache: true
+roma_api.assistant:
+  path: '/api/roma/v1/assistant'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\AssistantController::answer'
+  requirements:
+    _permission: 'use roma integration'
+  methods: [POST]
+  options:
+    _auth: [roma_token]
+    no_cache: true
+roma_api.chat_session:
+  path: '/api/roma/chat/session'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ChatController::session'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    no_cache: true
+roma_api.chat:
+  path: '/api/roma/chat'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\ChatController::chat'
+  requirements:
+    _access: 'TRUE'
+  methods: [POST]
+  options:
+    no_cache: true
+roma_api.automation:
+  path: '/api/roma/v1/automation/tick'
+  defaults:
+    _controller: '\Drupal\roma_api\Controller\AutomationController::tick'
+  requirements:
+    _permission: 'run roma automation'
+  methods: [POST]
+  options:
+    _auth: [roma_token]
+    no_cache: true

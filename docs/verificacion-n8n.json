@@ -1,0 +1,16 @@
+{
+  "results": [
+    "Sesión de chat creada",
+    "Chat sin CSRF rechazado",
+    "Chat con origen ajeno rechazado",
+    "Respuesta n8n→Drupal: ¿Cuánto cuesta una habitación individual?",
+    "Respuesta n8n→Drupal: ¿Tienen habitaciones matrimoniales?",
+    "Respuesta n8n→Drupal: ¿Qué servicios ofrecen?",
+    "Respuesta n8n→Drupal: ¿Dónde están ubicados?",
+    "Respuesta n8n→Drupal: Quiero solicitar una reserva",
+    "Respuesta n8n→Drupal: Consultar mi reserva confirmada",
+    "Respuesta n8n→Drupal: Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas",
+    "Webhook n8n rechaza llamadas sin credencial",
+    "El chat refleja una tarifa modificada en MariaDB"
+  ]
+}

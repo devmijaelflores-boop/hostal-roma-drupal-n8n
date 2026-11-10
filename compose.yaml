@@ -1,0 +1,116 @@
+name: ${COMPOSE_PROJECT_NAME:-hostal_roma}
+x-drupal-environment: &drupal-environment
+  DB_HOST: mariadb
+  DB_NAME: ${MARIADB_DATABASE:?Ejecuta python3 scripts/init-env.py}
+  DB_USER: ${MARIADB_USER:?Falta usuario}
+  DB_PASSWORD: ${MARIADB_PASSWORD:?Falta contraseña}
+  DRUPAL_HASH_SALT: ${DRUPAL_HASH_SALT:?Falta salt}
+  ROMA_INTEGRATION_TOKEN: ${ROMA_INTEGRATION_TOKEN:?Genera la clave de integración}
+  ROMA_N8N_WEBHOOK_TOKEN: ${ROMA_N8N_WEBHOOK_TOKEN:?Genera la clave n8n}
+  ROMA_PUBLIC_URL: ${ROMA_PUBLIC_URL:-http://localhost:8080}
+  ROMA_CHAT_MODE: ${ROMA_CHAT_MODE:-deterministic}
+  TZ: ${TZ:-America/Lima}
+
+services:
+  mariadb:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Falta contraseña root}
+      TZ: ${TZ:-America/Lima}
+    command: [--transaction-isolation=READ-COMMITTED, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+
+  drupal:
+    image: hostal-roma-drupal:local
+    build:
+      context: .
+      dockerfile: docker/drupal/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${DRUPAL_PORT:-8080}:80"
+    environment: *drupal-environment
+    volumes:
+      - drupal_files:/var/www/html/web/sites/default/files
+    healthcheck:
+      test: [CMD, php, -r, "exit(@file_get_contents('http://localhost/') === false ? 1 : 0);"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  install:
+    image: hostal-roma-drupal:local
+    profiles: [setup]
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      <<: *drupal-environment
+      DRUPAL_ADMIN_USER: ${DRUPAL_ADMIN_USER}
+      DRUPAL_ADMIN_PASSWORD: ${DRUPAL_ADMIN_PASSWORD:?Falta contraseña administrador}
+      DRUPAL_ADMIN_EMAIL: ${DRUPAL_ADMIN_EMAIL:-admin@example.invalid}
+    volumes:
+      - drupal_files:/var/www/html/web/sites/default/files
+    entrypoint: [/bin/sh, /opt/roma/install.sh]
+    restart: "no"
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:${N8N_VERSION:?Falta versión n8n}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${N8N_PORT:-5678}:5678"
+    environment:
+      GENERIC_TIMEZONE: ${TZ:-America/Lima}
+      TZ: ${TZ:-America/Lima}
+      DB_TYPE: sqlite
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Falta clave cifrado}
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      N8N_EDITOR_BASE_URL: http://localhost:${N8N_PORT:-5678}/
+      N8N_WEBHOOK_URL: http://localhost:${N8N_PORT:-5678}/
+      N8N_UNVERIFIED_PACKAGES_ENABLED: "false"
+      N8N_SECURE_COOKIE: "false"
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://localhost:5678/healthz/readiness').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 60s
+
+  mailpit:
+    image: axllent/mailpit:v1.33.1
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MAILPIT_PORT:-8025}:8025"
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: 1000
+      TZ: ${TZ:-America/Lima}
+    volumes:
+      - mailpit_data:/data
+
+volumes:
+  mariadb_data:
+  drupal_files:
+  n8n_data:
+  mailpit_data:
