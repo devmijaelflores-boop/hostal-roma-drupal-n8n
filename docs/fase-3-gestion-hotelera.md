@@ -52,3 +52,9 @@ deno run --cached-only --allow-all tests/hotel-browser.mjs
 Para revisar manualmente, solicita una reserva usando datos ficticios, guarda código y clave, inicia sesión administrativa, confirma desde el panel y consulta nuevamente el estado con esas claves. Cancela después para liberar el inventario de prueba. No hay pagos ni reservas comerciales.
 
 Guardar con Git el módulo, los cambios del tema y de instalación, las pruebas y la documentación. No guardar `.env`, sesiones, cachés o volúmenes. El repositorio todavía no tiene remoto de GitHub identificado.
+
+## Aclaración de búsquedas por capacidad
+
+Se añadió una explicación cuando los huéspedes solicitados superan la capacidad máxima de las habitaciones activas. La pantalla indica que la búsqueda corresponde a una sola habitación y ofrece ajustar la ocupación conservando fechas; para un grupo se requieren solicitudes independientes por habitación. No se cambió el inventario ni se simula capacidad adicional.
+
+Verificación del 10/11/2026: la búsqueda del 11 al 15 de noviembre para tres huéspedes explica el límite actual de dos personas, no ofrece reservas incompatibles y conserva ambas fechas en el enlace de ajuste. Al consultar para dos huéspedes aparecen habitaciones y enlaces de solicitud. Se comprobó el enlace en navegador a 1440 y 390 píxeles, sin desbordamientos. Evidencia visual: `capturas/disponibilidad-capacidad.png`.
