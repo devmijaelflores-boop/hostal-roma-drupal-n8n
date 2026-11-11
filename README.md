@@ -1,5 +1,7 @@
 # Golden Roma — Prototipo académico Drupal + n8n
 
+Acceso actual en AWS: [Hoteles](https://hoteles.98-91-2-63.sslip.io).
+
 Sistema Web de Reservas y Atención Automatizada — Juliaca, Puno, Perú.
 
 **Prototipo académico no oficial. Habitaciones, disponibilidad y tarifas de demostración**
