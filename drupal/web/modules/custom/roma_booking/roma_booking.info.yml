@@ -6,3 +6,5 @@ package: ROMA
 dependencies:
   - drupal:user
   - drupal:inline_form_errors
+  - drupal:file
+  - drupal:image

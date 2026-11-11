@@ -13,3 +13,19 @@ roma_booking.content:
     story_title: { type: label, label: 'Título de la historia' }
     story_text: { type: text, label: 'Historia' }
     whatsapp: { type: label, label: 'WhatsApp de atención' }
+roma_booking.photos:
+  type: config_object
+  label: 'Fotografías del hotel'
+  mapping:
+    galleries:
+      type: sequence
+      label: 'Galerías'
+      sequence:
+        type: mapping
+        mapping:
+          files:
+            type: sequence
+            sequence:
+              type: integer
+          alt:
+            type: label

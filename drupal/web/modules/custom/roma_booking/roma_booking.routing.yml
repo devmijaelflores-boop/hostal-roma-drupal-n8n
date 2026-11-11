@@ -108,3 +108,12 @@ roma_booking.content:
     _permission: 'administer roma catalog'
   options:
     _admin_route: true
+roma_booking.photos:
+  path: '/admin/roma/fotografias'
+  defaults:
+    _form: '\Drupal\roma_booking\Form\HotelPhotosForm'
+    _title: 'Fotografías del hotel'
+  requirements:
+    _permission: 'administer roma catalog'
+  options:
+    _admin_route: true

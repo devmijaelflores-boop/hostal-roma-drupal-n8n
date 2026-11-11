@@ -14,7 +14,7 @@ final class AdminController extends ControllerBase {
   private function link(string $text, string $route, array $parameters = []): array { return ['data' => Link::fromTextAndUrl($text, Url::fromRoute($route, $parameters))->toRenderable()]; }
   private function shell(): array {
     $items = [];
-    foreach (['roma_booking.dashboard' => ['Panel', 'access roma dashboard'], 'roma_booking.catalog' => ['Habitaciones y tarifas', 'administer roma catalog'], 'roma_booking.content' => ['Contenido', 'administer roma catalog'], 'roma_booking.reservations' => ['Reservas', 'manage roma reservations'], 'roma_booking.messages' => ['Mensajes', 'manage roma reservations'], 'roma_booking.availability' => ['Disponibilidad', 'view roma availability']] as $route => [$label, $permission]) {
+    foreach (['roma_booking.dashboard' => ['Panel', 'access roma dashboard'], 'roma_booking.catalog' => ['Habitaciones y tarifas', 'administer roma catalog'], 'roma_booking.content' => ['Contenido', 'administer roma catalog'], 'roma_booking.photos' => ['Fotografías', 'administer roma catalog'], 'roma_booking.reservations' => ['Reservas', 'manage roma reservations'], 'roma_booking.messages' => ['Mensajes', 'manage roma reservations'], 'roma_booking.availability' => ['Disponibilidad', 'view roma availability']] as $route => [$label, $permission]) {
       if ($this->currentUser()->hasPermission($permission)) { $items[] = Link::fromTextAndUrl($label, Url::fromRoute($route))->toRenderable(); }
     }
     if (\Drupal::moduleHandler()->moduleExists('roma_shop') && $this->currentUser()->hasPermission('administer commerce_order')) { $items[] = Link::fromTextAndUrl('Pedidos de la tienda', Url::fromRoute('roma_shop.orders'))->toRenderable(); }

@@ -25,5 +25,16 @@ function roma_elegante_preprocess_page(array &$variables): void {
   \Drupal::service('renderer')->addCacheableDependency($variables, \Drupal::config('roma_booking.content'));
   $number = ltrim((string) ($variables['roma_content']['whatsapp'] ?? ''), '+');
   $variables['roma_whatsapp_url'] = preg_match('/^[1-9][0-9]{7,14}$/D', $number) ? 'https://wa.me/' . $number . '?text=' . rawurlencode('Hola, quisiera consultar habitaciones y disponibilidad.') : '';
+  $photos=\Drupal::config('roma_booking.photos');
+  $gallery=static function(string $key,array $fallback) use($photos): array {
+    $urls=[];
+    foreach(\Drupal\file\Entity\File::loadMultiple($photos->get('galleries.'.$key.'.files')??[]) as $file) {
+      if(str_starts_with($file->getFileUri(),'public://hotel-photos/'))$urls[]=\Drupal::service('file_url_generator')->generateString($file->getFileUri());
+    }
+    return ['images'=>$urls?:$fallback,'alt'=>$photos->get('galleries.'.$key.'.alt')?:'Interior ilustrativo','custom'=>(bool)$urls];
+  };
+  $variables['roma_hero']=$gallery('hero',[$variables['roma_assets'].'/images/individual.jpg',$variables['roma_assets'].'/images/matrimonial.jpg',$variables['roma_assets'].'/images/doble.jpg']);
+  foreach($variables['roma_rooms'] as &$room){$room['gallery']=$gallery('room_'.$room['id'],[$variables['roma_assets'].'/images/'.$room['image']]);}unset($room);
+  \Drupal::service('renderer')->addCacheableDependency($variables,$photos);
   $variables['roma_notice'] = 'Encuentra tu habitación y planifica tu estadía';
 }

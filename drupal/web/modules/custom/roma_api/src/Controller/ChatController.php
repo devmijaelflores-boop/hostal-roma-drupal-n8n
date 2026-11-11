@@ -19,6 +19,11 @@ final class ChatController extends ApiController {
     if (($body['action'] ?? '') === 'loadPreviousSession') { return $this->respond(['data'=>[]]); }
     $input = trim((string) ($body['chatInput'] ?? ''));
     if (!$input || mb_strlen($input) > 1000) { return $this->respond(['output'=>'Escribe una consulta de hasta 1000 caracteres.']); }
+    $session=$request->getSession();
+    $prepared=\Drupal\roma_api\Service\ChatContext::prepare($input,(array)$session->get('roma_chat_context',[]),$this->hotel->today(),\Drupal::time()->getCurrentTime());
+    $session->set('roma_chat_context',$prepared['context']);
+    if ($prepared['reply']!==NULL) { return $this->respond(['output'=>$prepared['reply'],'demo'=>TRUE,'ai'=>FALSE,'context'=>TRUE]); }
+    $input=$prepared['input'];
     try {
       $path = getenv('ROMA_CHAT_MODE') === 'ai' ? 'roma-chat-ai' : 'roma-chat';
       $response = \Drupal::httpClient()->post('http://n8n:5678/webhook/' . $path, [
