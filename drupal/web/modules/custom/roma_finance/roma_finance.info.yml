@@ -1,0 +1,7 @@
+name: ROMA Cuentas y saldos
+type: module
+description: Libro de cargos y movimientos de demostración, sin cobros bancarios.
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_booking:roma_booking

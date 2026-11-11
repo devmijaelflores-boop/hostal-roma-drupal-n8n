@@ -50,6 +50,7 @@ final class CalendarForm extends FormBase {
     $rows=[];
     foreach($ops->today() as $booking) {
       $id=(int)$booking['id'];$stay=$ops->stay($id);$actions=[];
+      if(\Drupal::moduleHandler()->moduleExists('roma_finance') && $this->currentUser()->hasPermission('manage roma finance')) { $actions[]=Link::fromTextAndUrl('Ver cuenta y saldo',Url::fromRoute('roma_finance.account',['reservation'=>$id]))->toRenderable(); }
       if($stay['state']==='in_house') { $actions[]=$this->link('Registrar salida','stay',$id,'check_out'); }
       elseif($stay['state']==='not_arrived') {
         if($booking['arrival']<=$today && $booking['departure']>$today) { $actions[]=$this->link('Registrar entrada','stay',$id,'check_in'); }

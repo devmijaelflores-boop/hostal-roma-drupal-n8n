@@ -16,6 +16,8 @@ También se desplegó una [demo HTTPS en AWS Academy](https://roma-demo.18-208-1
 
 La primera ampliación del sistema incorpora **recepción con calendario de 7/14/31 días, check-in, check-out, limpieza, mantenimientos y auditoría**. Las reglas se comparten con la tienda, la API y el chatbot. Consulta la [guía de recepción](docs/recepcion.md) y la [verificación de esta mejora](docs/verificacion-recepcion.md).
 
+La segunda ampliación añade **cuentas de demostración con cargos, descuentos, adelantos, devoluciones, saldos y contrapartidas auditadas**, más constancias internas y avisos n8n hacia Mailpit. No registra cobros bancarios ni emite CPE SUNAT. Véase la [guía de cuentas](docs/cuentas-y-saldos.md).
+
 ## Arranque y comprobación
 
 ```bash
@@ -41,6 +43,7 @@ El generador conserva `.env` y añade únicamente variables faltantes; no cambia
 | `/admin/roma/pedidos` | Pedidos Commerce y reservas relacionadas |
 | `/admin/roma/recepcion` | Calendario, entradas, salidas y limpieza |
 | `/admin/roma/mantenimiento` | Bloqueos por fechas |
+| `/admin/roma/cuentas` | Cargos, adelantos, saldos y reportes simulados |
 | `http://localhost:5678` | Editor n8n; crear propietario si sigue el asistente inicial |
 | `http://localhost:8025` | Correos de prueba capturados en Mailpit |
 
@@ -50,6 +53,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 
 - [Gestión hotelera y reglas de integridad](docs/fase-3-gestion-hotelera.md).
 - [Guía de recepción, calendario y mantenimiento](docs/recepcion.md).
+- [Cuentas, adelantos, saldos y avisos n8n](docs/cuentas-y-saldos.md) y [verificación financiera](docs/verificacion-finanzas.md).
 - [Tienda Drupal Commerce y checkout](docs/tienda-commerce.md).
 - [Guía rápida de la tienda](docs/guia-tienda.md).
 - [API y autorización](docs/api.md).

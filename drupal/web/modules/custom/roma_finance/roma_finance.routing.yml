@@ -1,0 +1,43 @@
+roma_finance.overview:
+  path: '/admin/roma/cuentas'
+  defaults:
+    _form: '\Drupal\roma_finance\Form\OverviewForm'
+    _title: 'Cuentas y saldos'
+  requirements:
+    _permission: 'manage roma finance'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_finance.account:
+  path: '/admin/roma/cuentas/{reservation}'
+  defaults:
+    _form: '\Drupal\roma_finance\Form\AccountForm'
+    _title: 'Cuenta de la estadía'
+  requirements:
+    _permission: 'manage roma finance'
+    reservation: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_finance.reverse:
+  path: '/admin/roma/movimientos/{entry}/anular'
+  defaults:
+    _form: '\Drupal\roma_finance\Form\ReverseForm'
+    _title: 'Anular movimiento por contrapartida'
+  requirements:
+    _permission: 'manage roma finance'
+    entry: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_finance.receipt:
+  path: '/admin/roma/movimientos/{entry}/constancia'
+  defaults:
+    _controller: '\Drupal\roma_finance\Controller\ReceiptController::view'
+    _title: 'Constancia interna de simulación'
+  requirements:
+    _permission: 'manage roma finance'
+    entry: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true

@@ -1,0 +1,4 @@
+services:
+  roma_finance.ledger:
+    class: Drupal\roma_finance\Service\LedgerService
+    arguments: ['@database', '@roma_booking.hotel', '@datetime.time']

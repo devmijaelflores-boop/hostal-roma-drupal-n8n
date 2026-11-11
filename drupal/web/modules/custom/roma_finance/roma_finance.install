@@ -1,0 +1,15 @@
+<?php
+function roma_finance_schema(): array {
+  $int=['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE,'default'=>0];
+  $str=static fn(int $n): array=>['type'=>'varchar','length'=>$n,'not null'=>TRUE,'default'=>''];
+  return [
+    'roma_finance_account'=>['fields'=>['reservation_id'=>$int,'created'=>$int,'actor_uid'=>$int], 'primary key'=>['reservation_id']],
+    'roma_finance_entry'=>[
+      'fields'=>['id'=>['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE], 'reservation_id'=>$int,'reference'=>$str(32),'kind'=>$str(16),'amount'=>['type'=>'int','size'=>'big','unsigned'=>TRUE,'not null'=>TRUE],'method'=>$str(24),'note'=>$str(500),'mode'=>$str(8),'reverses_id'=>['type'=>'int','unsigned'=>TRUE,'not null'=>FALSE],'request_key'=>$str(64),'fingerprint'=>$str(64),'actor_uid'=>$int,'created'=>$int],
+      'primary key'=>['id'],'unique keys'=>['request_key'=>['request_key'],'reference'=>['reference'],'reverses_id'=>['reverses_id']], 'indexes'=>['account'=>['reservation_id','id'],'created'=>['created']],
+    ],
+  ];
+}
+function roma_finance_install(): void {
+  if($role=\Drupal\user\Entity\Role::load('roma_manager')) { $role->grantPermission('manage roma finance')->save(); }
+}

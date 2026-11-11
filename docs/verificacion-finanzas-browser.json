@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-11T01:53:59.599Z",
+  "checks": [
+    "Cuenta protegida ante acceso anónimo",
+    "Usuario autenticado sin permiso no consulta cuentas",
+    "Administrador consulta la cuenta",
+    "GET no abre la cuenta",
+    "Token manipulado no crea cargos",
+    "Apertura crea exactamente el cargo inicial",
+    "Adelanto simulado reduce saldo",
+    "Recargar después del envío no duplica el adelanto",
+    "Cargo adicional actualiza cuenta",
+    "Devolución reduce lo pagado neto",
+    "Descuento ajusta cargos sin alterar pagos",
+    "GET de anulación no modifica el libro",
+    "Anulación añade contrapartida y conserva original",
+    "Constancia distingue simulación, validez y anulación",
+    "Botón de impresión utiliza la impresión del navegador",
+    "Reporte separa movimientos simulados de ingresos reales",
+    "Cuenta usable a 390 píxeles sin desbordamiento",
+    "Sin errores JavaScript en cuenta, constancia y reporte"
+  ],
+  "errors": []
+}

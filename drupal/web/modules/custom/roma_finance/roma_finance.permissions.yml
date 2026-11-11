@@ -1,0 +1,3 @@
+manage roma finance:
+  title: 'Gestionar cuentas, movimientos y reportes financieros de demostración'
+  restrict access: true

@@ -4,7 +4,7 @@ cd /var/www/html
 if vendor/bin/drush status --fields=bootstrap --format=list 2>/dev/null | grep -q Successful; then
   vendor/bin/drush php:script /opt/roma/configure.php
   vendor/bin/drush php:script /opt/roma/design.php
-  vendor/bin/drush en inline_form_errors roma_booking roma_api roma_payments roma_shop roma_reception --yes
+  vendor/bin/drush en inline_form_errors roma_booking roma_api roma_payments roma_shop roma_reception roma_finance --yes
   vendor/bin/drush cache:rebuild
   vendor/bin/drush php:script /opt/roma/integrations.php
   vendor/bin/drush php:script /opt/roma/commerce.php
@@ -28,7 +28,7 @@ vendor/bin/drush site:install standard --yes --locale=es \
   --site-mail="$DRUPAL_ADMIN_EMAIL"
 vendor/bin/drush php:script /opt/roma/configure.php
 vendor/bin/drush php:script /opt/roma/design.php
-  vendor/bin/drush en inline_form_errors roma_booking roma_api roma_payments roma_shop roma_reception --yes
+  vendor/bin/drush en inline_form_errors roma_booking roma_api roma_payments roma_shop roma_reception roma_finance --yes
   vendor/bin/drush cache:rebuild
   vendor/bin/drush php:script /opt/roma/integrations.php
   vendor/bin/drush php:script /opt/roma/commerce.php

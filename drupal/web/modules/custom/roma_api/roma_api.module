@@ -3,3 +3,8 @@
 function roma_api_roma_reservation_changed(int $id, string $state): void {
   \Drupal::service('roma_api.automation')->enqueue('reservation:' . $id . ':' . $state, $id, $state);
 }
+
+/** Se encola junto con el movimiento y se revierte si su transacción falla. */
+function roma_api_roma_finance_entry_recorded(array $entry): void {
+  \Drupal::service('roma_api.automation')->enqueue('finance:'.$entry['id'],(int)$entry['reservation_id'],'finance');
+}

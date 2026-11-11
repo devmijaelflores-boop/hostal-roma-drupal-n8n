@@ -1,0 +1,9 @@
+finance:
+  css:
+    theme:
+      css/finance.css: {}
+  js:
+    js/finance.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

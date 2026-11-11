@@ -19,6 +19,7 @@ final class AdminController extends ControllerBase {
     }
     if (\Drupal::moduleHandler()->moduleExists('roma_shop') && $this->currentUser()->hasPermission('administer commerce_order')) { $items[] = Link::fromTextAndUrl('Pedidos de la tienda', Url::fromRoute('roma_shop.orders'))->toRenderable(); }
     if (\Drupal::moduleHandler()->moduleExists('roma_reception') && $this->currentUser()->hasPermission('manage roma reception')) { $items[] = Link::fromTextAndUrl('Recepción y calendario', Url::fromRoute('roma_reception.calendar'))->toRenderable(); }
+    if (\Drupal::moduleHandler()->moduleExists('roma_finance') && $this->currentUser()->hasPermission('manage roma finance')) { $items[] = Link::fromTextAndUrl('Cuentas y saldos', Url::fromRoute('roma_finance.overview'))->toRenderable(); }
     return ['#cache' => ['max-age' => 0], '#attached' => ['library' => ['roma_booking/hotel']], 'navigation' => ['#theme' => 'item_list', '#items' => $items, '#attributes' => ['class' => ['hotel-admin-nav']]], 'notice' => ['#markup' => '<p>Prototipo académico no oficial. Datos de demostración. Los importes estimados no representan pagos ni ingresos reales.</p>']];
   }
   public function dashboard(): array {
@@ -53,6 +54,7 @@ final class AdminController extends ControllerBase {
     $build = $this->shell(); $rows = [];
     foreach ($this->hotel->reservations() as $b) {
       $room = $this->hotel->room((int) $b['room_id']); $actions = [];
+      if (\Drupal::moduleHandler()->moduleExists('roma_finance') && $this->currentUser()->hasPermission('manage roma finance')) { $actions[] = Link::fromTextAndUrl('Ver cuenta', Url::fromRoute('roma_finance.account', ['reservation'=>$b['id']]))->toRenderable(); }
       if ($b['status'] === 'pending') { $actions[] = Link::fromTextAndUrl('Confirmar', Url::fromRoute('roma_booking.transition', ['id' => $b['id'], 'action' => 'confirm']))->toRenderable(); }
       if ($b['status'] !== 'cancelled') { $actions[] = Link::fromTextAndUrl('Cancelar', Url::fromRoute('roma_booking.transition', ['id' => $b['id'], 'action' => 'cancel']))->toRenderable(); }
       $rows[] = [$this->cell($b['reference']), $this->cell($b['customer_name']), $this->cell($b['email']), $this->cell($b['phone'] ?: '—'), $this->cell($room['code']), $this->cell(HotelService::date($b['arrival']) . ' → ' . HotelService::date($b['departure'])), $this->cell($b['guests']), $this->cell(HotelService::STATUS[$b['status']]), $this->cell(HotelService::money((int) $b['estimated_price'])), $this->cell(\Drupal::hasService('roma_payments.demo') ? ((\Drupal::service('roma_payments.demo')->last($b['reference'])['outcome'] ?? 'Sin simulación')) : 'No habilitado'), ['data' => ['#theme' => 'item_list', '#items' => $actions]]];
