@@ -63,3 +63,8 @@
     }
   };
 })(Drupal, once);
+
+document.addEventListener('click', event => {
+ const button=event.target.closest('#hotel-map-open');if(!button)return;
+ const frame=document.createElement('iframe');frame.title='Ubicación del hotel';frame.src='https://www.google.com/maps?q='+encodeURIComponent(button.dataset.address)+'&output=embed';frame.loading='lazy';frame.referrerPolicy='no-referrer-when-downgrade';frame.setAttribute('allowfullscreen','');document.querySelector('#hotel-map-frame').replaceChildren(frame);button.hidden=true;
+});

@@ -10,3 +10,5 @@ roma_booking.content:
     city: { type: label, label: 'Ciudad' }
     region: { type: label, label: 'Región' }
     country: { type: label, label: 'País' }
+    story_title: { type: label, label: 'Título de la historia' }
+    story_text: { type: text, label: 'Historia' }
