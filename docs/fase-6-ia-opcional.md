@@ -24,3 +24,11 @@ Estado: JSON preparado y validado sintácticamente; no probado contra OpenAI por
 Las consultas se limitan a 1000 caracteres y se omiten correos y secuencias numéricas largas antes de enviarlas a Google. Esto no constituye anonimización completa: usar solo datos de prueba. No se exportan registros de huéspedes. Los errores, salidas inválidas o cuota agotada vuelven a interpretación determinista. Si n8n deja de responder, el puente intenta consultar Drupal directamente. No se guardan ejecuciones con datos del chat.
 
 El flujo usa la ruta privada `roma-chat-ai`, por lo que no debe publicarse simultáneamente con la alternativa OpenAI. Se activa mediante `ROMA_CHAT_MODE=ai`; volver a `deterministic` desactiva el uso de IA desde la web. La clave no forma parte del JSON exportable ni del repositorio. El modelo y la cuota disponible se deben comprobar para cada cuenta.
+
+### Verificación en AWS — 11/11/2026
+
+Gemini quedó activo en el chat público (`ROMA_CHAT_MODE=ai`). Pruebas reales aprobadas: consulta de presupuesto sin palabras clave de tarifa, disponibilidad del 20/12/2027 al 22/12/2027 para dos personas y envío desde el widget en navegador. La respuesta pública reportó `ai=true`, `provider=Gemini` y el precio individual S/ 85.00 del catálogo de MariaDB.
+
+El modelo 2.5 Flash Lite aparecía en el listado de Google, pero rechazó generación para cuentas nuevas con HTTP 404. El flujo conservó la respuesta de Drupal (`ai=false`, `fallback=true`). Se sustituyó por 3.5 Flash Lite, comprobado mediante generación y ejecución completa en n8n. Las expresiones iniciales incompatibles con el evaluador de n8n se reemplazaron por nodos JavaScript y expresiones simples. No se habilitó facturación ni se modificó la cuota de la cuenta. La API puede limitar el servicio; no se garantiza uso gratuito ilimitado.
+
+Fuentes: [Gemini 3.5 Flash Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [salida estructurada](https://ai.google.dev/gemini-api/docs/structured-output) y [credenciales n8n](https://docs.n8n.io/integrations/builtin/credentials/googleai/).
