@@ -12,3 +12,4 @@ roma_booking.content:
     country: { type: label, label: 'País' }
     story_title: { type: label, label: 'Título de la historia' }
     story_text: { type: text, label: 'Historia' }
+    whatsapp: { type: label, label: 'WhatsApp de atención' }

@@ -23,5 +23,7 @@ function roma_elegante_preprocess_page(array &$variables): void {
   $variables['roma_content'] += ['hotel_name'=>'ROMA','brand_subtitle'=>'GOLDEN · JULIACA','city'=>'Juliaca','region'=>'Puno','country'=>'Perú'];
   $variables['roma_maps_url'] = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($variables['roma_content']['address'] ?? 'Nueva Zelandia 196, Juliaca, Perú');
   \Drupal::service('renderer')->addCacheableDependency($variables, \Drupal::config('roma_booking.content'));
+  $number = ltrim((string) ($variables['roma_content']['whatsapp'] ?? ''), '+');
+  $variables['roma_whatsapp_url'] = preg_match('/^[1-9][0-9]{7,14}$/D', $number) ? 'https://wa.me/' . $number . '?text=' . rawurlencode('Hola, quisiera consultar habitaciones y disponibilidad.') : '';
   $variables['roma_notice'] = 'Encuentra tu habitación y planifica tu estadía';
 }
