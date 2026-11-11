@@ -3,9 +3,9 @@
 <main id="main-content" tabindex="-1">
   {{ page.highlighted }}
   <section class="hero" id="inicio" aria-labelledby="hero-title" data-gallery data-images="{{ roma_hero.images|json_encode|e('html_attr') }}">
-    <img class="hero-image" data-gallery-image src="{{ roma_hero.images[0] }}" alt="{{ roma_hero.alt }}" width="1800" height="1200" fetchpriority="high">
+    <img class="hero-image" data-gallery-image src="{{ roma_hero.images[0] }}" alt="{{ roma_hero.alt }}" width="1920" height="1080" fetchpriority="high">
     <div class="gallery-controls hero-gallery-controls"><button type="button" data-gallery-play aria-label="Pausar carrusel" aria-pressed="false">Ⅱ</button><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / 3</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button><button type="button" data-gallery-expand aria-label="Ampliar fotografía">⤢</button></div>
-    {% if not roma_hero.custom %}<video class="hero-video" id="hero-video" data-src="{{ roma_assets }}/video/hotel-interior.mp4" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"></video><button class="hero-video-control" id="hero-video-control" type="button" aria-label="Reproducir video" aria-pressed="false" hidden>Ver video</button>{% endif %}
+    {% if not roma_hero.custom %}<video class="hero-video" id="hero-video" data-src="{{ roma_assets }}/video/hotel-interior.mp4?v=1080" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"></video><button class="hero-video-control" id="hero-video-control" type="button" aria-label="Reproducir video" aria-pressed="false" hidden>Ver video</button>{% endif %}
     <div class="hero-shade"></div>
     {% if not roma_hero.custom %}<div class="hero-credit" data-video-credit>Imagen y video · Mixkit</div>{% endif %}
     <div class="wrap hero-content"><div class="hero-intro">

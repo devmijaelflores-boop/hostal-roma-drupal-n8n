@@ -34,3 +34,7 @@ Se añadió un clip de muestra de 10 segundos basado en [Hotel room with modern 
 La foto se presenta primero; el video se carga después en escritorio. En pantallas menores de 768 px, conexiones 2G, ahorro de datos y movimiento reducido, solo se descarga al solicitarlo. Incluye botón de reproducción/pausa; se pausa fuera de pantalla y al ocultar la pestaña. Las fotografías propias configuradas desactivan el video de muestra para no mezclarlas con él. Si no puede reproducirse, permanece la imagen.
 
 Las secciones tienen una entrada breve al aparecer en pantalla; el contenido nunca depende de una clase invisible para poder leerse. Las fotografías del carrusel usan un fundido. Se respeta la preferencia de movimiento reducido. No se añadieron librerías de animación ni reproductores externos.
+
+### Actualización de calidad
+
+Se sustituyó el derivado de 720p por una fuente Full HD de Mixkit: `https://assets.mixkit.co/videos/4488/4488-1080.mp4`, obtenida del enlace de descarga 1080p de la misma ficha. Derivado de diez segundos, 1920×1080, 30 fps, H.264 CRF 20, sin audio, 5206242 bytes. Imagen inicial extraída de este derivado con mayor calidad. Las URLs incorporan una versión para evitar reutilizar archivos comprimidos de la caché del navegador. La versión anterior de 350370 bytes priorizaba tamaño y perdía detalle a pantalla completa.
