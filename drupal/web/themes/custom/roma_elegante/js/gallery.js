@@ -10,9 +10,12 @@
    let images;try{images=JSON.parse(gallery.dataset.images);}catch{return;}
    if(!Array.isArray(images)||!images.length)return;
    const img=gallery.querySelector('[data-gallery-image]');const count=gallery.querySelector('[data-gallery-count]');let index=0;
-   const show=step=>{index=(index+step+images.length)%images.length;img.src=images[index];count.textContent=`${index+1} / ${images.length}`;};
+   const show=step=>{index=(index+step+images.length)%images.length;img.src=images[index];count.textContent=`${index+1} / ${images.length}`;gallery.querySelectorAll('[data-slide-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.slideIndex)===index)));};
    const play=gallery.querySelector('[data-gallery-play]');
    if(play){
+    const dots=document.createElement('div');dots.className='gallery-dots';
+    images.forEach((url,i)=>{const dot=document.createElement('button');dot.type='button';dot.dataset.slideIndex=String(i);dot.setAttribute('aria-label',`Foto ${i+1}`);dot.setAttribute('aria-pressed',String(i===0));dot.addEventListener('click',()=>show(i-index));dots.append(dot);});
+    play.before(dots);
     const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');let paused=reduced.matches,hover=false,focused=false;
     const update=()=>{play.textContent=paused?'▶':'Ⅱ';play.setAttribute('aria-pressed',String(paused));const label=paused?'Reproducir carrusel':'Pausar carrusel';play.setAttribute('aria-label',document.documentElement.lang==='en'?(paused?'Play slideshow':'Pause slideshow'):label);play.removeAttribute('data-es-aria-label');};
     play.addEventListener('click',()=>{paused=!paused;update();});
