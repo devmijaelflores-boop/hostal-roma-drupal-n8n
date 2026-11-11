@@ -8,7 +8,7 @@ final class ContactForm extends HotelFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $this->protect($form);
     if ($form_state->get('sent')) { $form['receipt'] = ['#plain_text' => 'Mensaje de prueba guardado. Puede revisarlo el administrador en el panel. No se ha enviado correo al establecimiento real.']; return $form; }
-    $form['intro'] = ['#markup' => '<p>Este formulario guarda mensajes de demostración para el profesor o administrador del proyecto. No contacta con el hostal real. Utiliza datos ficticios.</p>'];
+    $form['intro'] = ['#markup' => '<p>Este formulario guarda mensajes de prueba para el profesor o administrador del proyecto. No contacta con el hostal real. Utiliza datos ficticios.</p>'];
     $form['name'] = ['#type' => 'textfield', '#title' => 'Nombre completo', '#required' => TRUE, '#maxlength' => 100];
     $form['email'] = ['#type' => 'email', '#title' => 'Correo electrónico', '#required' => TRUE, '#maxlength' => 254];
     $form['message'] = ['#type' => 'textarea', '#title' => 'Mensaje', '#required' => TRUE, '#maxlength' => 2000, '#description' => 'Entre 10 y 2000 caracteres.'];

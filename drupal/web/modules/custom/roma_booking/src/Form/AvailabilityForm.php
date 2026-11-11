@@ -10,14 +10,14 @@ final class AvailabilityForm extends HotelFormBase {
   public function getFormId(): string { return 'roma_availability_form'; }
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $this->decorate($form); $form['#method'] = 'get'; $form['#token'] = FALSE;
-    $form['intro'] = ['#markup' => '<p>Disponibilidad calculada desde las habitaciones y reservas confirmadas de la base de datos de demostración. Las solicitudes pendientes no bloquean habitaciones. No es disponibilidad del establecimiento real.</p>'];
+    $form['intro'] = ['#markup' => '<p>Disponibilidad calculada desde las habitaciones y reservas confirmadas de la base de datos de prueba. Las solicitudes pendientes no bloquean habitaciones. No es disponibilidad del establecimiento real.</p>'];
     $active_rooms = $this->hotel->rooms();
     $max_capacity = $active_rooms ? max(array_map('intval', array_column($active_rooms, 'capacity'))) : 0;
     $q = $this->getRequest()->query;
     foreach (['arrival' => 'Llegada', 'departure' => 'Salida'] as $key => $label) {
       $form[$key] = ['#type' => 'date', '#title' => $label, '#required' => TRUE, '#default_value' => $q->get($key, ''), '#attributes' => ['min' => $this->hotel->today()]];
     }
-    $form['guests'] = ['#type' => 'number', '#title' => 'Huéspedes en una habitación', '#description' => $max_capacity ? $this->t('La capacidad máxima del catálogo activo es de @count persona(s) por habitación. Para grupos mayores, registra una solicitud por cada habitación.', ['@count' => $max_capacity]) : $this->t('Actualmente no hay habitaciones activas en el catálogo de demostración.'), '#required' => TRUE, '#min' => 1, '#max' => 10, '#step' => 1, '#default_value' => $q->get('guests', 2)];
+    $form['guests'] = ['#type' => 'number', '#title' => 'Huéspedes en una habitación', '#description' => $max_capacity ? $this->t('La capacidad máxima del catálogo activo es de @count persona(s) por habitación. Para grupos mayores, registra una solicitud por cada habitación.', ['@count' => $max_capacity]) : $this->t('Actualmente no hay habitaciones activas en el catálogo de prueba.'), '#required' => TRUE, '#min' => 1, '#max' => 10, '#step' => 1, '#default_value' => $q->get('guests', 2)];
     $form['actions'] = ['#type' => 'actions', '#weight' => 10, 'submit' => ['#type' => 'submit', '#value' => 'Consultar disponibilidad']];
     if ($q->get('arrival') && $q->get('departure')) {
       try {
@@ -43,7 +43,7 @@ final class AvailabilityForm extends HotelFormBase {
           }
           else {
             $form['results']['title'] = ['#markup' => '<h2>Sin resultados para esta búsqueda</h2>'];
-            $form['results']['explanation'] = ['#plain_text' => $max_capacity ? 'No hay habitaciones de la demo que admitan esa ocupación y estén libres durante todas las fechas elegidas. Prueba otras fechas o una ocupación menor.' : 'Actualmente no hay habitaciones activas en el catálogo de demostración. Un administrador puede activarlas desde el panel.'];
+            $form['results']['explanation'] = ['#plain_text' => $max_capacity ? 'No hay habitaciones de la prueba que admitan esa ocupación y estén libres durante todas las fechas elegidas. Prueba otras fechas o una ocupación menor.' : 'Actualmente no hay habitaciones activas en el catálogo de prueba. Un administrador puede activarlas desde el panel.'];
           }
         }
       }

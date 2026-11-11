@@ -1,14 +1,14 @@
 access roma dashboard:
-  title: 'Acceder al panel hotelero de demostración'
+  title: 'Acceder al panel hotelero de prueba'
 administer roma catalog:
-  title: 'Gestionar habitaciones, tarifas y servicios de demostración'
+  title: 'Gestionar habitaciones, tarifas y servicios de prueba'
   restrict access: true
 manage roma reservations:
-  title: 'Ver clientes y confirmar o cancelar reservas de demostración'
+  title: 'Ver clientes y confirmar o cancelar reservas de prueba'
   restrict access: true
 view roma availability:
-  title: 'Consultar disponibilidad de demostración'
+  title: 'Consultar disponibilidad de prueba'
 request roma reservations:
-  title: 'Solicitar reservas de demostración'
+  title: 'Solicitar reservas de prueba'
 send roma contact:
-  title: 'Enviar mensajes de demostración'
+  title: 'Enviar mensajes de prueba'

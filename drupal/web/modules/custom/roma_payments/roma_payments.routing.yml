@@ -2,7 +2,7 @@ roma_payments.demo:
   path: '/pago-demo'
   defaults:
     _form: '\Drupal\roma_payments\Form\DemoPaymentForm'
-    _title: 'Pago de demostración — sin dinero real'
+    _title: 'Pago de prueba — sin dinero real'
   requirements:
     _permission: 'request roma reservations'
   options:

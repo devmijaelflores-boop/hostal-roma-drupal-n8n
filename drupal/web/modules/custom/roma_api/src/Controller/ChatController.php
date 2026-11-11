@@ -36,7 +36,7 @@ final class ChatController extends ApiController {
         if (is_string($data['output'] ?? NULL)) { return $this->respond(['output'=>$data['output'],'demo'=>TRUE,'ai'=>FALSE,'fallback'=>TRUE]); }
       } catch (\Throwable) {}
 
-      return $this->respond(['output'=>'El asistente de demostración no está disponible en este momento. No se ha registrado ninguna reserva. Puedes usar [el formulario de reservas](/reservar) o [consultar disponibilidad](/disponibilidad).', 'demo'=>TRUE, 'unavailable'=>TRUE]);
+      return $this->respond(['output'=>'El asistente de prueba no está disponible en este momento. No se ha registrado ninguna reserva. Puedes usar [el formulario de reservas](/reservar) o [consultar disponibilidad](/disponibilidad).', 'demo'=>TRUE, 'unavailable'=>TRUE]);
     }
   }
 }

@@ -13,7 +13,7 @@ roma_shop_order:
       label: 'Reservas canceladas'
   transitions:
     place:
-      label: 'Registrar pedido de demostración'
+      label: 'Registrar pedido de prueba'
       from: [draft]
       to: awaiting_confirmation
     confirm:

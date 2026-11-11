@@ -41,7 +41,7 @@ final class ShopController extends ControllerBase {
     }
     return [
       '#cache'=>['max-age'=>0],'#attached'=>['library'=>['roma_booking/hotel']],
-      'intro'=>['#markup'=>'<p>Pedidos de demostración. La aprobación del pago local no confirma habitaciones. Confirma o cancela cada solicitud desde el panel hotelero; n8n actualiza el estado del pedido.</p>'],
+      'intro'=>['#markup'=>'<p>Pedidos de prueba. La aprobación del pago local no confirma habitaciones. Confirma o cancela cada solicitud desde el panel hotelero; n8n actualiza el estado del pedido.</p>'],
       'reservations'=>Link::fromTextAndUrl('Gestionar solicitudes de reserva',Url::fromRoute('roma_booking.reservations'))->toRenderable(),
       'orders'=>['#type'=>'table','#caption'=>'Últimos 100 pedidos y carritos académicos','#header'=>['Pedido','Estado','Total ficticio','Pago de prueba','Solicitudes relacionadas'],'#rows'=>$rows,'#empty'=>'Todavía no hay pedidos.'],
     ];

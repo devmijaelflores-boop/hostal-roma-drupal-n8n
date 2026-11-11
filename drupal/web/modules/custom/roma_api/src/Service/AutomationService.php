@@ -32,7 +32,7 @@ final class AutomationService {
           $to = 'admin@example.invalid';
           if ($event['kind'] === 'daily_report') {
             $stats = $this->hotel->stats();
-            $subject = 'Resumen diario de demostración · ' . $today;
+            $subject = 'Resumen diario de prueba · ' . $today;
             $text = 'Pendientes: ' . $stats['pending'] . '. Confirmadas: ' . $stats['confirmed'] . '. Ocupadas hoy: ' . $stats['occupied'] . '. No representa ingresos ni reservas reales.';
           }
           else {
@@ -45,14 +45,14 @@ final class AutomationService {
               catch (\DomainException) { $this->skip((int)$event['id']);$result['skipped']++;continue; }
               if ((int)$entry['reservation_id'] !== (int)$booking['id']) { $this->skip((int)$event['id']);$result['skipped']++;continue; }
               $account=$ledger->account((int)$booking['id']);
-              $subject='Movimiento financiero simulado · '.$entry['reference'].' · DEMO';
+              $subject='Movimiento financiero simulado · '.$entry['reference'].' · prueba';
               $text='Solicitud: '.$booking['reference'].'. Movimiento: '.\Drupal\roma_finance\Service\LedgerService::KINDS[$entry['kind']].'. Importe: '.HotelService::money((int)$entry['amount']).'. Saldo actual simulado: '.HotelService::money($account['balance']).'. No se realizó un cobro real. No es un comprobante SUNAT.';
             }
             else {
             if ($event['kind'] === 'confirmed' && $booking['status'] !== 'confirmed') { $this->skip((int) $event['id']); $result['skipped']++; continue; }
             if ($event['kind'] === 'reminder' && ($booking['status'] !== 'confirmed' || $booking['arrival'] !== $tomorrow)) { $this->skip((int) $event['id']); $result['skipped']++; continue; }
             $label = $event['kind'] === 'reminder' ? 'Recordatorio de llegada' : (HotelService::STATUS[$event['kind']] ?? 'Aviso');
-            $subject = $label . ' · ' . $booking['reference'] . ' · DEMO';
+            $subject = $label . ' · ' . $booking['reference'] . ' · prueba';
             $text = 'Evento: ' . $label . '. Solicitud: ' . $booking['reference'] . '. Estado actual: ' . HotelService::STATUS[$booking['status']] . '. Del ' . HotelService::date($booking['arrival']) . ' al ' . HotelService::date($booking['departure']) . '. Estimado: ' . HotelService::money((int) $booking['estimated_price']) . '. Prototipo académico no oficial. No es una reserva comercial.';
             if ($event['kind'] !== 'pending') { $to = $booking['email']; }
             }

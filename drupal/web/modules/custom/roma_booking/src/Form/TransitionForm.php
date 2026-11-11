@@ -23,7 +23,7 @@ final class TransitionForm extends ConfirmFormBase {
   public function getCancelUrl(): Url { return Url::fromRoute('roma_booking.reservations'); }
   public function getConfirmText() { return $this->t('Aplicar cambio de estado'); }
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    try { \Drupal::service('roma_booking.hotel')->transition((int) $this->reservation['id'], $this->action === 'confirm' ? 'confirmed' : 'cancelled', (int) $this->currentUser()->id()); $this->messenger()->addStatus('Estado actualizado en la base de datos de demostración.'); }
+    try { \Drupal::service('roma_booking.hotel')->transition((int) $this->reservation['id'], $this->action === 'confirm' ? 'confirmed' : 'cancelled', (int) $this->currentUser()->id()); $this->messenger()->addStatus('Estado actualizado en la base de datos de prueba.'); }
     catch (\DomainException $error) { $this->messenger()->addError($error->getMessage()); }
     $form_state->setRedirect('roma_booking.reservations');
   }

@@ -174,12 +174,12 @@ final class HotelService {
         $price = str_replace(',', '.', trim((string) ($data['price'] ?? '')));
         if (!$name || mb_strlen($name) > 80 || $capacity < 1 || $capacity > 10 || !preg_match('/^\d{1,5}(?:\.\d{1,2})?$/D', $price)) { throw new \DomainException('Revisa nombre, capacidad (1–10) y tarifa (máximo 99,999.99 PEN).'); }
         $parts = explode('.', $price); $amount = (int) $parts[0] * 100 + (int) str_pad($parts[1] ?? '', 2, '0');
-        if ($amount < 100) { throw new \DomainException('La tarifa mínima de demostración es S/ 1.00.'); }
+        if ($amount < 100) { throw new \DomainException('La tarifa mínima de prueba es S/ 1.00.'); }
         $q = $this->db->select('roma_reservation', 'b'); $q->join('roma_room', 'r', 'r.id = b.room_id');
         if ($id && $q->condition('r.type_id', $id)->condition('b.status', 'confirmed')->condition('b.departure', $this->today(), '>')->condition('b.guests', $capacity, '>')->countQuery()->execute()->fetchField()) { throw new \DomainException('No reduzcas la capacidad por debajo de los huéspedes de reservas confirmadas vigentes.'); }
         $image = (string) ($data['image'] ?? 'individual.jpg');
         if (!in_array($image, ['individual.jpg', 'matrimonial.jpg', 'doble.jpg'], TRUE)) { throw new \DomainException('Imagen de referencia inválida.'); }
-        $fields = ['name' => $name, 'capacity' => $capacity, 'description' => mb_substr((string) ($data['description'] ?? ''), 0, 1000), 'image' => $image, 'category' => mb_substr((string) ($data['category'] ?? 'CATÁLOGO DE DEMOSTRACIÓN'), 0, 100), 'active' => $active];
+        $fields = ['name' => $name, 'capacity' => $capacity, 'description' => mb_substr((string) ($data['description'] ?? ''), 0, 1000), 'image' => $image, 'category' => mb_substr((string) ($data['category'] ?? 'CATÁLOGO DE PRUEBA'), 0, 100), 'active' => $active];
         if ($id) { $this->db->update('roma_room_type')->fields($fields)->condition('id', $id)->execute(); }
         else { $id = (int) $this->db->insert('roma_room_type')->fields($fields)->execute(); }
         $this->db->merge('roma_rate')->key('type_id', $id)->fields(['amount' => $amount])->execute();

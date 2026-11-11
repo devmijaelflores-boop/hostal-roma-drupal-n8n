@@ -1,5 +1,5 @@
 roma_shop.orders:
-  title: 'Pedidos de demostración'
+  title: 'Pedidos de prueba'
   route_name: roma_shop.orders
   parent: system.admin_content
   weight: 20

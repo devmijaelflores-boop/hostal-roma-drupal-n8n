@@ -21,12 +21,12 @@ final class AdminController extends ControllerBase {
     if (\Drupal::moduleHandler()->moduleExists('roma_reception') && $this->currentUser()->hasPermission('manage roma reception')) { $items[] = Link::fromTextAndUrl('Recepción y calendario', Url::fromRoute('roma_reception.calendar'))->toRenderable(); }
     if (\Drupal::moduleHandler()->moduleExists('roma_finance') && $this->currentUser()->hasPermission('manage roma finance')) { $items[] = Link::fromTextAndUrl('Cuentas y saldos', Url::fromRoute('roma_finance.overview'))->toRenderable(); }
     if (\Drupal::moduleHandler()->moduleExists('roma_sunat_beta') && $this->currentUser()->hasPermission('manage roma sunat beta')) { $items[] = Link::fromTextAndUrl('SUNAT beta', Url::fromRoute('roma_sunat_beta.overview'))->toRenderable(); }
-    return ['#cache' => ['max-age' => 0], '#attached' => ['library' => ['roma_booking/hotel']], 'navigation' => ['#theme' => 'item_list', '#items' => $items, '#attributes' => ['class' => ['hotel-admin-nav']]], 'notice' => ['#markup' => '<p>Prototipo académico no oficial. Datos de demostración. Los importes estimados no representan pagos ni ingresos reales.</p>']];
+    return ['#cache' => ['max-age' => 0], '#attached' => ['library' => ['roma_booking/hotel']], 'navigation' => ['#theme' => 'item_list', '#items' => $items, '#attributes' => ['class' => ['hotel-admin-nav']]], 'notice' => ['#markup' => '<p>Prototipo académico no oficial. Datos de prueba. Los importes estimados no representan pagos ni ingresos reales.</p>']];
   }
   public function dashboard(): array {
     $build = $this->shell(); $s = $this->hotel->stats();
     $rows = [];
-    foreach (['active_rooms' => 'Habitaciones activas', 'occupied' => 'Habitaciones ocupadas hoy en la demo', 'pending' => 'Solicitudes pendientes', 'confirmed' => 'Reservas confirmadas de prueba', 'cancelled' => 'Solicitudes canceladas'] as $key => $label) { $rows[] = [$this->cell($label), $this->cell($s[$key])]; }
+    foreach (['active_rooms' => 'Habitaciones activas', 'occupied' => 'Habitaciones ocupadas hoy en la prueba', 'pending' => 'Solicitudes pendientes', 'confirmed' => 'Reservas confirmadas de prueba', 'cancelled' => 'Solicitudes canceladas'] as $key => $label) { $rows[] = [$this->cell($label), $this->cell($s[$key])]; }
     $rows[] = [$this->cell('Importe estimado acumulado de confirmadas (no recaudado)'), $this->cell(HotelService::money($s['estimated_revenue']))];
     $build['stats'] = ['#type' => 'table', '#header' => ['Indicador', 'Valor'], '#rows' => $rows];
     if (\Drupal::moduleHandler()->moduleExists('roma_api')) {
@@ -48,7 +48,7 @@ final class AdminController extends ControllerBase {
     $build['rooms'] = ['#type' => 'table', '#caption' => 'Habitaciones individuales del inventario', '#header' => ['Código', 'Tipo', 'Estado', 'Acción'], '#rows' => $rows];
     $rows = [];
     foreach ($this->hotel->services(FALSE) as $s) { $rows[] = [$this->cell($s['name']), $this->cell($s['description']), $this->cell($s['active'] ? 'Activo' : 'Inactivo'), $this->link('Editar servicio', 'roma_booking.catalog_edit', ['kind' => 'service', 'id' => $s['id']])]; }
-    $build['services'] = ['#type' => 'table', '#caption' => 'Servicios de demostración', '#header' => ['Servicio', 'Descripción', 'Estado', 'Acción'], '#rows' => $rows];
+    $build['services'] = ['#type' => 'table', '#caption' => 'Servicios de prueba', '#header' => ['Servicio', 'Descripción', 'Estado', 'Acción'], '#rows' => $rows];
     return $build;
   }
   public function reservations(): array {

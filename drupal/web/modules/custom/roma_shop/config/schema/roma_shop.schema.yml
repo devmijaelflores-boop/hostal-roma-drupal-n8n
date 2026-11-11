@@ -4,7 +4,7 @@ commerce_payment.commerce_payment_gateway.plugin.roma_academic:
   mapping:
     instructions:
       type: text_format
-      label: 'Instrucciones de demostración'
+      label: 'Instrucciones de prueba'
 commerce_checkout.commerce_checkout_flow.plugin.roma_stay:
   type: commerce_checkout_flow_with_panes_configuration
   label: 'Checkout de estadías académicas'

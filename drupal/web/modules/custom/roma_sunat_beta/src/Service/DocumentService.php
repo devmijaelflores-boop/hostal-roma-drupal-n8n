@@ -25,7 +25,7 @@ final class DocumentService {
   public function attempts(int $id): array {return $this->db->select('roma_beta_attempt','a')->fields('a',['number','actor_uid','started','finished','state','code','description'])->condition('document_id',$id)->orderBy('number')->execute()->fetchAll(\PDO::FETCH_ASSOC);}
   private function source(int $reservation): array {
     $account=$this->ledger->account($reservation);
-    if(!$account['open']||$account['charges']<1||$account['balance']!==0||$account['booking']['status']!=='confirmed')throw new \DomainException('Para este ejercicio de contado, la reserva debe estar confirmada y la cuenta de demostración abierta, con cargos positivos y saldo cero.');
+    if(!$account['open']||$account['charges']<1||$account['balance']!==0||$account['booking']['status']!=='confirmed')throw new \DomainException('Para este ejercicio de contado, la reserva debe estar confirmada y la cuenta de prueba abierta, con cargos positivos y saldo cero.');
     foreach($account['entries'] as $entry)if($entry['mode']!=='demo')throw new \DomainException('No se envían movimientos reales a beta.');
     $entries=array_map(static fn(array $e):array=>array_intersect_key($e,array_flip(['id','kind','amount','reverses_id','mode'])),$account['entries']);
     return ['amount'=>$account['charges'],'hash'=>hash('sha256',json_encode([$reservation,$account['charges'],$account['collected'],$entries],JSON_THROW_ON_ERROR))];

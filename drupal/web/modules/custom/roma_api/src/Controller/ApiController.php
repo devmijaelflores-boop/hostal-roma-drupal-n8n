@@ -57,7 +57,7 @@ class ApiController extends ControllerBase {
   public function reserve(Request $request): JsonResponse {
     $this->guard($request, 'roma.api.write', 10);
     $body = $this->body($request);
-    if (($body['demo_consent'] ?? FALSE) !== TRUE) { return $this->respond(['error' => 'Acepta el uso de datos de demostración.'], 422); }
+    if (($body['demo_consent'] ?? FALSE) !== TRUE) { return $this->respond(['error' => 'Acepta el uso de datos de prueba.'], 422); }
     $fields = array_intersect_key($body, array_flip(['customer_name', 'email', 'phone', 'room_id', 'arrival', 'departure', 'guests', 'request_key']));
     try { return $this->respond(['demo' => TRUE, 'reservation' => $this->hotel->request($fields)], 201); }
     catch (\DomainException $error) { return $this->respond(['error' => $error->getMessage()], 422); }

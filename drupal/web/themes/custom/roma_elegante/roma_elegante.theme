@@ -12,7 +12,7 @@ function roma_elegante_preprocess_page(array &$variables): void {
     $rooms = $hotel->rooms();
     foreach ($hotel->types() as $type) {
       $matching = array_values(array_filter($rooms, static fn(array $r): bool => (int) $r['type_id'] === (int) $type['id']));
-      $type['bed'] = 'Distribución de demostración';
+      $type['bed'] = 'Distribución de la habitación';
       $type['price_display'] = \Drupal\roma_booking\Service\HotelService::money((int) $type['amount']);
       $type['request_url'] = \Drupal\Core\Url::fromRoute('roma_booking.request', [], ['query' => $matching ? ['room' => $matching[0]['id']] : []])->toString();
       $variables['roma_rooms'][] = $type;

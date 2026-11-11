@@ -14,7 +14,7 @@ use Drupal\commerce_payment\Entity\PaymentGateway;
 final class AcademicPayment extends CheckoutPaneBase {
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
     $pane_form['notice'] = ['#markup'=>'<p>Pasarela de prueba local. Elige un resultado para demostrar el proceso. No se solicitan tarjetas, cuentas bancarias ni se realiza un cobro.</p>'];
-    $pane_form['outcome'] = ['#type'=>'radios','#title'=>'Resultado del pago de demostración','#options'=>['approved'=>'Aprobar pago de prueba','declined'=>'Rechazar pago de prueba','cancelled'=>'Cancelar operación de prueba'],'#required'=>TRUE];
+    $pane_form['outcome'] = ['#type'=>'radios','#title'=>'Resultado del pago de prueba','#options'=>['approved'=>'Aprobar pago de prueba','declined'=>'Rechazar pago de prueba','cancelled'=>'Cancelar operación de prueba'],'#required'=>TRUE];
     $pane_form['back'] = Link::fromTextAndUrl('Volver al carrito',Url::fromRoute('roma_shop.cart'))->toRenderable();
     return $pane_form;
   }

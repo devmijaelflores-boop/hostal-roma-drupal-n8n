@@ -27,7 +27,7 @@ final class AccountForm extends FormBase {
     }
     if(!$account['open']){
       $form['explanation']=['#markup'=>'<p>Abrir la cuenta guarda el estimado original como cargo inicial de simulación. No confirma la reserva, no cobra dinero y no cambia las tarifas. Abrirla nuevamente no duplica el cargo.</p>'];
-      $form['actions']=['#type'=>'actions','save'=>['#type'=>'submit','#value'=>'Abrir cuenta de demostración']];
+      $form['actions']=['#type'=>'actions','save'=>['#type'=>'submit','#value'=>'Abrir cuenta de prueba']];
     }else{
       $balance=$account['balance'];
       $form['summary']=['#type'=>'table','#attributes'=>['class'=>['finance-summary']],'#header'=>['Concepto','PEN (simulado)'],'#rows'=>[
@@ -64,7 +64,7 @@ final class AccountForm extends FormBase {
     try{
       if(!$form_state->getValue('is_open'))$ledger->open($this->reservation,$actor);
       else $ledger->record($this->reservation,(string)$form_state->getValue('kind'),LedgerService::cents((string)$form_state->getValue('amount')),(string)$form_state->getValue('note'),(string)$form_state->getValue('method'),(string)$form_state->getValue('operation_key'),$actor);
-      $this->messenger()->addStatus('Operación de demostración registrada. No se movió dinero.');$form_state->setRedirect('roma_finance.account',['reservation'=>$this->reservation]);
+      $this->messenger()->addStatus('Operación de prueba registrada. No se movió dinero.');$form_state->setRedirect('roma_finance.account',['reservation'=>$this->reservation]);
     }catch(\DomainException $e){$this->messenger()->addError($e->getMessage());$form_state->setRebuild();}
   }
 }

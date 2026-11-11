@@ -27,7 +27,7 @@ final class AssistantController extends ApiController {
         try {
           $arrival = $convert($matches[0][0]); $departure = $convert($matches[0][1]);
           $rooms = $this->hotel->availability($arrival, $departure, $guests);
-          $output = 'Disponibilidad de demostración del ' . HotelService::date($arrival) . ' al ' . HotelService::date($departure) . ' para ' . $guests . ' persona(s): ';
+          $output = 'Disponibilidad de prueba del ' . HotelService::date($arrival) . ' al ' . HotelService::date($departure) . ' para ' . $guests . ' persona(s): ';
           if (!$rooms) { $output .= 'no hay habitaciones para esos criterios.'; }
           else {
             $groups = [];
@@ -38,10 +38,10 @@ final class AssistantController extends ApiController {
         }
         catch (\DomainException $error) { $output = $error->getMessage(); }
       }
-      else { $output = 'Indica llegada, salida y huéspedes. Ejemplo: «Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas». Consultaré la base de la demo; no es disponibilidad del negocio real.'; }
+      else { $output = 'Indica llegada, salida y huéspedes. Ejemplo: «Disponibilidad del 20/12/2027 al 22/12/2027 para 2 personas». Consultaré la base de la prueba; no es disponibilidad del negocio real.'; }
     }
     elseif (preg_match('/servicio|wifi|wi-fi|cochera|estacion|agua|bano/', $text)) {
-      $output = 'Servicios del catálogo de demostración: ' . implode(', ', array_column($this->hotel->services(), 'name')) . '.';
+      $output = 'Servicios del catálogo de prueba: ' . implode(', ', array_column($this->hotel->services(), 'name')) . '.';
     }
     elseif (preg_match('/ubic|direccion|donde|llegar/', $text)) {
       $output = 'El establecimiento de referencia indicado por el usuario está en Nueva Zelandia 196, Juliaca 21101, Puno, Perú. [Ver ubicación](/#ubicacion). El proyecto es independiente y no oficial.';
@@ -50,13 +50,13 @@ final class AssistantController extends ApiController {
       $output = 'Por privacidad no solicito claves en el chat. [Consulta tu solicitud en el formulario seguro](/mi-reserva) usando su código y clave privada. El estado se obtiene de MariaDB; solo el panel autorizado confirma o cancela.';
     }
     elseif (preg_match('/carrito|checkout|tienda|comprar/', $text)) {
-      $output = '[Visita la tienda de estadías](/tienda), elige habitación, fechas y huéspedes y agrega tus estadías al [carrito](/carrito). El checkout registra solicitudes pendientes y permite aprobar, rechazar o cancelar un pago de demostración. No se cobra dinero real. La confirmación de las habitaciones corresponde al administrador.';
+      $output = '[Visita la tienda de estadías](/tienda), elige habitación, fechas y huéspedes y agrega tus estadías al [carrito](/carrito). El checkout registra solicitudes pendientes y permite aprobar, rechazar o cancelar un pago de prueba. No se cobra dinero real. La confirmación de las habitaciones corresponde al administrador.';
     }
     elseif (preg_match('/reserv|solicitud|alojar/', $text)) {
       $output = '[Solicita una reserva](/reservar). El formulario comprobará fechas, capacidad y disponibilidad. Recibirás un código y una clave privada. La solicitud quedará pendiente; no significa una confirmación ni genera un cobro.';
     }
     elseif (preg_match('/pago|pagar|tarjeta|yape|plin/', $text)) {
-      $output = 'Los pagos del proyecto son exclusivamente de demostración. [Consulta tu solicitud](/mi-reserva) para ver las opciones habilitadas. Nunca compartas tarjetas, claves bancarias ni datos reales en el chat.';
+      $output = 'Los pagos del proyecto son exclusivamente de prueba. [Consulta tu solicitud](/mi-reserva) para ver las opciones habilitadas. Nunca compartas tarjetas, claves bancarias ni datos reales en el chat.';
     }
     elseif (preg_match('/precio|tarifa|cuesta|habitacion|individual|matrimonial|doble|promo|barat|economic/', $text)) {
       $lines = [];

@@ -25,7 +25,7 @@ final class ShopService {
       $sku = 'ROMA-ROOM-' . $room['id'];
       $variations = $this->entities->getStorage('commerce_product_variation')->loadByProperties(['sku'=>$sku]);
       $variation = reset($variations) ?: ProductVariation::create(['type'=>'roma_night','sku'=>$sku]);
-      $variation->setTitle($room['type_name'] . ' · ' . $room['code'] . ' · noche de demostración');
+      $variation->setTitle($room['type_name'] . ' · ' . $room['code'] . ' · noche de prueba');
       $variation->setPrice(self::price((int) $room['amount']));
       $variation->set('status', (int) $room['active']);
       $variation->save();
@@ -94,7 +94,7 @@ final class ShopService {
       if ($existing) { $transaction->commitOrRelease(); return; }
       $total = $this->validate($order);
       $guest = $order->getData('roma_guest', []);
-      if (empty($guest['consent']) || mb_strlen(trim($guest['name'] ?? '')) < 2 || !filter_var($order->getEmail(), FILTER_VALIDATE_EMAIL)) { throw new \DomainException('Completa los datos y el consentimiento de demostración.'); }
+      if (empty($guest['consent']) || mb_strlen(trim($guest['name'] ?? '')) < 2 || !filter_var($order->getEmail(), FILTER_VALIDATE_EMAIL)) { throw new \DomainException('Completa los datos y el consentimiento de prueba.'); }
       if (!$payment->getAmount()->equals(self::price($total))) { throw new \DomainException('El importe del pago no coincide con el pedido.'); }
       foreach ($order->getItems() as $item) {
         $line = $item->getData('roma');

@@ -19,17 +19,17 @@ final class CatalogForm extends HotelFormBase {
     }
     else {
       $form['name'] = ['#type' => 'textfield', '#title' => 'Nombre', '#required' => TRUE, '#maxlength' => $kind === 'type' ? 80 : 100, '#default_value' => $item['name'] ?? ''];
-      $form['description'] = ['#type' => 'textarea', '#title' => 'Descripción de demostración', '#maxlength' => 1000, '#default_value' => $item['description'] ?? ''];
+      $form['description'] = ['#type' => 'textarea', '#title' => 'Descripción de prueba', '#maxlength' => 1000, '#default_value' => $item['description'] ?? ''];
       if ($kind === 'type') {
         $form['capacity'] = ['#type' => 'number', '#title' => 'Capacidad máxima', '#min' => 1, '#max' => 10, '#step' => 1, '#required' => TRUE, '#default_value' => $item['capacity'] ?? 1];
         $form['price'] = ['#type' => 'textfield', '#title' => 'Tarifa ficticia por noche (PEN)', '#description' => 'Importe de 1.00 a 99999.99, con dos decimales como máximo.', '#required' => TRUE, '#default_value' => isset($item['amount']) ? number_format($item['amount'] / 100, 2, '.', '') : '85.00'];
-        $form['category'] = ['#type' => 'textfield', '#title' => 'Subtítulo de la tarjeta', '#maxlength' => 100, '#default_value' => $item['category'] ?? 'CATÁLOGO DE DEMOSTRACIÓN'];
+        $form['category'] = ['#type' => 'textfield', '#title' => 'Subtítulo de la tarjeta', '#maxlength' => 100, '#default_value' => $item['category'] ?? 'CATÁLOGO DE PRUEBA'];
         $form['image'] = ['#type' => 'select', '#title' => 'Fotografía referencial', '#options' => ['individual.jpg' => 'Interior claro', 'matrimonial.jpg' => 'Interior matrimonial', 'doble.jpg' => 'Interior amplio'], '#default_value' => $item['image'] ?? 'individual.jpg'];
         $services = []; foreach ($this->hotel->services(FALSE) as $service) { $services[$service['id']] = $service['name']; }
         $form['services'] = ['#type' => 'checkboxes', '#title' => 'Servicios asociados', '#options' => $services, '#default_value' => $item['services'] ?? []];
       }
     }
-    $form['active'] = ['#type' => 'checkbox', '#title' => 'Activo en el catálogo de demostración', '#default_value' => $item['active'] ?? 1];
+    $form['active'] = ['#type' => 'checkbox', '#title' => 'Activo en el catálogo de prueba', '#default_value' => $item['active'] ?? 1];
     $form['actions'] = ['#type' => 'actions', 'submit' => ['#type' => 'submit', '#value' => 'Guardar cambios'], 'cancel' => ['#type' => 'link', '#title' => 'Volver al catálogo', '#url' => Url::fromRoute('roma_booking.catalog')]];
     return $form;
   }

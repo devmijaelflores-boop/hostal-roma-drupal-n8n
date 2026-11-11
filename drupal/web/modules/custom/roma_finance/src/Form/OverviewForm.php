@@ -14,7 +14,7 @@ final class OverviewForm extends FormBase {
     $from=(string)$this->getRequest()->query->get('from',substr($today,0,7).'-01');$to=(string)$this->getRequest()->query->get('to',$today);
     try { $report=$ledger->overview($from,$to); }catch(\DomainException $e){$this->messenger()->addError($e->getMessage());$from=$today;$to=$today;$report=$ledger->overview($from,$to);}
     $form['#cache']['max-age']=0;$form['#attached']['library'][]='roma_finance/finance';
-    $form['notice']=['#markup'=>'<p class="finance-notice"><strong>Libro de demostración: sin dinero real.</strong> Los registros no cobran tarjetas ni acreditan ingresos del hotel. Los pagos de prueba de Commerce no se importan como cobros de esta cuenta.</p>'];
+    $form['notice']=['#markup'=>'<p class="finance-notice"><strong>Libro de prueba: sin dinero real.</strong> Los registros no cobran tarjetas ni acreditan ingresos del hotel. Los pagos de prueba de Commerce no se importan como cobros de esta cuenta.</p>'];
     $form['back']=Link::fromTextAndUrl('Volver al panel hotelero',Url::fromRoute('roma_booking.dashboard'))->toRenderable();
     $form['filter']=['#type'=>'fieldset','#title'=>'Movimientos por periodo (hora de Perú)'];
     foreach(['from'=>['Desde',$from],'to'=>['Hasta (incluido)',$to]] as $key=>[$title,$value]){$form['filter'][$key]=['#type'=>'date','#title'=>$title,'#default_value'=>$value,'#required'=>TRUE];}

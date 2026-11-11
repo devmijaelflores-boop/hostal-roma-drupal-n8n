@@ -38,7 +38,7 @@ roma_booking.dashboard:
   path: '/admin/roma'
   defaults:
     _controller: '\Drupal\roma_booking\Controller\AdminController::dashboard'
-    _title: 'Hotel ROMA — Panel de demostración'
+    _title: 'Hotel ROMA — Panel de prueba'
   requirements:
     _permission: 'access roma dashboard'
   options:
@@ -58,7 +58,7 @@ roma_booking.catalog_edit:
   path: '/admin/roma/catalogo/{kind}/{id}'
   defaults:
     _form: '\Drupal\roma_booking\Form\CatalogForm'
-    _title: 'Editar catálogo de demostración'
+    _title: 'Editar catálogo de prueba'
     id: '0'
   requirements:
     _permission: 'administer roma catalog'
@@ -93,7 +93,7 @@ roma_booking.messages:
   path: '/admin/roma/mensajes'
   defaults:
     _controller: '\Drupal\roma_booking\Controller\AdminController::messages'
-    _title: 'Mensajes de demostración'
+    _title: 'Mensajes de prueba'
   requirements:
     _permission: 'manage roma reservations'
   options:

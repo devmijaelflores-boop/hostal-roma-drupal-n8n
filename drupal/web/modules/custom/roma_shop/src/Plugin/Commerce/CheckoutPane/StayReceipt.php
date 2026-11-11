@@ -8,11 +8,11 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\commerce_checkout\Attribute\CommerceCheckoutPane;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
 
-#[CommerceCheckoutPane(id: 'roma_receipt', label: new TranslatableMarkup('Recibo de demostración'), default_step: 'complete')]
+#[CommerceCheckoutPane(id: 'roma_receipt', label: new TranslatableMarkup('Recibo de prueba'), default_step: 'complete')]
 final class StayReceipt extends CheckoutPaneBase {
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
     $pane_form['receipt'] = ['#type'=>'container','#attributes'=>['class'=>['hotel-receipt']],
-      'title'=>['#markup'=>'<h2>Pedido de demostración registrado</h2>'],
+      'title'=>['#markup'=>'<h2>Pedido de prueba registrado</h2>'],
       'number'=>['#type'=>'item','#title'=>'Número de pedido','#plain_text'=>(string) $this->order->getOrderNumber()],
       'state'=>['#markup'=>'<p>Pago de prueba aprobado, sin dinero real. Las solicitudes de reserva están <strong>pendientes de confirmación</strong> por el administrador.</p>'],
     ];

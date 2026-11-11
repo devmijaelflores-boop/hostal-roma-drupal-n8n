@@ -17,7 +17,7 @@ final class ReverseForm extends ConfirmFormBase {
   }
   public function getQuestion(){return $this->t('¿Anular el movimiento @ref mediante una contrapartida?',['@ref'=>$this->entry['reference']]);}
   public function getDescription(){return $this->t('El registro original se conserva y se añade su efecto inverso. Esta operación no realiza una devolución bancaria ni anula un comprobante SUNAT.');}
-  public function getConfirmText(){return $this->t('Registrar contrapartida de demostración');}
+  public function getConfirmText(){return $this->t('Registrar contrapartida de prueba');}
   public function getCancelUrl():Url{return Url::fromRoute('roma_finance.account',['reservation'=>$this->entry['reservation_id']]);}
   public function validateForm(array &$form,FormStateInterface $form_state):void{if(mb_strlen(trim((string)$form_state->getValue('note')))<5)$form_state->setErrorByName('note','Indica un motivo de al menos 5 caracteres.');}
   public function submitForm(array &$form,FormStateInterface $form_state):void{

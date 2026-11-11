@@ -1,5 +1,5 @@
 roma_booking.dashboard:
-  title: 'Hotel ROMA — Demo'
+  title: 'Hotel ROMA — prueba'
   description: 'Habitaciones, tarifas, solicitudes, ocupación y mensajes.'
   route_name: roma_booking.dashboard
   parent: system.admin

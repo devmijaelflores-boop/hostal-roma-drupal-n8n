@@ -1,6 +1,6 @@
 name: 'ROMA — API e integración'
 type: module
-description: 'API segura, puente hacia n8n y automatizaciones locales de demostración.'
+description: 'API segura, puente hacia n8n y automatizaciones locales de prueba.'
 core_version_requirement: ^11
 package: ROMA
 dependencies:

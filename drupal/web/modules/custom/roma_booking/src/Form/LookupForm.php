@@ -19,8 +19,8 @@ final class LookupForm extends HotelFormBase {
       $row = $form_state->get('result');
       $last = \Drupal::service('roma_payments.demo')->last($row['reference']);
       $labels = ['demo_approved'=>'Aprobado en simulación', 'demo_declined'=>'Rechazado en simulación', 'demo_cancelled'=>'Cancelado en simulación'];
-      $form['payment'] = ['#type'=>'item', '#title'=>'Pago de demostración', '#plain_text'=>$last ? $labels[$last['outcome']] . '. Sin dinero real. Código: ' . $last['receipt'] : 'Sin simulaciones de pago.'];
-      if ($row['status'] === 'confirmed') { $form['payment_link'] = \Drupal\Core\Link::fromTextAndUrl('Probar pago de demostración (sin dinero real)', \Drupal\Core\Url::fromRoute('roma_payments.demo'))->toRenderable(); }
+      $form['payment'] = ['#type'=>'item', '#title'=>'Pago de prueba', '#plain_text'=>$last ? $labels[$last['outcome']] . '. Sin dinero real. Código: ' . $last['receipt'] : 'Sin simulaciones de pago.'];
+      if ($row['status'] === 'confirmed') { $form['payment_link'] = \Drupal\Core\Link::fromTextAndUrl('Probar pago de prueba (sin dinero real)', \Drupal\Core\Url::fromRoute('roma_payments.demo'))->toRenderable(); }
     }
     return $form;
   }

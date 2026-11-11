@@ -24,7 +24,7 @@
       <div class="planner-field"><label for="guests">{{ ui.icon('user') }} Huéspedes</label><select id="guests" name="guests"><option value="1">1 huésped</option><option value="2" selected>2 huéspedes</option><option value="3">3 huéspedes</option><option value="4">4 huéspedes</option></select></div>
       <button class="button button-dark planner-submit" type="submit">Consultar {{ ui.icon('arrow') }}</button>
     </form>
-    <div class="planner-caption"><span class="small-label">DEMO FUNCIONAL</span><span>Disponibilidad calculada con datos de la demo. Solo las reservas confirmadas bloquean habitaciones.</span></div>
+    <div class="planner-caption"><span class="small-label">DISPONIBILIDAD</span><span>Consulta fechas y huéspedes. Solo las reservas confirmadas bloquean habitaciones.</span></div>
     <p id="planner-result" class="planner-result" role="status" hidden></p>
     <noscript><p>Puedes consultar la disponibilidad sin JavaScript usando este formulario.</p></noscript>
   </section>
@@ -36,7 +36,7 @@
 
   <section class="rooms-section section-space" id="habitaciones" aria-labelledby="rooms-title">
     <div class="wrap">
-      <div class="section-heading"><div><p class="eyebrow">ESPACIOS PARA DESCONECTAR</p><h2 id="rooms-title">Encuentra tu <em>descanso.</em></h2></div><p>Tres formas de imaginar tu estadía.<br><span class="muted">Catálogo y tarifas de demostración.</span></p></div>
+      <div class="section-heading"><div><p class="eyebrow">ESPACIOS PARA DESCONECTAR</p><h2 id="rooms-title">Encuentra tu <em>descanso.</em></h2></div><p>Tres formas de imaginar tu estadía.<br><span class="muted">Catálogo de habitaciones y tarifas.</span></p></div>
       <div class="room-filters" role="group" aria-label="Filtrar habitaciones de muestra"><button type="button" data-room-filter="all" aria-pressed="true">Todas las habitaciones</button><button type="button" data-room-filter="1" aria-pressed="false">Para una persona</button><button type="button" data-room-filter="2" aria-pressed="false">Para dos personas</button></div>
       <div class="room-grid">
         {% for room in roma_rooms %}
@@ -53,9 +53,9 @@
 
   <section class="wrap hotel-story" id="historia"><p class="eyebrow">EL ORIGEN DE NUESTRA BIENVENIDA</p><h2>{{ roma_content.story_title|default('Nuestra historia') }}</h2><p>{{ roma_content.story_text|default('Cada viaje merece una buena bienvenida. Este espacio está preparado para contar el origen del hotel, las personas que lo impulsan y su vínculo con la ciudad.') }}</p></section>
   <section class="services-section section-space" id="servicios" aria-labelledby="services-title">
-    <div class="wrap"><div class="section-heading"><div><p class="eyebrow light">LO SENCILLO, BIEN PENSADO</p><h2 id="services-title">Pequeños detalles.<br><em>Una mejor pausa.</em></h2></div><p>Comodidades que forman parte de nuestra<br>propuesta de demostración.</p></div>
+    <div class="wrap"><div class="section-heading"><div><p class="eyebrow light">LO SENCILLO, BIEN PENSADO</p><h2 id="services-title">Pequeños detalles.<br><em>Una mejor pausa.</em></h2></div><p>Comodidades que forman parte de nuestra<br>propuesta de alojamiento.</p></div>
       <div class="services-grid">{% for service in roma_services %}<article>{{ ui.icon(loop.index == 1 ? 'wifi' : (loop.index == 2 ? 'car' : (loop.index == 3 ? 'shower' : 'sun'))) }}<h3>{{ service.name }}</h3><p>{{ service.description }}</p></article>{% endfor %}</div>
-      <p class="services-disclaimer">Servicios de demostración; no constituyen una oferta del negocio real.</p>
+      <p class="services-disclaimer">Servicios del catálogo; consulta sus condiciones con recepción.</p>
     </div>
   </section>
 
@@ -64,7 +64,7 @@
     <div class="location-copy"><p class="eyebrow">UN DESTINO, MUCHAS HISTORIAS</p><h2 id="location-title">El viaje empieza<br>en <em>{{ roma_content.city }}.</em></h2><p>{{ roma_content.location_text|default('El altiplano es el escenario de esta propuesta. Juliaca, en Puno, Perú, es la ciudad de referencia de nuestro proyecto académico.') }}</p><div class="location-address">{{ ui.icon('pin') }}<div><strong>{{ roma_content.address|default('Nueva Zelandia 196, Juliaca 21101, Puno, Perú') }}</strong><span>Dirección</span></div></div><p class="muted small"> Sistema independiente sin afiliación al establecimiento.</p><a class="text-link" href="{{ roma_maps_url }}" target="_blank" rel="noopener noreferrer">Cómo llegar · Google Maps {{ ui.icon('diagonal') }}</a></div>
   </section>
 
-  <section class="closing-section"><div class="wrap closing-inner"><div><p class="eyebrow">TU PRÓXIMA PAUSA</p><h2>Todo buen viaje merece<br>un <em>buen descanso.</em></h2></div><div><a class="button button-dark" href="#planifica">Planifica tu estadía {{ ui.icon('diagonal') }}</a><p>Una experiencia de demostración, por ahora.</p></div></div></section>
+  <section class="closing-section"><div class="wrap closing-inner"><div><p class="eyebrow">TU PRÓXIMA PAUSA</p><h2>Todo buen viaje merece<br>un <em>buen descanso.</em></h2></div><div><a class="button button-dark" href="#planifica">Planifica tu estadía {{ ui.icon('diagonal') }}</a><p>Encuentra una opción para tu próximo viaje.</p></div></div></section>
 </main>
 {% include '@roma_elegante/footer.html.twig' %}
 
@@ -72,7 +72,7 @@
 <dialog class="room-dialog" id="room-{{ room.id }}" aria-labelledby="dialog-title-{{ room.id }}">
   <button class="dialog-close" type="button" aria-label="Cerrar detalles">{{ ui.icon('close') }}</button>
   <div class="room-gallery" data-gallery data-images="{{ [roma_assets ~ '/images/' ~ room.image, roma_assets ~ '/images/hero.jpg']|json_encode|e('html_attr') }}"><button type="button" class="gallery-image-button" data-gallery-expand aria-label="Ampliar fotografía"><img data-gallery-image src="{{ roma_assets }}/images/{{ room.image }}" alt="Selección de interiores para {{ room.name }}; imágenes ilustrativas" width="900" height="600" loading="lazy"></button><div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / 2</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button></div><p class="gallery-caption">Selección de interiores · Imágenes ilustrativas</p></div>
-  <div class="dialog-content"><p class="eyebrow">HABITACIÓN DE DEMOSTRACIÓN</p><h2 id="dialog-title-{{ room.id }}">{{ room.name }}</h2><p>{{ room.description }}</p><p>{{ room.bed }} · Capacidad ilustrativa: {{ room.capacity }} {{ room.capacity == 1 ? 'persona' : 'personas' }}.</p><p class="dialog-price">{{ room.price_display }} <span>por noche · tarifa ficticia</span></p><p class="demo-explanation">Catálogo ficticio con inventario y solicitudes de prueba en la base de datos. La disponibilidad se comprueba al solicitar y confirmar. </p><a class="button button-dark dialog-plan" href="{{ room.request_url }}">Solicitar reserva {{ ui.icon('arrow') }}</a></div>
+  <div class="dialog-content"><p class="eyebrow">HABITACIÓN</p><h2 id="dialog-title-{{ room.id }}">{{ room.name }}</h2><p>{{ room.description }}</p><p>{{ room.bed }} · Capacidad ilustrativa: {{ room.capacity }} {{ room.capacity == 1 ? 'persona' : 'personas' }}.</p><p class="dialog-price">{{ room.price_display }} <span>por noche · tarifa ficticia</span></p><p class="demo-explanation">Catálogo ficticio con inventario y solicitudes de prueba en la base de datos. La disponibilidad se comprueba al solicitar y confirmar. </p><a class="button button-dark dialog-plan" href="{{ room.request_url }}">Solicitar reserva {{ ui.icon('arrow') }}</a></div>
 </dialog>
 {% endfor %}
 

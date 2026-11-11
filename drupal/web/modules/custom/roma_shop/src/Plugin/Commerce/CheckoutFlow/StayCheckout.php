@@ -13,7 +13,7 @@ final class StayCheckout extends CheckoutFlowWithPanesBase {
     return [
       'order_information'=>['label'=>'Datos del huésped','next_label'=>'Continuar','previous_label'=>'Volver','has_sidebar'=>TRUE],
       'review'=>['label'=>'Revisar pedido','next_label'=>'Revisar pedido','previous_label'=>'Volver a la revisión','has_sidebar'=>TRUE],
-      'payment'=>['label'=>'Pago de demostración','next_label'=>'Elegir pago de prueba','previous_label'=>'Volver al pago','has_sidebar'=>TRUE],
+      'payment'=>['label'=>'Pago de prueba','next_label'=>'Elegir pago de prueba','previous_label'=>'Volver al pago','has_sidebar'=>TRUE],
       'complete'=>['label'=>'Pedido registrado','next_label'=>'Registrar pedido de prueba','has_sidebar'=>FALSE],
     ];
   }
@@ -24,7 +24,7 @@ final class StayCheckout extends CheckoutFlowWithPanesBase {
     $form['#attached']['library'][] = 'roma_booking/hotel';
     $form['#attached']['library'][] = 'roma_shop/shop';
     $form['#attributes']['data-hotel-feedback'] = 'true';
-    $form['intro'] = ['#weight'=>-100,'#markup'=>'<p class="shop-checkout-notice">Compra académica de demostración en PEN. Las solicitudes quedarán pendientes de confirmación y no se cobrará dinero real.</p>'];
+    $form['intro'] = ['#weight'=>-100,'#markup'=>'<p class="shop-checkout-notice">Compra académica de prueba en PEN. Las solicitudes quedarán pendientes de confirmación y no se cobrará dinero real.</p>'];
     if ($step_id !== 'complete') {
       $form['_roma_csrf'] = ['#type'=>'hidden','#default_value'=>\Drupal::csrfToken()->get('roma_checkout:' . $this->order->uuid() . ':' . $step_id)];
       $form['website'] = ['#type'=>'textfield','#title'=>'Sitio web (dejar vacío)','#attributes'=>['autocomplete'=>'off','tabindex'=>'-1'],'#wrapper_attributes'=>['class'=>['visually-hidden']]];
@@ -48,7 +48,7 @@ final class StayCheckout extends CheckoutFlowWithPanesBase {
   }
   protected function onStepChange($step_id) {
     if ($step_id === 'complete' && $this->order->getState()->getId() === 'draft' && !$this->order->getData('roma_checkout_done')) {
-      throw new HttpException(409,'Completa el pago de demostración antes de registrar el pedido.');
+      throw new HttpException(409,'Completa el pago de prueba antes de registrar el pedido.');
     }
     parent::onStepChange($step_id);
   }

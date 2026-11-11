@@ -10,10 +10,10 @@ final class DemoPaymentForm extends HotelFormBase {
     $this->protect($form);
     if ($row = $form_state->get('receipt')) {
       $labels=['demo_approved'=>'Aprobado en simulación','demo_declined'=>'Rechazado en simulación','demo_cancelled'=>'Cancelado en simulación'];
-      $form['receipt']=['#type'=>'container','#attributes'=>['class'=>['hotel-receipt']], 'heading'=>['#markup'=>'<h2>Resultado de pago de demostración</h2>'], 'detail'=>['#plain_text'=>$labels[$row['outcome']] . '. Código: ' . $row['receipt'] . '. Importe ficticio: ' . HotelService::money((int)$row['amount']) . '. No se ha realizado ningún cobro. Este registro no es un comprobante de pago, boleta ni factura.']];
+      $form['receipt']=['#type'=>'container','#attributes'=>['class'=>['hotel-receipt']], 'heading'=>['#markup'=>'<h2>Resultado de pago de prueba</h2>'], 'detail'=>['#plain_text'=>$labels[$row['outcome']] . '. Código: ' . $row['receipt'] . '. Importe ficticio: ' . HotelService::money((int)$row['amount']) . '. No se ha realizado ningún cobro. Este registro no es un comprobante de pago, boleta ni factura.']];
       return $form;
     }
-    $form['intro']=['#markup'=>'<p><strong>Simulador académico sin dinero real.</strong> No solicita tarjeta, datos bancarios, Yape ni Plin. Permite probar resultados aprobados, rechazados y cancelados sobre reservas confirmadas de demostración. Una pasarela externa requerirá credenciales de prueba y una integración adicional.</p>'];
+    $form['intro']=['#markup'=>'<p><strong>Simulador académico sin dinero real.</strong> No solicita tarjeta, datos bancarios, Yape ni Plin. Permite probar resultados aprobados, rechazados y cancelados sobre reservas confirmadas de prueba. Una pasarela externa requerirá credenciales de prueba y una integración adicional.</p>'];
     $form['reference']=['#type'=>'textfield','#title'=>'Código de solicitud','#maxlength'=>32,'#required'=>TRUE];
     $form['secret']=['#type'=>'password','#title'=>'Clave privada de consulta','#maxlength'=>100,'#required'=>TRUE];
     $form['outcome']=['#type'=>'select','#title'=>'Resultado que deseas simular','#options'=>['demo_approved'=>'Aprobar pago ficticio','demo_declined'=>'Rechazar pago ficticio','demo_cancelled'=>'Cancelar pago ficticio'],'#required'=>TRUE];

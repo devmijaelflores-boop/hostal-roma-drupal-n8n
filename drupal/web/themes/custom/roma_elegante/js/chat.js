@@ -21,7 +21,7 @@ try {
 } catch {
   launcher.disabled=false;launcher.textContent='Reintentar chat';
   if(status)status.hidden=false;
-  if (status) status.textContent='Chat en modo demostración sin conexión. Puedes consultar disponibilidad y solicitar una reserva desde los formularios.';
+  if (status) status.textContent='Chat en modo de prueba sin conexión. Puedes consultar disponibilidad y solicitar una reserva desde los formularios.';
 }
 
 });
