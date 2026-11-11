@@ -1,4 +1,5 @@
 const translations = {
+  "Ver habitación": "View room",
   "Encuentra el espacio para tu próximo descanso.": "Find your space for a restful stay.",
   "Habitaciones desde": "Rooms from",
   "Pausar carrusel": "Pause slideshow",
