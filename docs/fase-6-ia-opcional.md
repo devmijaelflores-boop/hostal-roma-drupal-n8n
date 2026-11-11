@@ -19,7 +19,7 @@ Estado: JSON preparado y validado sintácticamente; no probado contra OpenAI por
 
 ## Alternativa Gemini
 
-`n8n/workflows/optional/chat-gemini-optional.json` usa la credencial `Gemini Hotel` (tipo `googlePalmApi`), guardada exclusivamente en n8n. Clasifica la intención con Gemini 3.5 Flash Lite; consulta los importes y disponibilidad en Drupal. No crea reservas ni genera confirmaciones. No ofrece memoria de conversación ni redacta libremente respuestas: la IA interpreta la consulta y Drupal responde desde el catálogo.
+`n8n/workflows/optional/chat-gemini-optional.json` usa la credencial `Gemini Hotel` (tipo `googlePalmApi`), guardada exclusivamente en n8n. Clasifica la intención con Gemini 3.5 Flash Lite; consulta los importes y disponibilidad en Drupal. No crea reservas ni genera confirmaciones. No ofrece memoria de conversación. Para consultas hoteleras, la IA interpreta y Drupal responde desde el catálogo; para preguntas generales puede devolver una respuesta breve.
 
 Las consultas se limitan a 1000 caracteres y se omiten correos y secuencias numéricas largas antes de enviarlas a Google. Esto no constituye anonimización completa: usar solo datos de prueba. No se exportan registros de huéspedes. Los errores, salidas inválidas o cuota agotada vuelven a interpretación determinista. Si n8n deja de responder, el puente intenta consultar Drupal directamente. No se guardan ejecuciones con datos del chat.
 
@@ -36,3 +36,11 @@ Fuentes: [Gemini 3.5 Flash Lite](https://ai.google.dev/gemini-api/docs/models/ge
 ### Respuestas rápidas
 
 El flujo detecta primero saludos y consultas explícitas de precios, servicios, fechas, ubicación, pagos y solicitudes. Estas consultas van directamente a Drupal y se identifican internamente con `fast=true`: no son un fallo de IA ni consumen una llamada a Google. Las consultas restantes usan Gemini con espera máxima de 6 segundos para esa solicitud externa y respuesta determinista si no se obtiene una clasificación válida. La espera total también depende de n8n, Drupal y la red.
+
+### Conversación general breve
+
+Las preguntas generales usan una salida estructurada con `intent=general` y `generalReply`. La respuesta se limita a 350 caracteres (el prompt solicita 250) y se descartan enlaces, HTML, importes monetarios y contenido relativo a reservas, habitaciones, pagos o promociones. Esta comprobación es conservadora; no prueba la veracidad de cualquier respuesta general. Los datos comerciales siguen saliendo de Drupal. No se implementa memoria de conversación.
+
+Las consultas rápidas no llaman a Gemini. Cada consulta general puede consumir una solicitud del proveedor; el flujo limita la generación a 256 tokens y conserva el timeout y la respuesta de respaldo. Los tokens internos y los límites efectivos dependen de Google y del modelo, por lo que no equivale a uso ilimitado.
+
+Verificación AWS: «capital de peru?» devolvió «La capital del Perú es Lima 😊.» desde Gemini en 1,09 s. Consulta de precios y promociones: fuente Drupal/MariaDB, `fast=true`, 0,28 s. Tiempos medidos entre servicios, no garantizados. Una primera consulta general devolvió el respaldo; la generación directa y la repetición completa posterior resultaron correctas. La disponibilidad de Gemini puede variar.
