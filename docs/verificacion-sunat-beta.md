@@ -1,6 +1,11 @@
 # Verificación de SUNAT beta
 
-**Fecha: 11/11/2026. Estado de despliegue: implementado y probado en un entorno local aislado; pendiente de publicación en AWS.** La IP anterior no respondió a SSH ni HTTPS. No se cambiaron servicios de EC2 sin conexión ni se reutilizó su base de datos activa: la verificación local partió de una copia de demostración en otra base MariaDB.
+**Fecha: 11/11/2026. Estado: publicado en AWS tras recuperar acceso por la nueva IP.**
+
+Actualización: imagen Docker construida correctamente, módulo habilitado, sin actualizaciones de base pendientes y 44 comprobaciones sin conexiones SUNAT aprobadas en EC2. Portada HTTPS: 200; panel beta anónimo: 403. URL: https://roma-demo.98-91-2-63.sslip.io/admin/roma/sunat-beta. Se guardó un respaldo previo a la instalación. Las evidencias de aceptación CDR siguientes corresponden al entorno local; no se hicieron nuevos envíos desde AWS.
+
+### Registro de la verificación local anterior
+ La IP anterior no respondió a SSH ni HTTPS. No se cambiaron servicios de EC2 sin conexión ni se reutilizó su base de datos activa: la verificación local partió de una copia de demostración en otra base MariaDB.
 
 ## Comunicación con el servicio beta
 
