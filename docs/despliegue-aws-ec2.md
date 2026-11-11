@@ -1,6 +1,6 @@
 # Desplegar el prototipo en AWS EC2
 
-Esta guía prepara el proyecto para una instancia EC2 con Docker Compose. **El proyecto verificado hasta ahora funciona en local; esta guía no significa que ya se haya creado una instancia ni publicado en AWS.** El despliegue real requiere una cuenta AWS, un dominio y acceso autorizado a esa cuenta. AWS puede generar cargos.
+Esta guía explica cómo instalar el proyecto en EC2 con Docker Compose. Ya existe un despliegue de demostración en AWS Academy, documentado en [la verificación de EC2](verificacion-aws.md). Para repetirlo se necesita acceso autorizado a una cuenta AWS y un nombre DNS; puede usarse un dominio propio o uno temporal para una demo. AWS puede generar cargos.
 
 ## Arquitectura propuesta
 
@@ -67,12 +67,15 @@ Ajusta o agrega estas variables en `.env`:
 DOMAIN=reservas.tudominio.pe
 ROMA_PUBLIC_URL=https://reservas.tudominio.pe
 ROMA_TRUSTED_HOSTS=reservas.tudominio.pe
+ROMA_REVERSE_PROXY_ADDRESSES=172.30.99.2
 DRUPAL_PORT=8080
 N8N_PORT=5678
 MAILPIT_PORT=8025
 ```
 
 Los tres puertos de aplicación continúan enlazados solo a `127.0.0.1`; no cambies sus enlaces a `0.0.0.0`. `ROMA_TRUSTED_HOSTS` acepta nombres separados por coma, no URLs. El host interno `drupal` se añade automáticamente para llamadas dentro de Docker.
+
+Caddy tiene la dirección fija `172.30.99.2` en una red Docker exclusiva para el proxy. Drupal confía en sus cabeceras de protocolo e IP únicamente cuando se configura esa dirección; así reconoce HTTPS para enlaces y cookies. Si esa subred ya está ocupada en el servidor, cambia el bloque `networks.proxy` y la dirección de confianza conjuntamente antes de desplegar.
 
 ## 4. Instalar y arrancar
 
@@ -97,10 +100,10 @@ Prueba el chatbot y una reserva con datos ficticios. Una reserva o pago de prueb
 Desde la computadora del administrador abre un túnel SSH; sustituye la llave, IP y usuario por los de la instancia:
 
 ```bash
-ssh -i ~/.ssh/roma-ec2.pem -N -L 5678:127.0.0.1:5678 ubuntu@IP_ELASTICA
+sh scripts/aws-tunnel.sh IP_ELASTICA ~/.ssh/roma-ec2.pem
 ```
 
-Mientras el túnel siga abierto, entra en `http://localhost:5678` desde esa computadora e inicia sesión en n8n. No añadas una regla pública para el puerto 5678. Las credenciales n8n importadas por el script permiten a los workflows consultar Drupal desde la red privada de Compose.
+Mientras el túnel siga abierto, entra en `http://localhost:15678` desde esa computadora e inicia sesión en n8n. La bandeja de correos de prueba queda en `http://localhost:18025`. No añadas reglas públicas para los puertos 5678 ni 8025. Las credenciales n8n importadas por el script permiten a los workflows consultar Drupal desde la red privada de Compose.
 
 ## 6. Actualizar y respaldar
 

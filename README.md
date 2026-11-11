@@ -12,6 +12,8 @@ La aplicación reúne el sistema hotelero y una tienda de estadías con **Drupal
 
 La opción de la consigna implementada es **Drupal/PHP + chat n8n + Docker Compose**. El pago académico permite aprobar, rechazar y cancelar sin dinero real. Una aprobación no confirma habitaciones: cada solicitud requiere decisión administrativa. OpenAI es opcional y permanece desactivado; no hay integración bancaria externa. Ver [tienda y alcance](docs/tienda-commerce.md), [guía para usarla](docs/guia-tienda.md) y [resultados de la entrega](docs/verificacion-tienda.md).
 
+También se desplegó una [demo HTTPS en AWS Academy](https://roma-demo.18-208-158-190.sslip.io/), con el editor n8n privado por túnel SSH. Se aprobaron 48 comprobaciones del servidor y 38 de navegador sobre EC2. El enlace depende de la instancia y de su IP durante el laboratorio; consulta la [verificación del despliegue](docs/verificacion-aws.md).
+
 ## Arranque y comprobación
 
 ```bash
@@ -49,7 +51,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 - [Chat, workflows y automatizaciones n8n](docs/n8n.md).
 - [IA opcional](docs/fase-6-ia-opcional.md).
 - [Pagos: simulador y límite de la pasarela externa](docs/pagos.md).
-- [Despliegue en AWS EC2 con HTTPS y n8n privado](docs/despliegue-aws-ec2.md) (guía preparada; no indica que ya esté publicado).
+- [Despliegue en AWS EC2 con HTTPS y n8n privado](docs/despliegue-aws-ec2.md) y [resultado en AWS Academy](docs/verificacion-aws.md).
 - [Arquitectura](docs/arquitectura.md) y [guion de demostración](docs/guion-demostracion.md).
 - [Referencias web, GitHub y YouTube](docs/referencias-implementacion.md).
 - [Propuesta académica Word/PDF](docs/propuesta/README.md).

@@ -9,6 +9,7 @@ x-drupal-environment: &drupal-environment
   ROMA_N8N_WEBHOOK_TOKEN: ${ROMA_N8N_WEBHOOK_TOKEN:?Genera la clave n8n}
   ROMA_PUBLIC_URL: ${ROMA_PUBLIC_URL:-http://localhost:8080}
   ROMA_TRUSTED_HOSTS: ${ROMA_TRUSTED_HOSTS:-localhost,127.0.0.1}
+  ROMA_REVERSE_PROXY_ADDRESSES: ${ROMA_REVERSE_PROXY_ADDRESSES:-}
   ROMA_CHAT_MODE: ${ROMA_CHAT_MODE:-deterministic}
   TZ: ${TZ:-America/Lima}
 
@@ -46,6 +47,10 @@ services:
     environment: *drupal-environment
     volumes:
       - drupal_files:/var/www/html/web/sites/default/files
+    networks:
+      default: {}
+      proxy:
+        ipv4_address: 172.30.99.3
     healthcheck:
       test: [CMD, php, -r, "exit(@file_get_contents('http://localhost/') === false ? 1 : 0);"]
       interval: 15s
@@ -118,6 +123,9 @@ services:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      proxy:
+        ipv4_address: 172.30.99.2
 
   mailpit:
     image: axllent/mailpit:v1.33.1
@@ -138,3 +146,9 @@ volumes:
   mailpit_data:
   caddy_data:
   caddy_config:
+
+networks:
+  proxy:
+    ipam:
+      config:
+        - subnet: 172.30.99.0/24
