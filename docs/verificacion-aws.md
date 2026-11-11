@@ -50,3 +50,9 @@ Los volúmenes Docker conservan datos entre recreaciones de contenedores. El res
 ## Cambios que acompañan al despliegue
 
 `compose.yaml` incorpora una red para Caddy y Drupal con direcciones fijas; `settings.php` recibe hosts y proxies de confianza desde el entorno. `scripts/aws-tunnel.sh` abre los puertos locales privados con SSH. Estos archivos, la guía y las evidencias pueden guardarse en Git; `.env`, llaves, contraseñas y respaldos se mantienen fuera.
+
+## Textos de la experiencia de reserva
+
+Se simplificaron los títulos de disponibilidad, contacto, tienda y carrito, junto con los botones «Solicitar reserva» y «Consultar disponibilidad». Los formularios presentan «Nombre completo», «Correo electrónico», «Teléfono» y «Datos del huésped»; los importes se muestran como estimados. La navegación usa «Habitaciones», «Servicios» y «Contacto». Se conservan el aviso del prototipo, la identificación de las tarifas e imágenes referenciales, el consentimiento y la explicación del pago simulado. Los cambios de presentación no habilitan cobros ni convierten el catálogo en una oferta oficial del establecimiento.
+
+La comprobación sobre HTTPS, incluyendo formularios, carrito y checkout móvil, se registra en [los resultados de textos](verificacion-textos-aws.json). Para atender reservas del establecimiento se necesita su autorización y confirmar el inventario, las tarifas y el procedimiento de confirmación. Una pasarela real debe integrarse y verificarse antes de mostrar que un pago cobra dinero.

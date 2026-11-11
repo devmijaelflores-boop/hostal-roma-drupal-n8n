@@ -30,9 +30,9 @@ Esta guía está dirigida al visitante y al administrador de la demostración. U
 ## Completar tus datos y revisar el pedido
 
 1. Pulsa **Continuar al checkout** en el carrito.
-2. Completa **Nombre del cliente de prueba**.
-3. Completa **Correo electrónico de prueba**.
-4. Deja vacío **Teléfono de prueba (opcional)** o escribe un número ficticio válido.
+2. Completa **Nombre completo**.
+3. Completa **Correo electrónico**.
+4. Deja vacío **Teléfono (opcional)** o escribe un número ficticio válido.
 5. Marca **Utilizo datos ficticios y entiendo que el pedido y el pago son de demostración**.
 6. Pulsa **Revisar pedido**.
 7. Pulsa **Elegir pago de prueba** después de revisar el resumen.

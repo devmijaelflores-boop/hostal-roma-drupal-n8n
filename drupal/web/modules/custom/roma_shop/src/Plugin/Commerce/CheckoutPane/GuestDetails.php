@@ -6,19 +6,19 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\commerce_checkout\Attribute\CommerceCheckoutPane;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
 
-#[CommerceCheckoutPane(id: 'roma_guest', label: new TranslatableMarkup('Datos del cliente de prueba'), default_step: 'order_information', wrapper_element: 'fieldset')]
+#[CommerceCheckoutPane(id: 'roma_guest', label: new TranslatableMarkup('Datos del huésped'), default_step: 'order_information', wrapper_element: 'fieldset')]
 final class GuestDetails extends CheckoutPaneBase {
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) {
     $guest = $this->order->getData('roma_guest',[]);
-    $pane_form['name'] = ['#type'=>'textfield','#title'=>'Nombre del cliente de prueba','#required'=>TRUE,'#maxlength'=>100,'#default_value'=>$guest['name'] ?? ''];
-    $pane_form['email'] = ['#type'=>'email','#title'=>'Correo electrónico de prueba','#required'=>TRUE,'#maxlength'=>254,'#default_value'=>$this->order->getEmail()];
-    $pane_form['phone'] = ['#type'=>'tel','#title'=>'Teléfono de prueba (opcional)','#maxlength'=>25,'#default_value'=>$guest['phone'] ?? '','#description'=>'Puedes dejarlo vacío. Usa solo números y separadores como +, espacios, paréntesis o guiones.','#attributes'=>['inputmode'=>'tel']];
+    $pane_form['name'] = ['#type'=>'textfield','#title'=>'Nombre completo','#required'=>TRUE,'#maxlength'=>100,'#default_value'=>$guest['name'] ?? ''];
+    $pane_form['email'] = ['#type'=>'email','#title'=>'Correo electrónico','#required'=>TRUE,'#maxlength'=>254,'#default_value'=>$this->order->getEmail()];
+    $pane_form['phone'] = ['#type'=>'tel','#title'=>'Teléfono (opcional)','#maxlength'=>25,'#default_value'=>$guest['phone'] ?? '','#description'=>'Puedes dejarlo vacío. Usa solo números y separadores como +, espacios, paréntesis o guiones.','#attributes'=>['inputmode'=>'tel']];
     $pane_form['consent'] = ['#type'=>'checkbox','#title'=>'Utilizo datos ficticios y entiendo que el pedido y el pago son de demostración.','#required'=>TRUE,'#default_value'=>$guest['consent'] ?? FALSE];
     return $pane_form;
   }
   public function validatePaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
     $values = $form_state->getValue($pane_form['#parents']);
-    if (mb_strlen(trim((string) ($values['name'] ?? ''))) < 2) { $form_state->setError($pane_form['name'],'El nombre de prueba debe tener al menos dos caracteres.'); }
+    if (mb_strlen(trim((string) ($values['name'] ?? ''))) < 2) { $form_state->setError($pane_form['name'],'El nombre debe tener al menos dos caracteres.'); }
     $phone = trim((string) ($values['phone'] ?? ''));
     if ($phone !== '' && !preg_match('/^\+?[0-9 ()-]{6,25}$/D',$phone)) { $form_state->setError($pane_form['phone'],'Revisa el teléfono: no admite letras. También puedes dejarlo vacío.'); }
   }

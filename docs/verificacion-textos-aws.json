@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-11T01:09:10.781Z",
+  "checks": [
+    "/reservar responde",
+    "Etiquetas de huésped simplificadas",
+    "Botón Solicitar reserva",
+    "Aviso académico y condición de confirmación conservados",
+    "/disponibilidad responde",
+    "Disponibilidad con título y acción naturales",
+    "/contacto responde",
+    "Contacto sencillo y alcance explícito",
+    "/tienda responde",
+    "Tienda con nombre natural y tarifas identificadas",
+    "/tienda/agregar?room=1&arrival=2026-12-16&departure=2026-12-18&guests=1 responde",
+    "Carrito muestra el importe estimado",
+    "Checkout con datos del huésped y alcance del pago explícito",
+    "Formulario móvil sin desbordamiento",
+    "Sin errores JavaScript"
+  ],
+  "errors": []
+}

@@ -13,7 +13,7 @@ final class CartForm extends HotelFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $this->protect($form);
     $form['#attached']['library'][] = 'roma_shop/shop';
-    $form['intro'] = ['#markup'=>'<p>Revisa las estadías de demostración. El total se calcula en soles (PEN) con las tarifas del sistema. Solo el checkout registra las solicitudes; el administrador confirma después cada reserva.</p>'];
+    $form['intro'] = ['#markup'=>'<p>Revisa tus habitaciones y fechas. El total se calcula en soles (PEN) con las tarifas del sistema. Solo el checkout registra las solicitudes; el administrador confirma después cada reserva.</p>'];
     $cart = \Drupal::service('roma_shop.store')->cart();
     if (!$cart || !$cart->hasItems()) {
       $form['empty'] = ['#markup'=>'<div class="hotel-notice"><h2>Tu carrito está vacío</h2><p>Agrega una habitación con sus fechas para comenzar.</p></div>'];
@@ -30,7 +30,7 @@ final class CartForm extends HotelFormBase {
           'remove'=>['#type'=>'submit','#value'=>'Quitar estadía','#name'=>'remove_' . $item->id(),'#roma_item_id'=>(int) $item->id(),'#submit'=>['::remove']],
         ];
       }
-      $form['total'] = ['#type'=>'item','#title'=>'Total de demostración','#plain_text'=>ShopService::format($cart->getTotalPrice()),'#attributes'=>['class'=>['shop-total']]];
+      $form['total'] = ['#type'=>'item','#title'=>'Total estimado','#plain_text'=>ShopService::format($cart->getTotalPrice()),'#attributes'=>['class'=>['shop-total']]];
       $form['actions'] = ['#type'=>'actions','submit'=>['#type'=>'submit','#value'=>'Continuar al checkout']];
     }
     $form['continue'] = Link::fromTextAndUrl('Seguir eligiendo estadías',Url::fromRoute('roma_shop.catalog'))->toRenderable();

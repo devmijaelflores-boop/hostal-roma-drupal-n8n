@@ -33,7 +33,7 @@ final class AssistantController extends ApiController {
             $groups = [];
             foreach ($rooms as $room) { $key = $room['type_name']; $groups[$key] ??= ['count'=>0,'price'=>$room['estimated_price']]; $groups[$key]['count']++; }
             foreach ($groups as $name => $group) { $output .= "\n• " . $name . ': ' . $group['count'] . ' habitación(es), estimado de estadía ' . HotelService::money($group['price']) . '.'; }
-            $output .= "\n[Solicitar reserva de prueba](/reservar?" . http_build_query(['arrival'=>$arrival,'departure'=>$departure,'guests'=>$guests]) . ')';
+            $output .= "\n[Solicitar reserva](/reservar?" . http_build_query(['arrival'=>$arrival,'departure'=>$departure,'guests'=>$guests]) . ')';
           }
         }
         catch (\DomainException $error) { $output = $error->getMessage(); }
@@ -53,7 +53,7 @@ final class AssistantController extends ApiController {
       $output = '[Visita la tienda de estadías](/tienda), elige habitación, fechas y huéspedes y agrega tus estadías al [carrito](/carrito). El checkout registra solicitudes pendientes y permite aprobar, rechazar o cancelar un pago de demostración. No se cobra dinero real. La confirmación de las habitaciones corresponde al administrador.';
     }
     elseif (preg_match('/reserv|solicitud|alojar/', $text)) {
-      $output = '[Solicita una reserva de prueba](/reservar). El formulario comprobará fechas, capacidad y disponibilidad. Recibirás un código y una clave privada. La solicitud quedará pendiente; no significa una confirmación ni genera un cobro.';
+      $output = '[Solicita una reserva](/reservar). El formulario comprobará fechas, capacidad y disponibilidad. Recibirás un código y una clave privada. La solicitud quedará pendiente; no significa una confirmación ni genera un cobro.';
     }
     elseif (preg_match('/pago|pagar|tarjeta|yape|plin/', $text)) {
       $output = 'Los pagos del proyecto son exclusivamente de demostración. [Consulta tu solicitud](/mi-reserva) para ver las opciones habilitadas. Nunca compartas tarjetas, claves bancarias ni datos reales en el chat.';

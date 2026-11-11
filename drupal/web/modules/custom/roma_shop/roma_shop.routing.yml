@@ -2,7 +2,7 @@ roma_shop.catalog:
   path: '/tienda'
   defaults:
     _controller: '\Drupal\roma_shop\Controller\ShopController::catalog'
-    _title: 'Tienda de estadías de demostración'
+    _title: 'Habitaciones y reservas'
   requirements:
     _permission: 'view roma availability'
   options:
@@ -20,7 +20,7 @@ roma_shop.cart:
   path: '/carrito'
   defaults:
     _form: '\Drupal\roma_shop\Form\CartForm'
-    _title: 'Tu carrito de demostración'
+    _title: 'Tu carrito'
   requirements:
     _permission: 'request roma reservations'
   options:

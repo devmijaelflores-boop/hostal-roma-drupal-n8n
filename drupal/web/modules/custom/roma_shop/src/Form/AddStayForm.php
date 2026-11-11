@@ -13,7 +13,7 @@ final class AddStayForm extends HotelFormBase {
     $options = [];
     foreach ($this->hotel->rooms() as $room) { $options[$room['id']] = $room['type_name'] . ' · ' . $room['code'] . ' · capacidad ' . $room['capacity'] . ' · ' . HotelService::money((int) $room['amount']) . '/noche'; }
     $form['intro'] = ['#markup'=>'<p>Elige las fechas y los huéspedes para una habitación. Puedes agregar varias estadías al carrito. Las tarifas son ficticias y el carrito todavía no registra ni confirma una reserva.</p>'];
-    $form['room_id'] = ['#type'=>'select','#title'=>'Habitación de demostración','#options'=>$options,'#empty_option'=>'Selecciona una habitación','#required'=>TRUE,'#default_value'=>$q->get('room','')];
+    $form['room_id'] = ['#type'=>'select','#title'=>'Habitación','#options'=>$options,'#empty_option'=>'Selecciona una habitación','#required'=>TRUE,'#default_value'=>$q->get('room','')];
     foreach (['arrival'=>'Llegada','departure'=>'Salida'] as $key=>$title) { $form[$key] = ['#type'=>'date','#title'=>$title,'#required'=>TRUE,'#default_value'=>$q->get($key,''),'#attributes'=>['min'=>$this->hotel->today()]]; }
     $form['guests'] = ['#type'=>'number','#title'=>'Huéspedes en esta habitación','#min'=>1,'#max'=>10,'#step'=>1,'#required'=>TRUE,'#default_value'=>$q->get('guests',1)];
     $form['actions'] = ['#type'=>'actions','submit'=>['#type'=>'submit','#value'=>'Agregar al carrito']];

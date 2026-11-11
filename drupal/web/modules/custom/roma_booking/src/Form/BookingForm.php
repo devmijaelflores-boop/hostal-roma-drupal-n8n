@@ -15,17 +15,17 @@ final class BookingForm extends HotelFormBase {
       return $form;
     }
     $q = $this->getRequest()->query;
-    $form['intro'] = ['#markup' => '<p>Usa solamente datos de prueba. Registraremos una solicitud <strong>pendiente</strong> en MariaDB; un administrador podrá confirmarla o cancelarla. No hay cobros ni reservas reales.</p>'];
+    $form['intro'] = ['#markup' => '<p>Elige tu habitación y completa los datos del huésped. Tu solicitud quedará <strong>pendiente de confirmación</strong>. Este prototipo no registra reservas oficiales del establecimiento ni realiza cobros.</p>'];
     $options = [];
     foreach ($this->hotel->rooms() as $room) { $options[$room['id']] = $room['type_name'] . ' · ' . $room['code'] . ' · ' . HotelService::money((int) $room['amount']) . '/noche'; }
-    $form['room_id'] = ['#type' => 'select', '#title' => 'Habitación de demostración', '#options' => $options, '#empty_option' => '- Selecciona -', '#required' => TRUE, '#default_value' => $q->get('room', '')];
+    $form['room_id'] = ['#type' => 'select', '#title' => 'Habitación', '#options' => $options, '#empty_option' => '- Selecciona -', '#required' => TRUE, '#default_value' => $q->get('room', '')];
     foreach (['arrival' => 'Llegada', 'departure' => 'Salida'] as $key => $label) { $form[$key] = ['#type' => 'date', '#title' => $label, '#required' => TRUE, '#default_value' => $q->get($key, ''), '#attributes' => ['min' => $this->hotel->today()]]; }
     $form['guests'] = ['#type' => 'number', '#title' => 'Huéspedes', '#min' => 1, '#max' => 10, '#step' => 1, '#required' => TRUE, '#default_value' => $q->get('guests', 1)];
-    $form['customer_name'] = ['#type' => 'textfield', '#title' => 'Nombre del cliente de prueba', '#maxlength' => 100, '#required' => TRUE];
-    $form['email'] = ['#type' => 'email', '#title' => 'Correo electrónico de prueba', '#maxlength' => 254, '#required' => TRUE];
+    $form['customer_name'] = ['#type' => 'textfield', '#title' => 'Nombre completo', '#maxlength' => 100, '#required' => TRUE];
+    $form['email'] = ['#type' => 'email', '#title' => 'Correo electrónico', '#maxlength' => 254, '#required' => TRUE];
     $form['phone'] = [
       '#type' => 'tel',
-      '#title' => 'Teléfono de prueba (opcional)',
+      '#title' => 'Teléfono (opcional)',
       '#maxlength' => 25,
       '#description' => 'Puedes dejarlo vacío. Si lo completas, usa números y, opcionalmente, +, espacios, paréntesis o guiones. Ejemplo ficticio: 999 123 456.',
       '#attributes' => ['inputmode' => 'tel', 'autocomplete' => 'tel'],
@@ -33,7 +33,7 @@ final class BookingForm extends HotelFormBase {
     $form['demo_consent'] = ['#type' => 'checkbox', '#title' => 'Confirmo que utilizo datos de prueba y entiendo que no es una reserva real.', '#required' => TRUE];
     if (!$form_state->get('request_key')) { $form_state->set('request_key', bin2hex(random_bytes(24))); }
     $form['request_key'] = ['#type' => 'hidden', '#default_value' => $form_state->get('request_key')];
-    $form['actions'] = ['#type' => 'actions', 'submit' => ['#type' => 'submit', '#value' => 'Registrar solicitud de prueba']];
+    $form['actions'] = ['#type' => 'actions', 'submit' => ['#type' => 'submit', '#value' => 'Solicitar reserva']];
     return $form;
   }
   public function validateForm(array &$form, FormStateInterface $form_state): void {
@@ -56,7 +56,7 @@ final class BookingForm extends HotelFormBase {
     }
     catch (\DomainException $error) { $form_state->setErrorByName('room_id', $error->getMessage()); }
     if (mb_strlen(trim((string) $form_state->getValue('customer_name'))) < 2) {
-      $form_state->setErrorByName('customer_name', 'El nombre de prueba debe tener al menos dos caracteres.');
+      $form_state->setErrorByName('customer_name', 'El nombre debe tener al menos dos caracteres.');
     }
     $phone = trim((string) $form_state->getValue('phone'));
     $form_state->setValue('phone', $phone);

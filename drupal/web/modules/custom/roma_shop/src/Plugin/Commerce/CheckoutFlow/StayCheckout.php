@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 final class StayCheckout extends CheckoutFlowWithPanesBase {
   public function getSteps() {
     return [
-      'order_information'=>['label'=>'Datos de prueba','next_label'=>'Continuar','previous_label'=>'Volver','has_sidebar'=>TRUE],
+      'order_information'=>['label'=>'Datos del huésped','next_label'=>'Continuar','previous_label'=>'Volver','has_sidebar'=>TRUE],
       'review'=>['label'=>'Revisar pedido','next_label'=>'Revisar pedido','previous_label'=>'Volver a la revisión','has_sidebar'=>TRUE],
       'payment'=>['label'=>'Pago de demostración','next_label'=>'Elegir pago de prueba','previous_label'=>'Volver al pago','has_sidebar'=>TRUE],
       'complete'=>['label'=>'Pedido registrado','next_label'=>'Registrar pedido de prueba','has_sidebar'=>FALSE],

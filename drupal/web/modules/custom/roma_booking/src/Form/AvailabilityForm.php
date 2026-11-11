@@ -18,7 +18,7 @@ final class AvailabilityForm extends HotelFormBase {
       $form[$key] = ['#type' => 'date', '#title' => $label, '#required' => TRUE, '#default_value' => $q->get($key, ''), '#attributes' => ['min' => $this->hotel->today()]];
     }
     $form['guests'] = ['#type' => 'number', '#title' => 'Huéspedes en una habitación', '#description' => $max_capacity ? $this->t('La capacidad máxima del catálogo activo es de @count persona(s) por habitación. Para grupos mayores, registra una solicitud por cada habitación.', ['@count' => $max_capacity]) : $this->t('Actualmente no hay habitaciones activas en el catálogo de demostración.'), '#required' => TRUE, '#min' => 1, '#max' => 10, '#step' => 1, '#default_value' => $q->get('guests', 2)];
-    $form['actions'] = ['#type' => 'actions', '#weight' => 10, 'submit' => ['#type' => 'submit', '#value' => 'Consultar disponibilidad de prueba']];
+    $form['actions'] = ['#type' => 'actions', '#weight' => 10, 'submit' => ['#type' => 'submit', '#value' => 'Consultar disponibilidad']];
     if ($q->get('arrival') && $q->get('departure')) {
       try {
         $guests = filter_var($q->get('guests', 2), FILTER_VALIDATE_INT);
@@ -26,10 +26,10 @@ final class AvailabilityForm extends HotelFormBase {
         $rooms = $this->hotel->availability((string) $q->get('arrival'), (string) $q->get('departure'), $guests);
         $rows = [];
         foreach ($rooms as $r) {
-          $rows[] = [['data' => ['#plain_text' => $r['type_name'] . ' · ' . $r['code']]], ['data' => ['#plain_text' => $r['capacity'] . ' huéspedes']], ['data' => ['#plain_text' => HotelService::money((int) $r['estimated_price'])]], ['data' => Link::fromTextAndUrl('Solicitar reserva de prueba', Url::fromRoute('roma_booking.request', [], ['query' => ['room' => $r['id'], 'arrival' => $q->get('arrival'), 'departure' => $q->get('departure'), 'guests' => $guests]]))->toRenderable()]];
+          $rows[] = [['data' => ['#plain_text' => $r['type_name'] . ' · ' . $r['code']]], ['data' => ['#plain_text' => $r['capacity'] . ' huéspedes']], ['data' => ['#plain_text' => HotelService::money((int) $r['estimated_price'])]], ['data' => Link::fromTextAndUrl('Solicitar reserva', Url::fromRoute('roma_booking.request', [], ['query' => ['room' => $r['id'], 'arrival' => $q->get('arrival'), 'departure' => $q->get('departure'), 'guests' => $guests]]))->toRenderable()]];
         }
         if ($rows) {
-          $form['results'] = ['#type' => 'table', '#weight' => 20, '#caption' => 'Resultados de demostración · ' . HotelService::date($q->get('arrival')) . ' al ' . HotelService::date($q->get('departure')), '#header' => ['Habitación', 'Capacidad', 'Estimado de la estadía', 'Solicitud'], '#rows' => $rows];
+          $form['results'] = ['#type' => 'table', '#weight' => 20, '#caption' => 'Habitaciones disponibles · ' . HotelService::date($q->get('arrival')) . ' al ' . HotelService::date($q->get('departure')), '#header' => ['Habitación', 'Capacidad', 'Estimado de la estadía', 'Solicitud'], '#rows' => $rows];
         }
         else {
           $form['results'] = ['#type' => 'container', '#weight' => 20, '#attributes' => ['class' => ['hotel-notice'], 'role' => 'status']];

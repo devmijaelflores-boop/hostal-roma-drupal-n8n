@@ -2,7 +2,7 @@ roma_booking.availability:
   path: '/disponibilidad'
   defaults:
     _form: '\Drupal\roma_booking\Form\AvailabilityForm'
-    _title: 'Disponibilidad de demostración'
+    _title: 'Disponibilidad'
   requirements:
     _permission: 'view roma availability'
   options:
@@ -11,7 +11,7 @@ roma_booking.request:
   path: '/reservar'
   defaults:
     _form: '\Drupal\roma_booking\Form\BookingForm'
-    _title: 'Solicita una reserva de prueba'
+    _title: 'Solicita una reserva'
   requirements:
     _permission: 'request roma reservations'
   options:
@@ -29,7 +29,7 @@ roma_booking.contact:
   path: '/contacto'
   defaults:
     _form: '\Drupal\roma_booking\Form\ContactForm'
-    _title: 'Contacto de demostración'
+    _title: 'Contacto'
   requirements:
     _permission: 'send roma contact'
   options:

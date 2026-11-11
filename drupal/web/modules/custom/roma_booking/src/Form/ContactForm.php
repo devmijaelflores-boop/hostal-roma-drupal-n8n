@@ -9,11 +9,11 @@ final class ContactForm extends HotelFormBase {
     $this->protect($form);
     if ($form_state->get('sent')) { $form['receipt'] = ['#plain_text' => 'Mensaje de prueba guardado. Puede revisarlo el administrador en el panel. No se ha enviado correo al establecimiento real.']; return $form; }
     $form['intro'] = ['#markup' => '<p>Este formulario guarda mensajes de demostración para el profesor o administrador del proyecto. No contacta con el hostal real. Utiliza datos ficticios.</p>'];
-    $form['name'] = ['#type' => 'textfield', '#title' => 'Nombre de prueba', '#required' => TRUE, '#maxlength' => 100];
-    $form['email'] = ['#type' => 'email', '#title' => 'Correo de prueba', '#required' => TRUE, '#maxlength' => 254];
-    $form['message'] = ['#type' => 'textarea', '#title' => 'Mensaje de prueba', '#required' => TRUE, '#maxlength' => 2000, '#description' => 'Entre 10 y 2000 caracteres.'];
+    $form['name'] = ['#type' => 'textfield', '#title' => 'Nombre completo', '#required' => TRUE, '#maxlength' => 100];
+    $form['email'] = ['#type' => 'email', '#title' => 'Correo electrónico', '#required' => TRUE, '#maxlength' => 254];
+    $form['message'] = ['#type' => 'textarea', '#title' => 'Mensaje', '#required' => TRUE, '#maxlength' => 2000, '#description' => 'Entre 10 y 2000 caracteres.'];
     $form['demo_consent'] = ['#type' => 'checkbox', '#title' => 'Uso datos ficticios y entiendo que el mensaje no se envía al negocio real.', '#required' => TRUE];
-    $form['actions'] = ['#type' => 'actions', 'submit' => ['#type' => 'submit', '#value' => 'Guardar mensaje de prueba']];
+    $form['actions'] = ['#type' => 'actions', 'submit' => ['#type' => 'submit', '#value' => 'Enviar mensaje']];
     return $form;
   }
   public function validateForm(array &$form, FormStateInterface $form_state): void {
