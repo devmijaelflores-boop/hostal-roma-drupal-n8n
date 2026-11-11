@@ -6,7 +6,7 @@
     <img class="hero-image" data-gallery-image src="{{ roma_hero.images[0] }}" alt="{{ roma_hero.alt }}" width="1800" height="1200" fetchpriority="high">
     <div class="gallery-controls hero-gallery-controls"><button type="button" data-gallery-play aria-label="Pausar carrusel" aria-pressed="false">Ⅱ</button><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / 3</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button><button type="button" data-gallery-expand aria-label="Ampliar fotografía">⤢</button></div>
     <div class="hero-shade"></div>
-    {% if not roma_hero.custom %}<div class="hero-credit">Fotografía ilustrativa · Unsplash</div>{% endif %}
+    {% if not roma_hero.custom %}<div class="hero-credit">Fotografía · Unsplash</div>{% endif %}
     <div class="wrap hero-content"><div class="hero-intro">
       <p class="eyebrow light">TU PRÓXIMA PAUSA</p>
       <h1 id="hero-title">{{ roma_content.hotel_name }}</h1>
@@ -47,7 +47,7 @@
         {% endfor %}
       </div>
       <p class="room-filter-status visually-hidden" role="status"></p>
-      <p class="catalog-note">{{ ui.icon('check') }} Precios ficticios en soles peruanos (PEN). Las imágenes no corresponden al establecimiento real.</p>
+      <p class="catalog-note">{{ ui.icon('check') }} Tarifas en soles peruanos (PEN), por habitación y noche.</p>
     </div>
   </section>
 
@@ -71,9 +71,9 @@
 {% for room in roma_rooms %}
 <dialog class="room-dialog" id="room-{{ room.id }}" aria-labelledby="dialog-title-{{ room.id }}">
   <button class="dialog-close" type="button" aria-label="Cerrar detalles">{{ ui.icon('close') }}</button>
-  <div class="room-gallery" data-gallery data-images="{{ room.gallery.images|json_encode|e('html_attr') }}"><button type="button" class="gallery-image-button" data-gallery-expand aria-label="Ampliar fotografía"><img data-gallery-image src="{{ room.gallery.images[0] }}" alt="{{ room.gallery.alt }}" width="900" height="600" loading="lazy"></button><div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / {{ room.gallery.images|length }}</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button></div>{% if not room.gallery.custom %}<p class="gallery-caption">Selección de interiores · Imágenes ilustrativas</p>{% endif %}</div>
-  <div class="dialog-content"><p class="eyebrow">HABITACIÓN</p><h2 id="dialog-title-{{ room.id }}">{{ room.name }}</h2><p>{{ room.description }}</p><p>{{ room.bed }} · Capacidad ilustrativa: {{ room.capacity }} {{ room.capacity == 1 ? 'persona' : 'personas' }}.</p><p class="dialog-price">{{ room.price_display }} <span>por noche · tarifa ficticia</span></p><p class="demo-explanation">Catálogo ficticio con inventario y solicitudes de prueba en la base de datos. La disponibilidad se comprueba al solicitar y confirmar. </p><a class="button button-dark dialog-plan" href="{{ room.request_url }}">Solicitar reserva {{ ui.icon('arrow') }}</a></div>
+  <div class="room-gallery" data-gallery data-images="{{ room.gallery.images|json_encode|e('html_attr') }}"><button type="button" class="gallery-image-button" data-gallery-expand aria-label="Ampliar fotografía"><img data-gallery-image src="{{ room.gallery.images[0] }}" alt="{{ room.gallery.alt }}" width="900" height="600" loading="lazy"></button><div class="gallery-controls"><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / {{ room.gallery.images|length }}</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button></div>{% if not room.gallery.custom %}<p class="gallery-caption">Galería de interiores</p>{% endif %}</div>
+  <div class="dialog-content"><p class="eyebrow">HABITACIÓN</p><h2 id="dialog-title-{{ room.id }}">{{ room.name }}</h2><p>{{ room.description }}</p><p>{{ room.bed }} · Capacidad: {{ room.capacity }} {{ room.capacity == 1 ? 'persona' : 'personas' }}.</p><p class="dialog-price">{{ room.price_display }} <span>por noche</span></p><p class="demo-explanation">La disponibilidad se comprueba al enviar la solicitud y antes de confirmarla.</p><a class="button button-dark dialog-plan" href="{{ room.request_url }}">Solicitar reserva {{ ui.icon('arrow') }}</a></div>
 </dialog>
 {% endfor %}
 
-<dialog id="photo-viewer" class="photo-viewer" aria-label="Fotografía ampliada"><button type="button" class="photo-viewer-close" aria-label="Cerrar fotografía">×</button><img alt=""><p>Imágenes ilustrativas</p></dialog>
+<dialog id="photo-viewer" class="photo-viewer" aria-label="Fotografía ampliada"><button type="button" class="photo-viewer-close" aria-label="Cerrar fotografía">×</button><img alt=""><p>Galería de interiores</p></dialog>

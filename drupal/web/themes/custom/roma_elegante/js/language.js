@@ -165,7 +165,12 @@ const translations = {
   "Reserva con claridad.": "Book with clarity.",
   "Compara las habitaciones": "Compare rooms",
   "Opciones para tu estadía.": "Options for your stay.",
-  "Compara tipos de habitación, capacidad y tarifas en un solo lugar. Consulta tus fechas y envía una solicitud; podrás revisar su estado con tu código y clave privada.": "Compare room types, capacity and rates in one place. Check your dates and submit a request; track it using your code and private key."
+  "Compara tipos de habitación, capacidad y tarifas en un solo lugar. Consulta tus fechas y envía una solicitud; podrás revisar su estado con tu código y clave privada.": "Compare room types, capacity and rates in one place. Check your dates and submit a request; track it using your code and private key.",
+  "Tarifas en soles peruanos (PEN), por habitación y noche.": "Rates in Peruvian soles (PEN), per room per night.",
+  "Galería de interiores": "Interior gallery",
+  "Capacidad:": "Capacity:",
+  "por noche": "per night",
+  "La disponibilidad se comprueba al enviar la solicitud y antes de confirmarla.": "Availability is checked when you submit your request and before confirmation."
 };
 (() => {
  const selector=document.querySelector('#hotel-language');if(!selector)return;
