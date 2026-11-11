@@ -32,3 +32,7 @@ Gemini quedó activo en el chat público (`ROMA_CHAT_MODE=ai`). Pruebas reales a
 El modelo 2.5 Flash Lite aparecía en el listado de Google, pero rechazó generación para cuentas nuevas con HTTP 404. El flujo conservó la respuesta de Drupal (`ai=false`, `fallback=true`). Se sustituyó por 3.5 Flash Lite, comprobado mediante generación y ejecución completa en n8n. Las expresiones iniciales incompatibles con el evaluador de n8n se reemplazaron por nodos JavaScript y expresiones simples. No se habilitó facturación ni se modificó la cuota de la cuenta. La API puede limitar el servicio; no se garantiza uso gratuito ilimitado.
 
 Fuentes: [Gemini 3.5 Flash Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite), [salida estructurada](https://ai.google.dev/gemini-api/docs/structured-output) y [credenciales n8n](https://docs.n8n.io/integrations/builtin/credentials/googleai/).
+
+### Respuestas rápidas
+
+El flujo detecta primero saludos y consultas explícitas de precios, servicios, fechas, ubicación, pagos y solicitudes. Estas consultas van directamente a Drupal y se identifican internamente con `fast=true`: no son un fallo de IA ni consumen una llamada a Google. Las consultas restantes usan Gemini con espera máxima de 6 segundos para esa solicitud externa y respuesta determinista si no se obtiene una clasificación válida. La espera total también depende de n8n, Drupal y la red.
