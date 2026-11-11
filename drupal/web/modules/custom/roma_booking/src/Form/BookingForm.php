@@ -14,6 +14,7 @@ final class BookingForm extends HotelFormBase {
       $form['receipt'] = ['#type' => 'container', '#attributes' => ['class' => ['hotel-receipt']], 'title' => ['#markup' => '<h2>Solicitud de prueba registrada</h2>'], 'reference' => ['#type' => 'item', '#title' => 'Código de solicitud', '#plain_text' => $receipt['reference']], 'token' => ['#type' => 'item', '#title' => 'Clave privada de consulta — guárdala ahora', '#plain_text' => $receipt['token']], 'state' => ['#plain_text' => 'Estado: pendiente. Estimado: ' . HotelService::money($receipt['estimated_price']) . '. No es una reserva real ni una confirmación del establecimiento. No se ha efectuado ningún cobro.'], 'lookup' => Link::fromTextAndUrl('Consultar el estado de mi solicitud', Url::fromRoute('roma_booking.lookup'))->toRenderable()];
       return $form;
     }
+    $form['steps']=['#markup'=>'<p class="booking-steps">1. Fechas → 2. Habitación → <strong>3. Datos y solicitud</strong></p>','#weight'=>-20];
     $q = $this->getRequest()->query;
     $form['intro'] = ['#markup' => '<p>Elige tu habitación y completa los datos del huésped. Tu solicitud quedará <strong>pendiente de confirmación</strong>. Este prototipo no registra reservas oficiales del establecimiento ni realiza cobros.</p>'];
     $options = [];

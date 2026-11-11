@@ -4,6 +4,9 @@ global:
       assets/fonts/cormorant.css: {}
       assets/fonts/manrope.css: {}
       css/roma.css: {}
+      css/experience.css: {}
+      css/gallery.css: {}
+      css/identity.css: {}
   js:
     js/roma.js: {}
     js/gallery.js: {}

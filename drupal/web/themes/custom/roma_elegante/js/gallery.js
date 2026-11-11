@@ -11,8 +11,10 @@
    if(!Array.isArray(images)||!images.length)return;
    const img=gallery.querySelector('[data-gallery-image]');const count=gallery.querySelector('[data-gallery-count]');let index=0;
    const show=step=>{index=(index+step+images.length)%images.length;img.src=images[index];count.textContent=`${index+1} / ${images.length}`;gallery.querySelectorAll('[data-slide-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.slideIndex)===index)));};
+   count.textContent=`1 / ${images.length}`;
+   if(images.length===1){gallery.querySelectorAll('[data-gallery-prev],[data-gallery-next],[data-gallery-play]').forEach(button=>button.hidden=true);}
    const play=gallery.querySelector('[data-gallery-play]');
-   if(play){
+   if(play&&images.length>1){
     const dots=document.createElement('div');dots.className='gallery-dots';
     images.forEach((url,i)=>{const dot=document.createElement('button');dot.type='button';dot.dataset.slideIndex=String(i);dot.setAttribute('aria-label',`Foto ${i+1}`);dot.setAttribute('aria-pressed',String(i===0));dot.addEventListener('click',()=>show(i-index));dots.append(dot);});
     play.before(dots);

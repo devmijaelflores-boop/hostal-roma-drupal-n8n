@@ -11,6 +11,7 @@ final class AvailabilityForm extends HotelFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $this->decorate($form); $form['#method'] = 'get'; $form['#token'] = FALSE;
     $form['intro'] = ['#markup' => '<p>Disponibilidad calculada desde las habitaciones y reservas confirmadas de la base de datos de prueba. Las solicitudes pendientes no bloquean habitaciones. No es disponibilidad del establecimiento real.</p>'];
+    $form['steps']=['#markup'=>'<p class="booking-steps"><strong>1. Fechas</strong> → 2. Habitación → 3. Datos y solicitud</p>','#weight'=>-20];
     $active_rooms = $this->hotel->rooms();
     $max_capacity = $active_rooms ? max(array_map('intval', array_column($active_rooms, 'capacity'))) : 0;
     $q = $this->getRequest()->query;
