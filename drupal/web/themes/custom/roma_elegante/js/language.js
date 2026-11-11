@@ -1,4 +1,8 @@
 const translations = {
+  "Ver video": "Watch video",
+  "Reproducir video": "Play video",
+  "Pausar video": "Pause video",
+  "Video de muestra · Mixkit": "Sample video · Mixkit",
   "Ver habitación": "View room",
   "Encuentra el espacio para tu próximo descanso.": "Find your space for a restful stay.",
   "Habitaciones desde": "Rooms from",

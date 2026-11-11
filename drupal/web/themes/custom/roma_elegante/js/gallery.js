@@ -10,7 +10,7 @@
    let images;try{images=JSON.parse(gallery.dataset.images);}catch{return;}
    if(!Array.isArray(images)||!images.length)return;
    const img=gallery.querySelector('[data-gallery-image]');const count=gallery.querySelector('[data-gallery-count]');let index=0;
-   const show=step=>{index=(index+step+images.length)%images.length;img.src=images[index];count.textContent=`${index+1} / ${images.length}`;gallery.querySelectorAll('[data-slide-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.slideIndex)===index)));};
+   const show=step=>{index=(index+step+images.length)%images.length;gallery.dispatchEvent(new CustomEvent('gallery-change'));const previous=img.cloneNode();previous.removeAttribute('data-gallery-image');previous.setAttribute('aria-hidden','true');previous.classList.add('gallery-transition');gallery.querySelector('.gallery-transition')?.remove();img.after(previous);const clear=()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!previous.animate){previous.remove();return;}const animation=previous.animate([{opacity:1},{opacity:0}],{duration:650,easing:'ease-out'});animation.onfinish=()=>previous.remove();};img.addEventListener('load',clear,{once:true});img.addEventListener('error',()=>previous.remove(),{once:true});img.src=images[index];count.textContent=`${index+1} / ${images.length}`;gallery.querySelectorAll('[data-slide-index]').forEach(dot=>dot.setAttribute('aria-pressed',String(Number(dot.dataset.slideIndex)===index)));};
    count.textContent=`1 / ${images.length}`;
    if(images.length===1){gallery.querySelectorAll('[data-gallery-prev],[data-gallery-next],[data-gallery-play]').forEach(button=>button.hidden=true);}
    const play=gallery.querySelector('[data-gallery-play]');
@@ -25,7 +25,7 @@
     gallery.addEventListener('focusin',()=>{focused=true;});gallery.addEventListener('focusout',()=>{focused=false;});
     reduced.addEventListener('change',()=>{paused=reduced.matches;update();});
     window.addEventListener('hotel-language-change',update);update();
-    window.setInterval(()=>{if(!paused&&!hover&&!focused&&!document.hidden&&!viewer?.open)show(1);},5000);
+    window.setInterval(()=>{if(!gallery.dataset.videoActive&&!paused&&!hover&&!focused&&!document.hidden&&!viewer?.open)show(1);},5000);
    }
    gallery.querySelector('[data-gallery-prev]').addEventListener('click',()=>show(-1));
    gallery.querySelector('[data-gallery-next]').addEventListener('click',()=>show(1));

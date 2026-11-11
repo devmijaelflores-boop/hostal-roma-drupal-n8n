@@ -26,3 +26,11 @@ La ilustración conceptual del altiplano se creó con CSS. No es una fotografía
 ## Galerías de imágenes
 
 La portada permite recorrer manualmente tres fotografías existentes. Las ventanas de habitaciones muestran la fotografía de su categoría y una segunda imagen del catálogo ilustrativo; no representan distintos ángulos de una misma habitación real. Las imágenes se amplían en un diálogo y pueden recorrerse mediante flechas o deslizamiento táctil. Las rutas adicionales se conservan como datos y se asignan a la imagen únicamente al navegar; no hay avance automático. Se reutilizan los archivos locales, sin nuevas descargas externas ni dependencias de carrusel.
+
+## Video de portada y movimiento
+
+Se añadió un clip de muestra de 10 segundos basado en [Hotel room with modern minimalist style, Mixkit 4488](https://mixkit.co/free-stock-video/hotel-room-with-modern-minimalist-style-4488/), cuya ficha permite uso comercial y personal bajo [Mixkit Stock Video Free License](https://mixkit.co/license/#videoFree). No representa el establecimiento. Archivo local `assets/video/hotel-interior.mp4`: H.264, 1280×720, 24 fps, 350370 bytes, sin pista de audio; optimizado con faststart. Fuente de descarga: `https://assets.mixkit.co/videos/4488/4488-720.mp4`.
+
+La foto se presenta primero; el video se carga después en escritorio. En pantallas menores de 768 px, conexiones 2G, ahorro de datos y movimiento reducido, solo se descarga al solicitarlo. Incluye botón de reproducción/pausa; se pausa fuera de pantalla y al ocultar la pestaña. Las fotografías propias configuradas desactivan el video de muestra para no mezclarlas con él. Si no puede reproducirse, permanece la imagen.
+
+Las secciones tienen una entrada breve al aparecer en pantalla; el contenido nunca depende de una clase invisible para poder leerse. Las fotografías del carrusel usan un fundido. Se respeta la preferencia de movimiento reducido. No se añadieron librerías de animación ni reproductores externos.

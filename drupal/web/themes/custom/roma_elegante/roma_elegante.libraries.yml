@@ -8,10 +8,12 @@ global:
       css/gallery.css: {}
       css/identity.css: {}
       css/refinement.css: {}
+      css/motion.css: {}
   js:
     js/roma.js: {}
     js/gallery.js: {}
     js/language.js: {}
+    js/motion.js: {}
   dependencies:
     - core/drupal
     - core/once
