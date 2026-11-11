@@ -1,0 +1,18 @@
+<?php
+
+/** Hooks compartidos por formularios, API, Commerce y confirmaciones. */
+function roma_reception_roma_validate_availability(array $room, string $arrival, string $departure, int $except): void {
+  \Drupal::service('roma_reception.operations')->assertAvailable((int) $room['id'], $arrival, $departure);
+}
+
+/** Una estadía finalizada conserva su historia, pero libera el inventario. */
+function roma_reception_roma_room_conflicts_query(\Drupal\Core\Database\Query\SelectInterface $query): void {
+  $alias=$query->leftJoin('roma_stay','reception_stay','reception_stay.reservation_id=b.id');
+  $query->condition($query->orConditionGroup()->isNull($alias.'.state')->condition($alias.'.state','checked_out','<>'));
+}
+
+function roma_reception_roma_validate_reservation_transition(array $reservation, string $to): void {
+  if ($to === 'cancelled' && in_array(\Drupal::service('roma_reception.operations')->stay((int) $reservation['id'])['state'], ['in_house','checked_out'], TRUE)) {
+    throw new \DomainException('La estadía ya tiene una entrada registrada. Usa recepción para registrar la salida; no canceles su historial.');
+  }
+}

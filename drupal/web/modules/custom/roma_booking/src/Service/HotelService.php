@@ -55,7 +55,9 @@ final class HotelService {
     if ($guests > (int) $room['capacity']) { throw new \DomainException('La cantidad de huéspedes supera la capacidad de la habitación.'); }
     $q = $this->db->select('roma_reservation', 'b')->condition('room_id', $room['id'])->condition('status', 'confirmed')->condition('arrival', $departure, '<')->condition('departure', $arrival, '>');
     if ($except) { $q->condition('id', $except, '<>'); }
+    \Drupal::moduleHandler()->invokeAll('roma_room_conflicts_query', [$q]);
     if ($q->countQuery()->execute()->fetchField()) { throw new \DomainException('La habitación ya tiene una reserva confirmada para esas fechas.'); }
+    \Drupal::moduleHandler()->invokeAll('roma_validate_availability', [$room, $arrival, $departure, $except]);
   }
 
   public function availability(string $arrival, string $departure, int $guests): array {
@@ -134,6 +136,7 @@ final class HotelService {
       $row = $this->reservation($id);
       if ($row['status'] === $to) { return; }
       if ($row['status'] === 'cancelled') { throw new \DomainException('Una solicitud cancelada no puede confirmarse. Registra una nueva.'); }
+      \Drupal::moduleHandler()->invokeAll('roma_validate_reservation_transition', [$row, $to]);
       if ($to === 'confirmed') {
         $this->dates($row['arrival'], $row['departure'], (int) $row['guests']);
         $this->availableRoom($this->room((int) $row['room_id']), $row['arrival'], $row['departure'], (int) $row['guests'], $id);
@@ -215,6 +218,7 @@ final class HotelService {
     $q = $this->db->select('roma_reservation', 'b')->fields('b', ['status']); $q->addExpression('COUNT(*)', 'total'); $q->groupBy('status');
     foreach ($q->execute() as $row) { $result[$row->status] = (int) $row->total; }
     $q = $this->db->select('roma_reservation', 'b')->condition('status', 'confirmed')->condition('arrival', $this->today(), '<=')->condition('departure', $this->today(), '>');
+    \Drupal::moduleHandler()->invokeAll('roma_room_conflicts_query', [$q]);
     $q->addExpression('COUNT(DISTINCT room_id)', 'total'); $result['occupied'] = (int) $q->execute()->fetchField();
     $q = $this->db->select('roma_reservation', 'b')->condition('status', 'confirmed'); $q->addExpression('COALESCE(SUM(estimated_price),0)', 'total'); $result['estimated_revenue'] = (int) $q->execute()->fetchField();
     return $result;

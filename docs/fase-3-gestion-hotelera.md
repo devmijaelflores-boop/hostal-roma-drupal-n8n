@@ -17,7 +17,7 @@ La portada obtiene categorías, tarifas y servicios de las tablas hoteleras; la 
 
 ## Integridad y acceso
 
-Ingreso inclusivo y salida exclusiva: un ingreso en la fecha de salida de otra reserva está permitido. Solo las confirmadas bloquean. Las pendientes no son bloqueos ni garantías de habitación. Antes de registrar y confirmar se comprueban fechas, capacidad, actividad y ocupación. Una transacción InnoDB bloquea una fila de coordinación antes de cualquier modificación de inventario o reserva; la comprobación y la actualización ocurren dentro de ese bloqueo. Se prioriza la consistencia sobre el paralelismo para esta demo académica.
+Ingreso inclusivo y salida exclusiva: un ingreso en la fecha de salida de otra reserva está permitido. Las confirmadas vigentes bloquean. La ampliación de [recepción](recepcion.md) incorpora mantenimiento y preparación de hoy; las estadías finalizadas conservan su historia sin bloquear nuevas entradas. Las pendientes no son bloqueos ni garantías de habitación. Antes de registrar y confirmar se comprueban fechas, capacidad, actividad y ocupación. Una transacción InnoDB bloquea una fila de coordinación antes de cualquier modificación de inventario o reserva; la comprobación y la actualización ocurren dentro de ese bloqueo. Se prioriza la consistencia sobre el paralelismo para esta demo académica.
 
 No se permite reactivar una cancelada, reducir capacidad por debajo de una confirmada vigente ni confirmar una habitación desactivada. Se rechazan estadías de menos de una noche o más de 180 noches. Los importes se calculan en el servidor usando enteros en céntimos. Un identificador único impide repetir un mismo envío de reserva.
 

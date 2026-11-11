@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-11T01:30:07.998Z",
+  "checks": [
+    "Calendario protegido ante acceso anónimo",
+    "Administrador accede al calendario",
+    "Calendario muestra 14 noches y columna de habitación",
+    "Recepción muestra la llegada confirmada de hoy",
+    "GET de confirmación no registra entrada",
+    "POST con token manipulado no registra entrada",
+    "Formulario registra check-in con confirmación",
+    "Formulario de checkout deja habitación por limpiar",
+    "Recepción vuelve a marcar la habitación lista",
+    "Formulario programa mantenimiento con fechas y motivo",
+    "La API pública excluye la habitación en mantenimiento",
+    "Liberar el mantenimiento devuelve disponibilidad pública",
+    "Filtro cambia el calendario a siete noches",
+    "Calendario móvil permite desplazamiento horizontal dentro del panel",
+    "Sin errores JavaScript en recepción"
+  ],
+  "errors": []
+}

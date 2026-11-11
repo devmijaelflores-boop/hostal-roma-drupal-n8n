@@ -1,0 +1,33 @@
+roma_reception.calendar:
+  path: '/admin/roma/recepcion'
+  defaults:
+    _form: '\Drupal\roma_reception\Form\CalendarForm'
+    _title: 'Recepción y calendario'
+  requirements:
+    _permission: 'manage roma reception'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_reception.action:
+  path: '/admin/roma/recepcion/{kind}/{id}/{action}'
+  defaults:
+    _form: '\Drupal\roma_reception\Form\ActionForm'
+    _title: 'Confirmar operación de recepción'
+  requirements:
+    _permission: 'manage roma reception'
+    kind: 'stay|room|block'
+    id: '\d+'
+    action: 'check_in|check_out|no_show|clean|dirty|cleaning|release'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_reception.block:
+  path: '/admin/roma/mantenimiento'
+  defaults:
+    _form: '\Drupal\roma_reception\Form\BlockForm'
+    _title: 'Bloquear habitación por mantenimiento'
+  requirements:
+    _permission: 'manage roma reception'
+  options:
+    _admin_route: true
+    no_cache: true

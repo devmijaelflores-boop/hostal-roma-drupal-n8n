@@ -27,3 +27,7 @@ Drupal Commerce conserva productos, variaciones, pedidos y pagos en la misma Mar
 Las interfaces se enlazan solo a localhost. Los contenedores se comunican por su red interna. El widget utiliza el mismo origen de Drupal, sin CORS global. Las notificaciones se capturan en un servidor SMTP de prueba; no salen al correo de personas reales. El transporte SMTP está fijado a Mailpit en la implementación de demostración.
 
 La alternativa de IA no determina precios, fechas, disponibilidad ni estados: solo clasifica una intención, y Drupal produce la respuesta desde la base. Por defecto no se invoca ningún proveedor de IA.
+
+## Recepción y disponibilidad operativa
+
+El módulo `roma_reception` mantiene entradas/salidas, limpieza, mantenimientos y auditoría en MariaDB. Comparte la fila InnoDB `roma_guard` con las reservas y extiende sus comprobaciones mediante hooks: las mismas restricciones se aplican a web, API, Commerce y chatbot n8n. Una salida conserva la reserva comercial y libera inventario; no altera pagos ni emite comprobantes. Las rutas administrativas usan el permiso `manage roma reception` y formularios Drupal con CSRF. Véase [la verificación de recepción](verificacion-recepcion.md).

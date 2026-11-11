@@ -18,6 +18,7 @@ final class AdminController extends ControllerBase {
       if ($this->currentUser()->hasPermission($permission)) { $items[] = Link::fromTextAndUrl($label, Url::fromRoute($route))->toRenderable(); }
     }
     if (\Drupal::moduleHandler()->moduleExists('roma_shop') && $this->currentUser()->hasPermission('administer commerce_order')) { $items[] = Link::fromTextAndUrl('Pedidos de la tienda', Url::fromRoute('roma_shop.orders'))->toRenderable(); }
+    if (\Drupal::moduleHandler()->moduleExists('roma_reception') && $this->currentUser()->hasPermission('manage roma reception')) { $items[] = Link::fromTextAndUrl('Recepción y calendario', Url::fromRoute('roma_reception.calendar'))->toRenderable(); }
     return ['#cache' => ['max-age' => 0], '#attached' => ['library' => ['roma_booking/hotel']], 'navigation' => ['#theme' => 'item_list', '#items' => $items, '#attributes' => ['class' => ['hotel-admin-nav']]], 'notice' => ['#markup' => '<p>Prototipo académico no oficial. Datos de demostración. Los importes estimados no representan pagos ni ingresos reales.</p>']];
   }
   public function dashboard(): array {
@@ -31,7 +32,7 @@ final class AdminController extends ControllerBase {
       foreach (['queued'=>'Avisos pendientes','delivered'=>'Correos capturados localmente','skipped'=>'Avisos omitidos'] as $state=>$label) { $rows[]=[$this->cell($label),$this->cell($db->select('roma_notification','n')->condition('state',$state)->countQuery()->execute()->fetchField())]; }
       $build['automation']=['#type'=>'table','#caption'=>'Automatizaciones n8n · captura local Mailpit (sin correo externo)','#header'=>['Indicador','Cantidad'],'#rows'=>$rows];
     }
-    $build['convention'] = ['#markup' => '<p>Ocupación: ingreso inclusivo y salida exclusiva. Solo las confirmadas bloquean. La disponibilidad se vuelve a comprobar dentro de una transacción antes de confirmar.</p>'];
+    $build['convention'] = ['#markup' => '<p>Ocupación: ingreso inclusivo y salida exclusiva. Las confirmadas y los mantenimientos activos bloquean sus fechas; las pendientes no bloquean. La limpieza y las salidas pendientes se comprueban para entradas de hoy. La disponibilidad se vuelve a comprobar dentro de una transacción antes de confirmar.</p>'];
     return $build;
   }
   public function catalog(): array {

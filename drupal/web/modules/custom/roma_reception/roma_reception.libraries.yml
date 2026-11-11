@@ -1,0 +1,4 @@
+reception:
+  css:
+    theme:
+      css/reception.css: {}

@@ -1,0 +1,53 @@
+<?php
+/** Verificación transaccional; los datos de ensayo se revierten al finalizar. */
+$db=\Drupal::database();$h=\Drupal::service('roma_booking.hotel');$o=\Drupal::service('roma_reception.operations');$checks=[];
+$check=function(bool $ok,string $label)use(&$checks){if(!$ok)throw new \RuntimeException($label);$checks[]=$label;echo 'OK '.$label."\n";};
+$reject=function(callable $fn,string $label)use($check){try{$fn();}catch(\DomainException){$check(TRUE,$label);return;}$check(FALSE,$label);};
+$tx=$db->startTransaction();
+try {
+ $today=$h->today();$date=fn(int $days)=>(new \DateTimeImmutable($today))->modify('+'.$days.' days')->format('Y-m-d');
+ $room=$h->saveItem('room',0,['code'=>'QA-RX-'.bin2hex(random_bytes(3)),'type_id'=>1,'active'=>1]);
+ $request=fn($a,$d)=>$h->request(['room_id'=>$room,'arrival'=>$a,'departure'=>$d,'guests'=>1,'customer_name'=>'Ensayo recepción','email'=>'reception@example.invalid']);
+ $r=$request($today,$date(2));$id=$r['id'];
+ $reject(fn()=>$o->action('stay',$id,'check_in',1),'Una solicitud pendiente no admite check-in');
+ $h->transition($id,'confirmed',1);
+ $reject(fn()=>$o->action('stay',$id,'check_out',1),'No hay checkout sin check-in');
+ $reject(fn()=>$o->block($room,$today,$date(1),'Mantenimiento de ensayo',1),'Mantenimiento rechaza reserva confirmada superpuesta');
+ $o->action('room',$room,'dirty',1);
+ $reject(fn()=>$o->action('stay',$id,'check_in',1),'Habitación sucia impide registrar entrada');
+ $emptyRoom=$h->saveItem('room',0,['code'=>'QA-DIRTY-'.bin2hex(random_bytes(3)),'type_id'=>1,'active'=>1]);
+ $o->action('room',$emptyRoom,'dirty',1);
+ $check(!in_array($emptyRoom,array_column($h->availability($today,$date(1),1),'id')),'La disponibilidad de hoy excluye habitaciones pendientes de limpieza sin reservas');
+ $check(in_array($room,array_map('intval',array_column($h->availability($date(5),$date(6),1),'id'))),'La limpieza de hoy no bloquea reservas futuras');
+ $o->action('room',$room,'cleaning',1);$check($o->housekeeping($room)==='cleaning','Se registra limpieza en curso');
+ $o->action('room',$room,'clean',1);$o->action('stay',$id,'check_in',1);
+ $check($o->stay($id)['state']==='in_house'&&$o->stay($id)['check_in']>0,'Entrada confirmada guarda estado y hora');
+ $count=fn()=>(int)$db->select('roma_reception_event','e')->condition('kind','stay')->condition('entity_id',$id)->countQuery()->execute()->fetchField();
+ $before=$count();$o->action('stay',$id,'check_in',1);$check($before===$count(),'Repetir check-in no duplica el evento');
+ $reject(fn()=>$h->transition($id,'cancelled',1),'No se cancela una estadía con entrada');
+ $reject(fn()=>$o->action('room',$room,'cleaning',1),'No se cambia limpieza de habitación ocupada');
+ $reject(fn()=>$o->action('stay',$id,'no_show',1),'No se marca ausente a un huésped ingresado');
+ $o->action('stay',$id,'check_out',1);
+ $check($o->stay($id)['state']==='checked_out'&&$o->housekeeping($room)==='dirty','Salida registra hora y deja limpieza pendiente');
+ $o->action('room',$room,'clean',1);$o->action('stay',$id,'check_out',1);$check($o->housekeeping($room)==='clean','Repetir checkout no ensucia una habitación ya preparada');
+ $check(in_array($room,array_map('intval',array_column($h->availability($today,$date(1),1),'id'))),'La salida anticipada y limpieza liberan inventario sin borrar la reserva');
+ $reject(fn()=>$h->transition($id,'cancelled',1),'La salida conserva el historial de la reserva');
+ $replacement=$request($today,$date(1));$h->transition($replacement['id'],'confirmed',1);$check($h->reservation($replacement['id'])['status']==='confirmed','Nueva reserva puede ocupar una habitación con salida anticipada y limpieza registradas');
+ $future=$request($date(10),$date(12));$h->transition($future['id'],'confirmed',1);
+ $reject(fn()=>$o->action('stay',$future['id'],'check_in',1),'No se adelanta un check-in a fechas futuras');
+ $reject(fn()=>$o->action('stay',$future['id'],'no_show',1),'No se marca ausencia antes de la llegada');
+ $pending=$request($date(20),$date(22));$block=$o->block($room,$date(20),$date(22),'Reparación de ensayo',1);
+ $reject(fn()=>$h->transition($pending['id'],'confirmed',1),'La confirmación revalida el mantenimiento programado después de solicitar');
+ $reject(fn()=>$request($date(20),$date(21)),'No se registran solicitudes sobre mantenimiento');
+ $check(in_array($room,array_map('intval',array_column($h->availability($date(22),$date(23),1),'id'))),'Mantenimiento respeta fecha final exclusiva');
+ $reject(fn()=>$o->block($room,$date(21),$date(23),'Otro mantenimiento',1),'No se superponen mantenimientos activos');
+ $o->action('block',$block,'release',1);$h->transition($pending['id'],'confirmed',1);$check($h->reservation($pending['id'])['status']==='confirmed','Liberar mantenimiento permite confirmar después de revalidar');
+ $other=$h->saveItem('room',0,['code'=>'QA-NOSHOW-'.bin2hex(random_bytes(3)),'type_id'=>1,'active'=>1]);
+ $absent=$h->request(['room_id'=>$other,'arrival'=>$today,'departure'=>$date(1),'guests'=>1,'customer_name'=>'Ausencia ficticia','email'=>'absent@example.invalid']);$h->transition($absent['id'],'confirmed',1);$o->action('stay',$absent['id'],'no_show',1);
+ $check($o->stay($absent['id'])['state']==='no_show'&&$h->reservation($absent['id'])['status']==='cancelled','Ausencia libera inventario mediante la cancelación auditada');
+ $check(count($o->calendar($today,14)['dates'])===14,'Calendario muestra el periodo solicitado');
+ $reject(fn()=>$o->calendar('2026-02-30',14),'Calendario rechaza fechas inexistentes');
+ $reject(fn()=>$o->calendar($today,999),'Calendario limita el tamaño del periodo');
+ $reject(fn()=>$o->action('room',$room,'check_in',1),'No se acepta una acción incompatible con su entidad');
+ echo 'Total: '.count($checks)." comprobaciones. Datos revertidos al terminar.\n";
+} finally {$tx->rollBack();}

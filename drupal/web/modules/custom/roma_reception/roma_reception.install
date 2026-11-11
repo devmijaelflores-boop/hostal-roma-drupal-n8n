@@ -1,0 +1,19 @@
+<?php
+
+function roma_reception_schema(): array {
+  $int = ['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE,'default'=>0];
+  $serial = ['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE];
+  $str = static fn(int $n): array => ['type'=>'varchar','length'=>$n,'not null'=>TRUE,'default'=>''];
+  return [
+    'roma_stay'=>['fields'=>['reservation_id'=>$int,'state'=>$str(20),'check_in'=>$int,'check_out'=>$int,'updated'=>$int], 'primary key'=>['reservation_id'],'indexes'=>['state'=>['state']]],
+    'roma_housekeeping'=>['fields'=>['room_id'=>$int,'state'=>$str(16),'updated'=>$int], 'primary key'=>['room_id']],
+    'roma_room_block'=>['fields'=>['id'=>$serial,'room_id'=>$int,'arrival'=>$str(10),'departure'=>$str(10),'reason'=>$str(200),'active'=>$int,'actor_uid'=>$int,'created'=>$int], 'primary key'=>['id'],'indexes'=>['overlap'=>['room_id','active','arrival','departure']]],
+    'roma_reception_event'=>['fields'=>['id'=>$serial,'kind'=>$str(16),'entity_id'=>$int,'action'=>$str(24),'actor_uid'=>$int,'created'=>$int], 'primary key'=>['id'],'indexes'=>['entity'=>['kind','entity_id']]],
+  ];
+}
+
+function roma_reception_install(): void {
+  if ($role = \Drupal\user\Entity\Role::load('roma_manager')) {
+    $role->grantPermission('manage roma reception')->save();
+  }
+}

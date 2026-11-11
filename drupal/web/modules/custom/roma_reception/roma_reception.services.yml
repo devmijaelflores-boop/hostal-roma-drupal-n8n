@@ -1,0 +1,4 @@
+services:
+  roma_reception.operations:
+    class: Drupal\roma_reception\Service\ReceptionService
+    arguments: ['@database', '@roma_booking.hotel', '@datetime.time']

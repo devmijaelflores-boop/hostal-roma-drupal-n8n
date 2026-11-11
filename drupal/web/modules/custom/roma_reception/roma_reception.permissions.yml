@@ -1,0 +1,3 @@
+manage roma reception:
+  title: 'Gestionar calendario, recepción, limpieza y mantenimiento'
+  restrict access: true

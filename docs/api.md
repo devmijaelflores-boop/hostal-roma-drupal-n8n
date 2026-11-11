@@ -1,6 +1,6 @@
 # API de demostración · v1
 
-Base local: `http://localhost:8080/api/roma/v1`. JSON UTF-8. Importes enteros en céntimos PEN. Fechas ISO `YYYY-MM-DD`; ingreso inclusivo, salida exclusiva. Respuestas privadas sin caché. Solo las reservas confirmadas bloquean habitaciones; una solicitud pendiente no confirma ni garantiza habitación.
+Base local: `http://localhost:8080/api/roma/v1`. JSON UTF-8. Importes enteros en céntimos PEN. Fechas ISO `YYYY-MM-DD`; ingreso inclusivo, salida exclusiva. Respuestas privadas sin caché. Las reservas confirmadas vigentes y los mantenimientos activos bloquean habitaciones; una solicitud pendiente no confirma ni garantiza habitación. Con recepción habilitada, también se comprueban limpieza y salidas vencidas para llegadas de hoy. Una salida registrada libera el inventario sin borrar el historial comercial.
 
 | Método y ruta | Autorización | Uso |
 | --- | --- | --- |

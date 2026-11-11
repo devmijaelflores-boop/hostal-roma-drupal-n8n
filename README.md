@@ -14,6 +14,8 @@ La opción de la consigna implementada es **Drupal/PHP + chat n8n + Docker Compo
 
 También se desplegó una [demo HTTPS en AWS Academy](https://roma-demo.18-208-158-190.sslip.io/), con el editor n8n privado por túnel SSH. Se aprobaron 48 comprobaciones del servidor y 38 de navegador sobre EC2. El enlace depende de la instancia y de su IP durante el laboratorio; consulta la [verificación del despliegue](docs/verificacion-aws.md).
 
+La primera ampliación del sistema incorpora **recepción con calendario de 7/14/31 días, check-in, check-out, limpieza, mantenimientos y auditoría**. Las reglas se comparten con la tienda, la API y el chatbot. Consulta la [guía de recepción](docs/recepcion.md) y la [verificación de esta mejora](docs/verificacion-recepcion.md).
+
 ## Arranque y comprobación
 
 ```bash
@@ -37,6 +39,8 @@ El generador conserva `.env` y añade únicamente variables faltantes; no cambia
 | `/contacto` | Mensajes de prueba |
 | `/admin/roma` | Panel hotelero Drupal |
 | `/admin/roma/pedidos` | Pedidos Commerce y reservas relacionadas |
+| `/admin/roma/recepcion` | Calendario, entradas, salidas y limpieza |
+| `/admin/roma/mantenimiento` | Bloqueos por fechas |
 | `http://localhost:5678` | Editor n8n; crear propietario si sigue el asistente inicial |
 | `http://localhost:8025` | Correos de prueba capturados en Mailpit |
 
@@ -45,6 +49,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 ## Documentación
 
 - [Gestión hotelera y reglas de integridad](docs/fase-3-gestion-hotelera.md).
+- [Guía de recepción, calendario y mantenimiento](docs/recepcion.md).
 - [Tienda Drupal Commerce y checkout](docs/tienda-commerce.md).
 - [Guía rápida de la tienda](docs/guia-tienda.md).
 - [API y autorización](docs/api.md).

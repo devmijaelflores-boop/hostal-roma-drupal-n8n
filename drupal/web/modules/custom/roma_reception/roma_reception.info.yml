@@ -1,0 +1,7 @@
+name: ROMA Recepción
+type: module
+description: Calendario, entradas, salidas, limpieza y mantenimiento del prototipo.
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_booking:roma_booking
