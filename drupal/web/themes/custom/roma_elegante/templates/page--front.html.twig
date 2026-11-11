@@ -8,11 +8,11 @@
     <div class="hero-shade"></div>
     {% if not roma_hero.custom %}<div class="hero-credit">Fotografía ilustrativa · Unsplash</div>{% endif %}
     <div class="wrap hero-content"><div class="hero-intro">
-      <p class="eyebrow light">{{ ui.icon('pin') }} {{ roma_content.city }} · {{ roma_content.region }} · {{ roma_content.country }}</p>
-      <h1 id="hero-title">{{ roma_content.hotel_name }}</h1><p class="hero-brand-subtitle">{{ roma_content.brand_subtitle }}</p>
-      <p class="hero-description">Elige tu habitación, consulta las fechas y prepara tu próxima estadía.</p>
-      <a class="button button-cream" href="#habitaciones">Descubre las habitaciones {{ ui.icon('arrow') }}</a>
-      </div><aside class="hero-booking-card" aria-label="Planifica tu reserva"><p class="eyebrow">TU PRÓXIMA ESTADÍA</p><h2>Encuentra tu habitación.</h2>{% if roma_min_price %}<p class="hero-from">Desde <strong>{{ roma_min_price }}</strong><span>por noche · según habitación</span></p>{% endif %}<ul><li>Compara habitaciones y capacidad.</li><li>Consulta el total para tus fechas.</li><li>Revisa el estado de tu solicitud.</li></ul><a href="#planifica" class="button button-dark">Ver disponibilidad {{ ui.icon('arrow') }}</a><p class="hero-booking-note">La solicitud queda pendiente hasta su confirmación.</p></aside>
+      <p class="eyebrow light">TU PRÓXIMA PAUSA</p>
+      <h1 id="hero-title">{{ roma_content.hotel_name }}</h1>
+      <p class="hero-description">Encuentra el espacio para tu próximo descanso.</p>
+      {% if roma_min_price %}<p class="hero-rate">Habitaciones desde <strong>{{ roma_min_price }}</strong><span>por noche · según habitación</span></p>{% endif %}
+      </div>
     </div>
     <div class="hero-seal" aria-hidden="true"><span>DESCANSA</span>✧<span>SIGUE EL VIAJE</span></div>
   </section>
