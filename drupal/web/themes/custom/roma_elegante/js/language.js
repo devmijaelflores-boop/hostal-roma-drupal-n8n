@@ -1,0 +1,162 @@
+const translations = {
+  "Inicio": "Home",
+  "Habitaciones": "Rooms",
+  "Tienda": "Shop",
+  "Carrito": "Cart",
+  "Servicios": "Amenities",
+  "Ubicación": "Location",
+  "Contacto": "Contact",
+  "Consulta disponibilidad": "Check availability",
+  "Encuentra tu habitación y planifica tu estadía": "Find your room and plan your stay",
+  "Tu pausa en el": "Your escape in the",
+  "corazón del": "heart of the",
+  "altiplano.": "Andean highlands.",
+  "Hay viajes que merecen un buen descanso.": "Every journey deserves a good rest.",
+  "Imagina el tuyo con nosotros.": "Imagine yours with us.",
+  "Descubre las habitaciones": "Explore our rooms",
+  "UNA PROPUESTA DE HOSPITALIDAD, HECHA CON CALMA": "HOSPITALITY WITH TIME TO UNWIND",
+  "DESCANSA": "REST",
+  "SIGUE EL VIAJE": "KEEP EXPLORING",
+  "Llegada": "Check-in",
+  "Salida": "Check-out",
+  "Huéspedes": "Guests",
+  "1 huésped": "1 guest",
+  "2 huéspedes": "2 guests",
+  "3 huéspedes": "3 guests",
+  "4 huéspedes": "4 guests",
+  "Consultar": "Search",
+  "DEMO FUNCIONAL": "DEMO MODE",
+  "Disponibilidad calculada con datos de la demo. Solo las reservas confirmadas bloquean habitaciones.": "Availability uses demo data. Only confirmed reservations block rooms.",
+  "Un lugar para bajar": "A place to slow",
+  "el ritmo.": "down.",
+  "Y sentirte bien.": "And feel at home.",
+  "Los detalles que importan": "The details that matter",
+  "ESPACIOS PARA DESCONECTAR": "ROOM TO UNWIND",
+  "Encuentra tu": "Find your",
+  "descanso.": "rest.",
+  "Tres formas de imaginar tu estadía.": "Three ways to enjoy your stay.",
+  "Catálogo y tarifas de demostración.": "Demo catalogue and rates.",
+  "Todas las habitaciones": "All rooms",
+  "Para una persona": "For one guest",
+  "Para dos personas": "For two guests",
+  "Habitación": "Room",
+  "Individual": "Single",
+  "Matrimonial": "Double bed",
+  "Doble": "Twin",
+  "huésped": "guest",
+  "huéspedes": "guests",
+  "Distribución de demostración": "Demo layout",
+  "Desde": "From",
+  "/ noche": "/ night",
+  "Precios ficticios en soles peruanos (PEN). Las imágenes no corresponden al establecimiento real.": "Demo prices in Peruvian soles (PEN). Photos do not depict the actual property.",
+  "EL ORIGEN DE NUESTRA BIENVENIDA": "THE STORY BEHIND OUR WELCOME",
+  "Nuestra historia": "Our story",
+  "Cada viaje merece una buena bienvenida. Este espacio está preparado para contar el origen del hotel, las personas que lo impulsan y su vínculo con la ciudad.": "Every journey deserves a warm welcome. This space introduces the hotel’s origins, the people behind it and its connection to the city.",
+  "LO SENCILLO, BIEN PENSADO": "SIMPLE THINGS, THOUGHTFULLY DONE",
+  "Pequeños detalles.": "Small details.",
+  "Una mejor pausa.": "A better break.",
+  "Comodidades que forman parte de nuestra": "Amenities that are part of our",
+  "propuesta de demostración.": "demo experience.",
+  "Servicios de demostración; no constituyen una oferta del negocio real.": "Demo amenities; these are not an offer from the actual property.",
+  "Encuéntranos": "Find us",
+  "Ver mapa": "Show map",
+  "Abrir mapa": "Open map",
+  "UN DESTINO, MUCHAS HISTORIAS": "ONE DESTINATION, MANY STORIES",
+  "El viaje empieza": "Your journey begins",
+  "en": "in",
+  "Dirección": "Address",
+  "Cómo llegar · Google Maps": "Directions · Google Maps",
+  "TU PRÓXIMA PAUSA": "YOUR NEXT ESCAPE",
+  "Todo buen viaje merece": "Every great journey deserves",
+  "un": "a",
+  "buen descanso.": "good rest.",
+  "Planifica tu estadía": "Plan your stay",
+  "Una experiencia de demostración, por ahora.": "A demo experience, for now.",
+  "Explora": "Explore",
+  "Información": "Information",
+  "Consultar mi solicitud": "Check my request",
+  "Acceso administrativo": "Staff sign-in",
+  "Sistema independiente. Las solicitudes y mensajes se procesan en modo de prueba.": "Independent system. Requests and messages are processed in test mode.",
+  "Importes en soles peruanos (PEN)": "Amounts in Peruvian soles (PEN)",
+  "Chat": "Chat",
+  "Reintentar chat": "Retry chat",
+  "Abriendo…": "Opening…",
+  "Cerrar detalles": "Close details",
+  "Abrir menú": "Open menu",
+  "Cerrar menú": "Close menu",
+  "Disponibilidad de demostración": "Demo availability",
+  "Huéspedes en una habitación": "Guests per room",
+  "Consultar disponibilidad": "Check availability",
+  "Nombre completo": "Full name",
+  "Correo electrónico": "Email address",
+  "Mensaje": "Message",
+  "Entre 10 y 2000 caracteres.": "Between 10 and 2000 characters.",
+  "Enviar mensaje": "Send message",
+  "Uso datos ficticios y entiendo que el mensaje no se envía al negocio real.": "I use test data and understand this message is not sent to the actual property.",
+  "Código de solicitud": "Request code",
+  "Clave privada de consulta": "Private lookup key",
+  "Nombre del cliente de prueba": "Guest name for testing",
+  "Correo electrónico de prueba": "Test email address",
+  "Teléfono de prueba (opcional)": "Test phone number (optional)",
+  "Registrar solicitud de prueba": "Submit test request",
+  "Solicitar reserva": "Request a reservation",
+  "HABITACIÓN DE DEMOSTRACIÓN": "DEMO ROOM",
+  "por noche · tarifa ficticia": "per night · demo rate",
+  "Confirmo que utilizo datos de prueba y entiendo que no es una reserva real.": "I confirm I am using test data and understand this is not a real reservation.",
+  "Número de huéspedes": "Number of guests",
+  "Iniciar sesión": "Sign in",
+  "Nombre de usuario": "Username",
+  "Contraseña": "Password",
+  "Una pausa en el camino.": "A break along the way.",
+  "Una nueva forma de imaginar tu descanso.": "A new way to imagine your rest.",
+  "Fotografía referencial · Unsplash": "Illustrative photo · Unsplash",
+  "Sistema independiente sin afiliación al establecimiento.": "Independent system with no affiliation to the property.",
+  "Cochera": "Parking",
+  "Baño privado": "Private bathroom",
+  "Agua caliente": "Hot water",
+  "Conexión de demostración.": "Demo connection.",
+  "Servicio ilustrativo; no oferta del establecimiento real.": "Illustrative service; not an offer from the actual property.",
+  "Comodidad de demostración.": "Demo amenity.",
+  "Servicio de demostración.": "Demo service.",
+  "UN ESPACIO PARA TI": "A SPACE FOR YOU",
+  "MOMENTOS COMPARTIDOS": "SHARED MOMENTS",
+  "MEJOR EN COMPAÑÍA": "BETTER TOGETHER",
+  "Habitación ficticia del catálogo académico. Fotografías referenciales.": "Room from the academic demo catalogue. Illustrative photos.",
+  "Teléfono (opcional)": "Phone (optional)",
+  "- Selecciona -": "- Select -",
+  "pendiente de confirmación": "pending confirmation",
+  "Elige tu habitación y completa los datos del huésped. Tu solicitud quedará": "Choose your room and enter the guest details. Your request will be",
+  "Este prototipo no registra reservas oficiales del establecimiento ni realiza cobros.": "This demo does not create official reservations or charge payments.",
+  "Entre nuevos caminos y días por descubrir, siempre hay espacio para una pausa. Esta propuesta reúne ambientes acogedores, detalles sencillos y la inspiración del altiplano.": "Between new roads and days of discovery, there is always time for a pause. Discover welcoming spaces, thoughtful details and inspiration from the Andean highlands.",
+  "Explora nuestro catálogo ficticio y descubre cómo será la experiencia de este proyecto académico.": "Explore our demo catalogue and discover the experience.",
+  "El altiplano es el escenario de esta propuesta. Juliaca, en Puno, Perú, es la ciudad de referencia de nuestro proyecto académico.": "Discover the Andean highlands in Juliaca, Puno, Peru, the location used for this academic project.",
+  "Puedes dejarlo vacío. Si lo completas, usa números y, opcionalmente, +, espacios, paréntesis o guiones. Ejemplo ficticio: 999 123 456.": "You may leave this blank. Use numbers and optionally +, spaces, parentheses or hyphens. Test example: 999 123 456."
+};
+(() => {
+ const selector=document.querySelector('#hotel-language');if(!selector)return;
+ let language='es';try{language=localStorage.getItem('hotel-language')==='en'?'en':'es';}catch{}
+ const originals=new WeakMap();
+ function translate(root){
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;
+  while((node=walker.nextNode())){
+   if(node.parentElement?.closest('script,style,textarea,#n8n-chat,#hotel-language,[contenteditable]'))continue;
+   const previous=originals.get(node);const source=previous&&node.nodeValue===previous.output?previous.source:node.nodeValue;
+   const key=source.trim();let value=translations[key];
+   if(!value&&key.startsWith('BIENVENIDO A '))value='WELCOME TO '+key.slice(13);
+   const output=language==='en'&&value?source.replace(key,value):source;
+   if(node.nodeValue!==output)node.nodeValue=output;originals.set(node,{source,output});
+  }
+  root.querySelectorAll('input[type=submit], [aria-label]').forEach(el=>{
+   if(el.closest('#hotel-language,#n8n-chat'))return;
+   for(const attribute of ['aria-label',...(el.matches('input[type=submit]')?['value']:[])]){
+    const store='data-es-'+attribute;if(!el.hasAttribute(store))el.setAttribute(store,el.getAttribute(attribute)||'');
+    const source=el.getAttribute(store);el.setAttribute(attribute,language==='en'?(translations[source]||source):source);
+   }
+  });
+ }
+ function apply(){document.documentElement.lang=language;selector.value=language;translate(document.body);window.dispatchEvent(new CustomEvent('hotel-language-change',{detail:language}));}
+ selector.addEventListener('change',()=>{language=selector.value;try{localStorage.setItem('hotel-language',language);}catch{}apply();});
+ apply();
+ const observer=new MutationObserver(()=>{observer.disconnect();translate(document.body);observe();});
+ function observe(){observer.observe(document.body,{childList:true,subtree:true,characterData:true});}observe();
+})();

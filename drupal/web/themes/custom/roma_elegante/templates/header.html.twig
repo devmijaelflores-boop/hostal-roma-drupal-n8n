@@ -7,6 +7,7 @@
       <span class="brand-text"><strong>{{ roma_content.hotel_name }}</strong><span>{{ roma_content.brand_subtitle }}</span></span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">{{ ui.icon('menu') }}</button>
+    <label class="hotel-language"><span class="visually-hidden">Idioma / Language</span><select id="hotel-language" aria-label="Idioma / Language"><option value="es">ES · Español</option><option value="en">EN · English</option></select></label>
     <nav id="main-navigation" class="main-navigation" aria-label="Navegación principal">
       <a href="{{ path('<front>') }}#inicio"{% if is_front %} class="is-current"{% endif %}>Inicio</a>
       <a href="{{ path('<front>') }}#habitaciones">Habitaciones</a>
