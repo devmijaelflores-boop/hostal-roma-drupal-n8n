@@ -175,7 +175,19 @@ const translations = {
   "Galería de interiores": "Interior gallery",
   "Capacidad:": "Capacity:",
   "por noche": "per night",
-  "La disponibilidad se comprueba al enviar la solicitud y antes de confirmarla.": "Availability is checked when you submit your request and before confirmation."
+  "La disponibilidad se comprueba al enviar la solicitud y antes de confirmarla.": "Availability is checked when you submit your request and before confirmation.",
+  "Imagen y video · Mixkit": "Image and video · Mixkit",
+  "Un espacio para descansar.": "A place to unwind.",
+  "Tu viaje.": "Your journey.",
+  "Tu forma de descansar.": "Your way to unwind.",
+  "Explora las habitaciones": "Explore the rooms",
+  "Compara habitaciones, descubre sus detalles y elige el espacio que se ajuste a tu viaje.": "Compare rooms, discover the details and choose a space for your trip.",
+  "Elige tus fechas.": "Choose your dates.",
+  "Indica llegada, salida y huéspedes.": "Enter arrival, departure and guests.",
+  "Encuentra tu espacio.": "Find your space.",
+  "Compara capacidad y total de la estadía.": "Compare capacity and total stay cost.",
+  "Envía tu solicitud.": "Send your request.",
+  "Guarda tu código para consultar la confirmación.": "Keep your code to check your confirmation."
 };
 (() => {
  const selector=document.querySelector('#hotel-language');if(!selector)return;

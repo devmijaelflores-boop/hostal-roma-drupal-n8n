@@ -7,7 +7,7 @@
     <div class="gallery-controls hero-gallery-controls"><button type="button" data-gallery-play aria-label="Pausar carrusel" aria-pressed="false">Ⅱ</button><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / 3</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button><button type="button" data-gallery-expand aria-label="Ampliar fotografía">⤢</button></div>
     {% if not roma_hero.custom %}<video class="hero-video" id="hero-video" data-src="{{ roma_assets }}/video/hotel-interior.mp4" muted playsinline loop preload="none" aria-hidden="true" tabindex="-1"></video><button class="hero-video-control" id="hero-video-control" type="button" aria-label="Reproducir video" aria-pressed="false" hidden>Ver video</button>{% endif %}
     <div class="hero-shade"></div>
-    {% if not roma_hero.custom %}<div class="hero-credit" data-video-credit>Fotografía · Unsplash</div>{% endif %}
+    {% if not roma_hero.custom %}<div class="hero-credit" data-video-credit>Imagen y video · Mixkit</div>{% endif %}
     <div class="wrap hero-content"><div class="hero-intro">
       <p class="eyebrow light">TU PRÓXIMA PAUSA</p>
       <h1 id="hero-title">{{ roma_content.hotel_name }}</h1>
@@ -31,8 +31,8 @@
   </section>
 
   <section class="welcome wrap section-space" aria-labelledby="welcome-title">
-    <div class="welcome-heading"><p class="eyebrow">BIENVENIDO A {{ roma_content.hotel_name }}</p><h2 id="welcome-title">Elige con calma.<br><em>Reserva con claridad.</em></h2></div>
-    <div class="welcome-copy"><p>{{ roma_content.presentation|default('Compara tipos de habitación, capacidad y tarifas en un solo lugar. Consulta tus fechas y envía una solicitud; podrás revisar su estado con tu código y clave privada.') }}</p><a class="text-link" href="#habitaciones">Compara las habitaciones {{ ui.icon('arrow') }}</a></div>
+    <figure class="welcome-visual"><img src="{{ roma_rooms[0].gallery.images[0]|default(roma_hero.images[0]) }}" alt="{{ roma_rooms[0].gallery.alt|default(roma_hero.alt) }}" width="900" height="600" loading="lazy" decoding="async"><figcaption><span>01</span> Un espacio para descansar.</figcaption></figure>
+    <div class="welcome-copy"><p class="eyebrow">BIENVENIDO A {{ roma_content.hotel_name }}</p><h2 id="welcome-title">Tu viaje.<br><em>Tu forma de descansar.</em></h2><p>{{ roma_content.presentation|default('Compara habitaciones, descubre sus detalles y elige el espacio que se ajuste a tu viaje.') }}</p><a class="text-link" href="#habitaciones">Explora las habitaciones {{ ui.icon('arrow') }}</a></div>
   </section>
 
   <section class="rooms-section section-space" id="habitaciones" aria-labelledby="rooms-title">
@@ -52,7 +52,7 @@
     </div>
   </section>
 
-  <section class="wrap hotel-story" id="historia">{% if roma_content.story_text %}<p class="eyebrow">CONÓCENOS</p><h2>{{ roma_content.story_title|default('Nuestra historia') }}</h2><p>{{ roma_content.story_text }}</p>{% else %}<p class="eyebrow">TU ESTADÍA, PASO A PASO</p><h2>Reserva sin complicaciones.</h2><p>1. Consulta fechas y huéspedes. 2. Elige una habitación. 3. Completa tus datos y guarda el código de solicitud. Podrás consultar su estado desde el sistema.</p>{% endif %}</section>
+  <section class="wrap hotel-story" id="historia">{% if roma_content.story_text %}<p class="eyebrow">CONÓCENOS</p><h2>{{ roma_content.story_title|default('Nuestra historia') }}</h2><p>{{ roma_content.story_text }}</p>{% else %}<p class="eyebrow">TU ESTADÍA, PASO A PASO</p><h2>Reserva sin complicaciones.</h2><ol class="booking-story-steps"><li><span>01</span><h3>Elige tus fechas.</h3><p>Indica llegada, salida y huéspedes.</p></li><li><span>02</span><h3>Encuentra tu espacio.</h3><p>Compara capacidad y total de la estadía.</p></li><li><span>03</span><h3>Envía tu solicitud.</h3><p>Guarda tu código para consultar la confirmación.</p></li></ol>{% endif %}</section>
   <section class="services-section section-space" id="servicios" aria-labelledby="services-title">
     <div class="wrap"><div class="section-heading"><div><p class="eyebrow light">LO SENCILLO, BIEN PENSADO</p><h2 id="services-title">Pequeños detalles.<br><em>Una mejor pausa.</em></h2></div><p>Comodidades que forman parte de nuestra<br>propuesta de alojamiento.</p></div>
       <div class="services-grid">{% for service in roma_services %}<article>{{ ui.icon(loop.index == 1 ? 'wifi' : (loop.index == 2 ? 'car' : (loop.index == 3 ? 'shower' : 'sun'))) }}<h3>{{ service.name }}</h3><p>{{ service.description }}</p></article>{% endfor %}</div>

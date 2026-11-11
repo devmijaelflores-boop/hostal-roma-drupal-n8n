@@ -33,7 +33,7 @@ function roma_elegante_preprocess_page(array &$variables): void {
     }
     return ['images'=>$urls?:$fallback,'alt'=>$photos->get('galleries.'.$key.'.alt')?:'Interior ilustrativo','custom'=>(bool)$urls];
   };
-  $variables['roma_hero']=$gallery('hero',[$variables['roma_assets'].'/images/individual.jpg',$variables['roma_assets'].'/images/matrimonial.jpg',$variables['roma_assets'].'/images/doble.jpg']);
+  $variables['roma_hero']=$gallery('hero',[$variables['roma_assets'].'/video/hotel-poster.jpg',$variables['roma_assets'].'/images/matrimonial.jpg',$variables['roma_assets'].'/images/doble.jpg']);
   foreach($variables['roma_rooms'] as &$room){$room['gallery']=$gallery('room_'.$room['id'],[$variables['roma_assets'].'/images/'.$room['image']]);}unset($room);
   \Drupal::service('renderer')->addCacheableDependency($variables,$photos);
   $prices=array_column($variables['roma_rooms'],'amount');

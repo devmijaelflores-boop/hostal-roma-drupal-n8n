@@ -16,3 +16,7 @@ Consulta: 11/11/2026. Se revisaron páginas oficiales y documentación técnica.
 Un solo medio en movimiento en portada: video o carrusel, evitando reproducción simultánea. El texto de marca y la reserva permanecen estables. Clip local de diez segundos, sin audio, 350370 bytes; no se descarga automáticamente en móvil, ahorro de datos o movimiento reducido. Entradas discretas de secciones; el contenido permanece accesible si JavaScript falla.
 
 Las duraciones elegidas (550 ms de entrada, 650 ms de fundido, diez segundos de clip) son decisiones de diseño del proyecto, no valores prescritos por las referencias. La siguiente mejora editorial debe ser material propio o autorizado del hotel y una foto inicial correspondiente al mismo video para evitar un cambio de ambiente al comenzar. El clip de muestra actual y las fotos pertenecen a interiores diferentes.
+
+## Aplicación de las referencias
+
+La imagen inicial de portada ahora se extrae del mismo clip (`assets/video/hotel-poster.jpg`) para evitar un salto entre interiores al comenzar la reproducción. Se añadió una presentación editorial con fotografía local, texto breve y acceso al catálogo; la guía de reserva usa tres bloques numerados. No se copió material de los hoteles de referencia. Conserva la reserva estable, el control del video y la alternativa sin movimiento. Se verificaron cinco anchos de pantalla, cambio a inglés y ausencia de errores JavaScript.
