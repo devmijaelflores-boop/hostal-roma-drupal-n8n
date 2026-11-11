@@ -67,7 +67,7 @@ final class AssistantController extends ApiController {
       }
       $output = $lines ? "Tarifas del catálogo en soles (PEN):\n" . implode("\n", $lines) : 'Esa categoría no está activa en el catálogo de la demo.';
     }
-    else { $output = '¡Hola! Soy el asistente de demostración. Puedo consultar precios, tipos de habitación, servicios, ubicación y disponibilidad por fechas. También puedo orientarte para [solicitar una reserva](/reservar). Utiliza solo datos ficticios.'; }
+    else { $output = '¡Hola! Puedo consultar precios, tipos de habitación, servicios, ubicación y disponibilidad por fechas. También puedo orientarte para [solicitar una reserva](/reservar). Utiliza solo datos ficticios.'; }
     return $this->respond(['output'=>$output, 'demo'=>TRUE, 'source'=>'Drupal/MariaDB', 'ai'=>FALSE]);
   }
 }

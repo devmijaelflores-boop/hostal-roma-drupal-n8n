@@ -27,9 +27,15 @@ final class ChatController extends ApiController {
       ]);
       $data = json_decode((string) $response->getBody(), TRUE, 16, JSON_THROW_ON_ERROR);
       if (!is_array($data) || !is_string($data['output'] ?? NULL)) { throw new \RuntimeException('Respuesta no válida.'); }
-      return $this->respond(['output'=>$data['output'], 'demo'=>TRUE]);
+      return $this->respond(['output'=>$data['output'], 'demo'=>TRUE, 'ai'=>!empty($data['ai']), 'provider'=>$data['provider'] ?? NULL, 'fallback'=>!empty($data['fallback'])]);
     }
     catch (\Throwable) {
+      try {
+        $response=\Drupal::httpClient()->post('http://drupal/api/roma/v1/assistant', ['timeout'=>4,'connect_timeout'=>2,'headers'=>['Authorization'=>'Bearer '.getenv('ROMA_INTEGRATION_TOKEN')],'json'=>['chatInput'=>$input]]);
+        $data=json_decode((string)$response->getBody(),TRUE,16,JSON_THROW_ON_ERROR);
+        if (is_string($data['output'] ?? NULL)) { return $this->respond(['output'=>$data['output'],'demo'=>TRUE,'ai'=>FALSE,'fallback'=>TRUE]); }
+      } catch (\Throwable) {}
+
       return $this->respond(['output'=>'El asistente de demostración no está disponible en este momento. No se ha registrado ninguna reserva. Puedes usar [el formulario de reservas](/reservar) o [consultar disponibilidad](/disponibilidad).', 'demo'=>TRUE, 'unavailable'=>TRUE]);
     }
   }

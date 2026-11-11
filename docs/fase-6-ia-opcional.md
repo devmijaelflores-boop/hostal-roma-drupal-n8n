@@ -16,3 +16,11 @@ Se eligió el contrato Responses API con Structured Outputs tras consultar la [d
 La API valida las etiquetas admitidas. Una salida de clasificación ausente se reduce a `other`; Drupal conserva el mensaje original para la respuesta determinista. Los precios se calculan en MariaDB, las escrituras requieren los permisos de integración y el chatbot nunca confirma solicitudes. No envíes nombres, correos, claves de consulta ni datos de tarjetas a un proveedor de IA. La interfaz advierte que se usen datos ficticios; activar esta alternativa puede enviar el texto escrito al proveedor.
 
 Estado: JSON preparado y validado sintácticamente; no probado contra OpenAI por ausencia de credencial. No se incluye entre los workflows que la instalación publica automáticamente.
+
+## Alternativa Gemini
+
+`n8n/workflows/optional/chat-gemini-optional.json` usa la credencial `Gemini Hotel` (tipo `googlePalmApi`), guardada exclusivamente en n8n. Clasifica la intención con Gemini 3.5 Flash Lite; consulta los importes y disponibilidad en Drupal. No crea reservas ni genera confirmaciones. No ofrece memoria de conversación ni redacta libremente respuestas: la IA interpreta la consulta y Drupal responde desde el catálogo.
+
+Las consultas se limitan a 1000 caracteres y se omiten correos y secuencias numéricas largas antes de enviarlas a Google. Esto no constituye anonimización completa: usar solo datos de prueba. No se exportan registros de huéspedes. Los errores, salidas inválidas o cuota agotada vuelven a interpretación determinista. Si n8n deja de responder, el puente intenta consultar Drupal directamente. No se guardan ejecuciones con datos del chat.
+
+El flujo usa la ruta privada `roma-chat-ai`, por lo que no debe publicarse simultáneamente con la alternativa OpenAI. Se activa mediante `ROMA_CHAT_MODE=ai`; volver a `deterministic` desactiva el uso de IA desde la web. La clave no forma parte del JSON exportable ni del repositorio. El modelo y la cuota disponible se deben comprobar para cada cuenta.
