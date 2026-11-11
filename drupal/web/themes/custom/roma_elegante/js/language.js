@@ -1,4 +1,6 @@
 const translations = {
+  "Pausar carrusel": "Pause slideshow",
+  "Reproducir carrusel": "Play slideshow",
   "Inicio": "Home",
   "Habitaciones": "Rooms",
   "Tienda": "Shop",
