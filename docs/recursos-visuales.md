@@ -22,3 +22,7 @@ Descargadas el 10/11/2026 en JPEG, con anchura 1800 para la portada y 900 para l
 ## Ilustración e iconos
 
 La ilustración conceptual del altiplano se creó con CSS. No es una fotografía, un mapa o un punto geográfico del negocio. La marca tipográfica y los iconos SVG de interfaz se escribieron para este proyecto; no se presentan como identidad oficial del establecimiento.
+
+## Galerías de imágenes
+
+La portada permite recorrer manualmente tres fotografías existentes. Las ventanas de habitaciones muestran la fotografía de su categoría y una segunda imagen del catálogo ilustrativo; no representan distintos ángulos de una misma habitación real. Las imágenes se amplían en un diálogo y pueden recorrerse mediante flechas o deslizamiento táctil. Las rutas adicionales se conservan como datos y se asignan a la imagen únicamente al navegar; no hay avance automático. Se reutilizan los archivos locales, sin nuevas descargas externas ni dependencias de carrusel.

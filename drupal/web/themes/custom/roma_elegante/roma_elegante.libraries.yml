@@ -6,6 +6,7 @@ global:
       css/roma.css: {}
   js:
     js/roma.js: {}
+    js/gallery.js: {}
     js/language.js: {}
   dependencies:
     - core/drupal

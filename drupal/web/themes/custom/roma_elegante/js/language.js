@@ -130,7 +130,13 @@ const translations = {
   "Entre nuevos caminos y días por descubrir, siempre hay espacio para una pausa. Esta propuesta reúne ambientes acogedores, detalles sencillos y la inspiración del altiplano.": "Between new roads and days of discovery, there is always time for a pause. Discover welcoming spaces, thoughtful details and inspiration from the Andean highlands.",
   "Explora nuestro catálogo ficticio y descubre cómo será la experiencia de este proyecto académico.": "Explore our demo catalogue and discover the experience.",
   "El altiplano es el escenario de esta propuesta. Juliaca, en Puno, Perú, es la ciudad de referencia de nuestro proyecto académico.": "Discover the Andean highlands in Juliaca, Puno, Peru, the location used for this academic project.",
-  "Puedes dejarlo vacío. Si lo completas, usa números y, opcionalmente, +, espacios, paréntesis o guiones. Ejemplo ficticio: 999 123 456.": "You may leave this blank. Use numbers and optionally +, spaces, parentheses or hyphens. Test example: 999 123 456."
+  "Puedes dejarlo vacío. Si lo completas, usa números y, opcionalmente, +, espacios, paréntesis o guiones. Ejemplo ficticio: 999 123 456.": "You may leave this blank. Use numbers and optionally +, spaces, parentheses or hyphens. Test example: 999 123 456.",
+  "Foto anterior": "Previous photo",
+  "Foto siguiente": "Next photo",
+  "Ampliar fotografía": "Enlarge photo",
+  "Cerrar fotografía": "Close photo",
+  "Imágenes ilustrativas": "Illustrative images",
+  "Selección de interiores · Imágenes ilustrativas": "Interior gallery · Illustrative images"
 };
 (() => {
  const selector=document.querySelector('#hotel-language');if(!selector)return;
