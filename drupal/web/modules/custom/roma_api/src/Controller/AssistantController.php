@@ -58,16 +58,29 @@ final class AssistantController extends ApiController {
     elseif (preg_match('/pago|pagar|tarjeta|yape|plin/', $text)) {
       $output = 'Los pagos del proyecto son exclusivamente de demostración. [Consulta tu solicitud](/mi-reserva) para ver las opciones habilitadas. Nunca compartas tarjetas, claves bancarias ni datos reales en el chat.';
     }
-    elseif (preg_match('/precio|tarifa|cuesta|habitacion|individual|matrimonial|doble/', $text)) {
+    elseif (preg_match('/precio|tarifa|cuesta|habitacion|individual|matrimonial|doble|promo|barat|economic/', $text)) {
       $lines = [];
       foreach ($this->hotel->types() as $type) {
         $normalized = strtr(mb_strtolower($type['name']), ['á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u']);
         $specific = preg_match('/individual|matrimonial|doble/', $text);
-        if (!$specific || str_contains($text, $normalized)) { $lines[] = '• ' . $type['name'] . ': ' . HotelService::money((int) $type['amount']) . '/noche, capacidad ' . $type['capacity'] . '.'; }
+        if (!$specific || str_contains($text, $normalized)) { $lines[] = '- **' . $type['name'] . '**' . ': ' . HotelService::money((int) $type['amount']) . '/noche, capacidad ' . $type['capacity'] . '.'; }
       }
-      $output = $lines ? "Tarifas del catálogo en soles (PEN):\n" . implode("\n", $lines) : 'Esa categoría no está activa en el catálogo de la demo.';
+      if ($lines) {
+        $types=$this->hotel->types();
+        usort($types,static fn(array $a,array $b): int => (int)$a['amount'] <=> (int)$b['amount']);
+        $output="¡Claro! 😊 Te ayudo a encontrar una opción para tu viaje.\n\n";
+        if (!preg_match('/individual|matrimonial|doble/', $text) && $types) {
+          $lowest=$types[0];
+          $output.='La opción más económica del catálogo es **'.$lowest['name'].'**, desde **'.HotelService::money((int)$lowest['amount']).' por noche**, para hasta '.$lowest['capacity'].' persona(s).'."\n\n";
+        }
+        $output.=implode("\n\n",$lines);
+        if (str_contains($text,'promo') || str_contains($text,'oferta') || str_contains($text,'descuento')) {
+          $output.="\n\nSobre promociones, todavía no tengo ofertas verificadas para anunciarte. Puedes [consultar con recepción](/contacto).";
+        }
+        $output.="\n\n¿Cuántas personas viajarían y cuáles serían tus fechas de llegada y salida? Así puedes consultar una opción que se ajuste a tu estadía. 🧳";
+      } else { $output='Por ahora no encuentro esa categoría en el catálogo. ¿Te muestro las habitaciones disponibles? 😊'; }
     }
-    else { $output = '¡Hola! Puedo consultar precios, tipos de habitación, servicios, ubicación y disponibilidad por fechas. También puedo orientarte para [solicitar una reserva](/reservar). Utiliza solo datos ficticios.'; }
+    else { $output = '¡Hola, qué gusto saludarte! 😊 Soy el asistente de ROMA. ¿Estás planeando un viaje? Puedo ayudarte a elegir habitación, revisar precios o consultar fechas. Cuéntame qué necesitas y empezamos. 🧳'; }
     return $this->respond(['output'=>$output, 'demo'=>TRUE, 'source'=>'Drupal/MariaDB', 'ai'=>FALSE]);
   }
 }
