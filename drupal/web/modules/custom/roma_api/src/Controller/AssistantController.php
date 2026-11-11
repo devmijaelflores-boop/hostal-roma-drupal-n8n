@@ -65,7 +65,7 @@ final class AssistantController extends ApiController {
         $specific = preg_match('/individual|matrimonial|doble/', $text);
         if (!$specific || str_contains($text, $normalized)) { $lines[] = '• ' . $type['name'] . ': ' . HotelService::money((int) $type['amount']) . '/noche, capacidad ' . $type['capacity'] . '.'; }
       }
-      $output = $lines ? "Tarifas ficticias en PEN, obtenidas de la base de datos:\n" . implode("\n", $lines) : 'Esa categoría no está activa en el catálogo de la demo.';
+      $output = $lines ? "Tarifas del catálogo en soles (PEN):\n" . implode("\n", $lines) : 'Esa categoría no está activa en el catálogo de la demo.';
     }
     else { $output = '¡Hola! Soy el asistente de demostración. Puedo consultar precios, tipos de habitación, servicios, ubicación y disponibilidad por fechas. También puedo orientarte para [solicitar una reserva](/reservar). Utiliza solo datos ficticios.'; }
     return $this->respond(['output'=>$output, 'demo'=>TRUE, 'source'=>'Drupal/MariaDB', 'ai'=>FALSE]);

@@ -11,8 +11,8 @@ try {
   createChat({
     webhookUrl:'/api/roma/chat', target:'#n8n-chat', mode:'window', loadPreviousSession:false, showWelcomeScreen:false,
     webhookConfig:{method:'POST',headers:{'X-ROMA-CSRF':session.csrf}},
-    defaultLanguage:'es', initialMessages:[`¡Hola! Soy el asistente de ${launcher.dataset.hotel}. Consulta precios, servicios o disponibilidad de demostración.`],
-    i18n:{es:{title:`Asistente ${launcher.dataset.hotel}`,subtitle:'Demo académica · Datos de Drupal mediante n8n',footer:'',getStarted:'Nueva consulta',inputPlaceholder:'Pregunta por precios, servicios o fechas…',closeButtonTooltip:'Cerrar chat'}},
+    defaultLanguage:'es', initialMessages:[`¡Hola! Soy el asistente de ${launcher.dataset.hotel}. Consulta precios, servicios o fechas para tu estadía.`],
+    i18n:{es:{title:`Asistente ${launcher.dataset.hotel}`,subtitle:'Precios, habitaciones y consultas',footer:'',getStarted:'Nueva consulta',inputPlaceholder:'Pregunta por precios, servicios o fechas…',closeButtonTooltip:'Cerrar chat'}},
     enableStreaming:false, allowFileUploads:false,
   });
   launcher.hidden=true;
