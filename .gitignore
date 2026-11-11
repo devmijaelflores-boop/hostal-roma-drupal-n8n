@@ -4,6 +4,11 @@
 *.sql
 *.sqlite*
 *.log
+*.pem
+*.pfx
+*.p12
+*.key
+drupal/config/sync/.htaccess
 .DS_Store
 __pycache__/
 *.pyc

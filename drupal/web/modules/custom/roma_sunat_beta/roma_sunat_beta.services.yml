@@ -1,0 +1,6 @@
+services:
+  roma_sunat_beta.gateway:
+    class: Drupal\roma_sunat_beta\Service\BetaGateway
+  roma_sunat_beta.documents:
+    class: Drupal\roma_sunat_beta\Service\DocumentService
+    arguments: ['@database', '@roma_finance.ledger', '@datetime.time', '@roma_sunat_beta.gateway']

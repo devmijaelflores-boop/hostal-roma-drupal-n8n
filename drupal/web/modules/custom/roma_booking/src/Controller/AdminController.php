@@ -20,6 +20,7 @@ final class AdminController extends ControllerBase {
     if (\Drupal::moduleHandler()->moduleExists('roma_shop') && $this->currentUser()->hasPermission('administer commerce_order')) { $items[] = Link::fromTextAndUrl('Pedidos de la tienda', Url::fromRoute('roma_shop.orders'))->toRenderable(); }
     if (\Drupal::moduleHandler()->moduleExists('roma_reception') && $this->currentUser()->hasPermission('manage roma reception')) { $items[] = Link::fromTextAndUrl('Recepción y calendario', Url::fromRoute('roma_reception.calendar'))->toRenderable(); }
     if (\Drupal::moduleHandler()->moduleExists('roma_finance') && $this->currentUser()->hasPermission('manage roma finance')) { $items[] = Link::fromTextAndUrl('Cuentas y saldos', Url::fromRoute('roma_finance.overview'))->toRenderable(); }
+    if (\Drupal::moduleHandler()->moduleExists('roma_sunat_beta') && $this->currentUser()->hasPermission('manage roma sunat beta')) { $items[] = Link::fromTextAndUrl('SUNAT beta', Url::fromRoute('roma_sunat_beta.overview'))->toRenderable(); }
     return ['#cache' => ['max-age' => 0], '#attached' => ['library' => ['roma_booking/hotel']], 'navigation' => ['#theme' => 'item_list', '#items' => $items, '#attributes' => ['class' => ['hotel-admin-nav']]], 'notice' => ['#markup' => '<p>Prototipo académico no oficial. Datos de demostración. Los importes estimados no representan pagos ni ingresos reales.</p>']];
   }
   public function dashboard(): array {

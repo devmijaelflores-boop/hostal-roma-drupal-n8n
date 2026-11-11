@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-11T14:29:36.883Z",
+  "checks": [
+    "Preparación UBL protegida ante acceso anónimo",
+    "Usuario autenticado sin permiso no prepara documentos",
+    "Cuenta saldada ofrece el acceso a prueba beta",
+    "GET de preparación no asigna correlativo ni firma",
+    "Token de formulario alterado no genera XML",
+    "POST autorizado prepara exactamente un documento firmado",
+    "Pantalla distingue prueba estructural y régimen tributario",
+    "Descarga autorizada es adjunto privado sin caché",
+    "XML descargado lleva firma pública sin clave ni datos del huésped",
+    "Descarga XML rechazada en otra sesión anónima",
+    "Recargar la vista no vuelve a preparar",
+    "GET de confirmación no llama a SUNAT",
+    "Envío exige una segunda confirmación explícita",
+    "Boleta usa serie y destinatario genérico distintos",
+    "Representación académica puede imprimirse desde el navegador",
+    "Documento beta usable en móvil sin desbordamiento",
+    "Sin errores JavaScript en preparación, vista y descarga"
+  ],
+  "errors": [],
+  "network": "Esta prueba no envía documentos a SUNAT."
+}

@@ -11,6 +11,8 @@ x-drupal-environment: &drupal-environment
   ROMA_TRUSTED_HOSTS: ${ROMA_TRUSTED_HOSTS:-localhost,127.0.0.1}
   ROMA_REVERSE_PROXY_ADDRESSES: ${ROMA_REVERSE_PROXY_ADDRESSES:-}
   ROMA_CHAT_MODE: ${ROMA_CHAT_MODE:-deterministic}
+  ROMA_SUNAT_BETA_USER: ${ROMA_SUNAT_BETA_USER:-}
+  ROMA_SUNAT_BETA_PASSWORD: ${ROMA_SUNAT_BETA_PASSWORD:-}
   TZ: ${TZ:-America/Lima}
 
 services:
@@ -47,6 +49,7 @@ services:
     environment: *drupal-environment
     volumes:
       - drupal_files:/var/www/html/web/sites/default/files
+      - sunat_beta_private:/var/www/private/sunat-beta
     networks:
       default: {}
       proxy:
@@ -71,6 +74,7 @@ services:
       DRUPAL_ADMIN_EMAIL: ${DRUPAL_ADMIN_EMAIL:-admin@example.invalid}
     volumes:
       - drupal_files:/var/www/html/web/sites/default/files
+      - sunat_beta_private:/var/www/private/sunat-beta
     entrypoint: [/bin/sh, /opt/roma/install.sh]
     restart: "no"
 
@@ -146,6 +150,7 @@ volumes:
   mailpit_data:
   caddy_data:
   caddy_config:
+  sunat_beta_private:
 
 networks:
   proxy:

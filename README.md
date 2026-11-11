@@ -18,6 +18,8 @@ La primera ampliación del sistema incorpora **recepción con calendario de 7/14
 
 La segunda ampliación añade **cuentas de demostración con cargos, descuentos, adelantos, devoluciones, saldos y contrapartidas auditadas**, más constancias internas y avisos n8n hacia Mailpit. No registra cobros bancarios ni emite CPE SUNAT. Véase la [guía de cuentas](docs/cuentas-y-saldos.md).
 
+La fase **SUNAT beta** ya está implementada y verificada localmente: factura y boleta con XML firmado y CDR código 0, usando datos genéricos y firma académica. Sigue pendiente su publicación en EC2 hasta recuperar el acceso a la instancia. No tiene validez tributaria ni habilita producción. Ver [guía SUNAT beta](docs/sunat-beta.md), [verificación](docs/verificacion-sunat-beta.md) y [ejemplos XML/CDR/PDF](docs/ejemplos-sunat-beta/README.md).
+
 ## Arranque y comprobación
 
 ```bash
@@ -54,6 +56,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 - [Gestión hotelera y reglas de integridad](docs/fase-3-gestion-hotelera.md).
 - [Guía de recepción, calendario y mantenimiento](docs/recepcion.md).
 - [Cuentas, adelantos, saldos y avisos n8n](docs/cuentas-y-saldos.md) y [verificación financiera](docs/verificacion-finanzas.md).
+- [Facturación de prueba SUNAT beta](docs/sunat-beta.md).
 - [Tienda Drupal Commerce y checkout](docs/tienda-commerce.md).
 - [Guía rápida de la tienda](docs/guia-tienda.md).
 - [API y autorización](docs/api.md).

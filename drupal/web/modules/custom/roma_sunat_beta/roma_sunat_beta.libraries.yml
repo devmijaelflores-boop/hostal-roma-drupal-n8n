@@ -1,0 +1,6 @@
+beta:
+  css:
+    theme:
+      css/beta.css: {}
+  dependencies:
+    - roma_finance/finance

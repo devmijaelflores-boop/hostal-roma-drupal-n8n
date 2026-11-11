@@ -8,3 +8,7 @@ drupal/web/modules/contrib
 drupal/web/themes/contrib
 drupal/web/profiles/contrib
 *.log
+**/*.pem
+**/*.pfx
+**/*.p12
+**/*.key

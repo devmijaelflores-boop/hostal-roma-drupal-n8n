@@ -1,6 +1,6 @@
 {
     "name": "academico/hostal-roma",
-    "description": "Prototipo académico independiente de reservas; fase 1",
+    "description": "Prototipo académico de reservas, recepción, cuentas y pruebas SUNAT beta",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "homepage": "https://www.drupal.org/project/drupal",
@@ -21,7 +21,8 @@
         "drupal/core-project-message": "~11.4.12",
         "drupal/core-recipe-unpack": "~11.4.12",
         "drupal/core-recommended": "~11.4.12",
-        "drush/drush": "^13"
+        "drush/drush": "^13",
+        "greenter/lite": "^5.4"
     },
     "conflict": {
         "drupal/drupal": "*"

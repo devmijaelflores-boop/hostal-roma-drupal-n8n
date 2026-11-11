@@ -8,7 +8,7 @@ python3 tests/api.py
 python3 tests/hotel-security.py
 python3 tests/hotel-concurrency.py
 python3 tests/finance-concurrency.py
-for test_script in hotel-domain payments automation commerce reception finance; do
+for test_script in hotel-domain payments automation commerce reception finance sunat-beta; do
   docker compose cp "tests/$test_script.php" "drupal:/tmp/roma-$test_script.php"
   docker compose exec -T drupal vendor/bin/drush php:script "/tmp/roma-$test_script.php"
 done
@@ -19,4 +19,5 @@ deno run --cached-only --allow-all tests/full-browser.mjs
 deno run --cached-only --allow-all tests/commerce-browser.mjs
 deno run --cached-only --allow-all tests/reception-browser.mjs
 deno run --cached-only --allow-all tests/finance-browser.mjs
+deno run --cached-only --allow-all tests/sunat-beta-browser.mjs
 docker compose exec -T drupal vendor/bin/drush core:requirements --severity=2

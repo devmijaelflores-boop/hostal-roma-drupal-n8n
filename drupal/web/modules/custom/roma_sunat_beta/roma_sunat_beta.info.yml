@@ -1,0 +1,7 @@
+name: ROMA SUNAT beta
+type: module
+description: Pruebas UBL firmadas, envío exclusivo a beta y conservación de respuestas.
+core_version_requirement: ^11
+package: ROMA
+dependencies:
+  - roma_finance:roma_finance

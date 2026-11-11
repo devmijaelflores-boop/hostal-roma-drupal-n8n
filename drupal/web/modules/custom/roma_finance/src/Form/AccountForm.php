@@ -22,6 +22,9 @@ final class AccountForm extends FormBase {
       [$this->cell('Solicitud'),$this->cell($b['reference'])],[$this->cell('Huésped'),$this->cell($b['customer_name'])],[$this->cell('Estado de reserva'),$this->cell(HotelService::STATUS[$b['status']])],[$this->cell('Estimado original de la estadía'),$this->cell(HotelService::money((int)$b['estimated_price']))],
     ]];
     $form['is_open']=['#type'=>'value','#value'=>$account['open']];
+    if(\Drupal::moduleHandler()->moduleExists('roma_sunat_beta')&&$this->currentUser()->hasPermission('manage roma sunat beta')&&$account['open']&&$account['charges']>0&&$account['balance']===0&&$b['status']==='confirmed'){
+      $form['beta']=Link::fromTextAndUrl('Preparar documento de prueba SUNAT beta',Url::fromRoute('roma_sunat_beta.prepare',['reservation'=>$this->reservation]))->toRenderable();
+    }
     if(!$account['open']){
       $form['explanation']=['#markup'=>'<p>Abrir la cuenta guarda el estimado original como cargo inicial de simulación. No confirma la reserva, no cobra dinero y no cambia las tarifas. Abrirla nuevamente no duplica el cargo.</p>'];
       $form['actions']=['#type'=>'actions','save'=>['#type'=>'submit','#value'=>'Abrir cuenta de demostración']];

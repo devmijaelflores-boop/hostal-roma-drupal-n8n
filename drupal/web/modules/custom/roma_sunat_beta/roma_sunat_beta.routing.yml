@@ -1,0 +1,64 @@
+roma_sunat_beta.overview:
+  path: '/admin/roma/sunat-beta'
+  defaults:
+    _controller: '\Drupal\roma_sunat_beta\Controller\DocumentController::overview'
+    _title: 'Facturación de prueba · SUNAT beta'
+  requirements:
+    _permission: 'manage roma sunat beta'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_sunat_beta.prepare:
+  path: '/admin/roma/sunat-beta/preparar/{reservation}'
+  defaults:
+    _form: '\Drupal\roma_sunat_beta\Form\PrepareForm'
+    _title: 'Preparar prueba UBL firmada'
+  requirements:
+    _permission: 'manage roma sunat beta'
+    reservation: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_sunat_beta.document:
+  path: '/admin/roma/sunat-beta/{document}'
+  defaults:
+    _controller: '\Drupal\roma_sunat_beta\Controller\DocumentController::view'
+    _title: 'Documento de prueba SUNAT beta'
+  requirements:
+    _permission: 'manage roma sunat beta'
+    document: '\d+'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_sunat_beta.action:
+  path: '/admin/roma/sunat-beta/{document}/{action}'
+  defaults:
+    _form: '\Drupal\roma_sunat_beta\Form\SendForm'
+    _title: 'Confirmar operación beta'
+  requirements:
+    _permission: 'manage roma sunat beta'
+    document: '\d+'
+    action: 'send|recover|review'
+  options:
+    _admin_route: true
+    no_cache: true
+roma_sunat_beta.download:
+  path: '/admin/roma/sunat-beta/{document}/descargar/{kind}'
+  defaults:
+    _controller: '\Drupal\roma_sunat_beta\Controller\DocumentController::download'
+  requirements:
+    _permission: 'manage roma sunat beta'
+    document: '\d+'
+    kind: 'xml|cdr'
+  options:
+    no_cache: true
+roma_sunat_beta.attempt_cdr:
+  path: '/admin/roma/sunat-beta/{document}/intentos/{attempt}/cdr'
+  defaults:
+    _controller: '\Drupal\roma_sunat_beta\Controller\DocumentController::attemptCdr'
+  requirements:
+    _permission: 'manage roma sunat beta'
+    document: '\d+'
+    attempt: '\d+'
+  options:
+    no_cache: true

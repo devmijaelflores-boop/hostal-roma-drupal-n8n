@@ -1,0 +1,25 @@
+<?php
+function roma_sunat_beta_schema(): array {
+  $int=['type'=>'int','unsigned'=>TRUE,'not null'=>TRUE,'default'=>0];
+  $str=static fn(int $n):array=>['type'=>'varchar','length'=>$n,'not null'=>TRUE,'default'=>''];
+  $blob=['type'=>'blob','size'=>'big','not null'=>TRUE];
+  return [
+    'roma_beta_counter'=>['fields'=>['type'=>$str(2),'next_number'=>$int],'primary key'=>['type']],
+    'roma_beta_control'=>['fields'=>['id'=>$int,'last_send'=>$int],'primary key'=>['id']],
+    'roma_beta_document'=>[
+      'fields'=>['id'=>['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE],'reservation_id'=>$int,'type'=>$str(2),'series'=>$str(4),'number'=>$int,'filename'=>$str(80),'mode'=>$str(8),'state'=>$str(16),'amount'=>['type'=>'int','size'=>'big','unsigned'=>TRUE,'not null'=>TRUE],'snapshot'=>['type'=>'text','size'=>'big','not null'=>TRUE],'source_hash'=>$str(64),'xml'=>$blob,'xml_hash'=>$str(64),'cdr'=>$blob,'cdr_hash'=>$str(64),'code'=>$str(80),'description'=>$str(1000),'request_key'=>$str(48),'actor_uid'=>$int,'created'=>$int,'updated'=>$int,'attempts'=>$int],
+      'primary key'=>['id'],'unique keys'=>['request_key'=>['request_key'],'number'=>['type','series','number']],'indexes'=>['reservation'=>['reservation_id','id'],'state'=>['state']],
+    ],
+    'roma_beta_attempt'=>['fields'=>['id'=>['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE],'document_id'=>$int,'number'=>$int,'actor_uid'=>$int,'started'=>$int,'finished'=>$int,'state'=>$str(16),'code'=>$str(80),'description'=>$str(1000),'cdr'=>$blob],'primary key'=>['id'],'unique keys'=>['attempt'=>['document_id','number']]],
+    'roma_beta_review'=>['fields'=>['id'=>['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE],'document_id'=>$int,'attempt'=>$int,'actor_uid'=>$int,'created'=>$int,'from_state'=>$str(16),'to_state'=>$str(16),'from_code'=>$str(80),'to_code'=>$str(80),'cdr_hash'=>$str(64)],'primary key'=>['id'],'indexes'=>['document'=>['document_id']]],
+  ];
+}
+/** Añade auditoría de revisiones sin volver a enviar documentos. */
+function roma_sunat_beta_update_10001(): void {
+  $schema=\Drupal::database()->schema();if(!$schema->tableExists('roma_beta_review'))$schema->createTable('roma_beta_review',roma_sunat_beta_schema()['roma_beta_review']);
+}
+function roma_sunat_beta_install(): void {
+  $db=\Drupal::database();foreach(['01','03'] as $type)$db->insert('roma_beta_counter')->fields(['type'=>$type,'next_number'=>1])->execute();
+  $db->insert('roma_beta_control')->fields(['id'=>1,'last_send'=>0])->execute();
+  if($role=\Drupal\user\Entity\Role::load('roma_manager'))$role->grantPermission('manage roma sunat beta')->save();
+}

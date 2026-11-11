@@ -1,0 +1,34 @@
+{
+  "endpoint": "https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService",
+  "environment": "Prueba manual local, TLS verificado, PHP 8.5.10, MariaDB 13.0.2",
+  "documents": [
+    {
+      "id": 1,
+      "mode": "beta",
+      "number": "F901-1",
+      "type": "01",
+      "state": "accepted",
+      "code": "0",
+      "description": "Revisión local del CDR por usuario #1. La Factura numero F901-1, ha sido aceptada ",
+      "attempts": 2,
+      "xml_sha256": "2cee494914b7d8432a391e154f3a4aa0ccb27393513198033f8b7824443b042b",
+      "cdr_sha256": "d44c572848d275be24798dde3d54d862f01e874832a44a68339ab90754bb0aae",
+      "validity": "Solo prueba beta, sin validez tributaria"
+    },
+    {
+      "id": 2,
+      "mode": "beta",
+      "number": "B901-1",
+      "type": "03",
+      "state": "accepted",
+      "code": "0",
+      "description": "La Boleta numero B901-1, ha sido aceptada ",
+      "attempts": 1,
+      "xml_sha256": "d67ecd793a5a0eeef0c1e9ccab8c9447ff399b12b05fb885d3e7eb74e161a66f",
+      "cdr_sha256": "950bcd879d309b8f28e13e185772c2d6ae68d53b3c2dfa65410de12222a23e60",
+      "validity": "Solo prueba beta, sin validez tributaria"
+    }
+  ],
+  "legal_validity": false,
+  "data": "Identidades genéricas de pruebas y firma académica autofirmada. No representa datos del hotel ni sus huéspedes."
+}
