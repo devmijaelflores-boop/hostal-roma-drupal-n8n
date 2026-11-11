@@ -2,9 +2,9 @@
 <div class="academic-notice"><span class="notice-dot"></span>{{ roma_notice }}</div>
 <header class="site-header">
   <div class="header-inner wrap">
-    <a class="brand" href="{{ path('<front>') }}" aria-label="ROMA — Inicio">
-      <span class="brand-mark" aria-hidden="true">R<span>✧</span></span>
-      <span class="brand-text"><strong>ROMA</strong><span>GOLDEN · JULIACA</span></span>
+    <a class="brand" href="{{ path('<front>') }}" aria-label="{{ roma_content.hotel_name }} — Inicio">
+      <span class="brand-mark" aria-hidden="true">{{ roma_content.hotel_name|slice(0, 1) }}<span>✧</span></span>
+      <span class="brand-text"><strong>{{ roma_content.hotel_name }}</strong><span>{{ roma_content.brand_subtitle }}</span></span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">{{ ui.icon('menu') }}</button>
     <nav id="main-navigation" class="main-navigation" aria-label="Navegación principal">

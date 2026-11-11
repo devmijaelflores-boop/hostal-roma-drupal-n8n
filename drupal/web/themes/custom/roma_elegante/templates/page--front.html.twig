@@ -7,7 +7,7 @@
     <div class="hero-shade"></div>
     <div class="hero-credit">Fotografía referencial · Unsplash</div>
     <div class="wrap hero-content">
-      <p class="eyebrow light">{{ ui.icon('pin') }} JULIACA · PUNO · PERÚ</p>
+      <p class="eyebrow light">{{ ui.icon('pin') }} {{ roma_content.city }} · {{ roma_content.region }} · {{ roma_content.country }}</p>
       <h1 id="hero-title">Tu pausa en el<br>corazón del <em>altiplano.</em></h1>
       <p class="hero-description">Hay viajes que merecen un buen descanso.<br>Imagina el tuyo con nosotros.</p>
       <a class="button button-cream" href="#habitaciones">Descubre las habitaciones {{ ui.icon('arrow') }}</a>
@@ -29,7 +29,7 @@
   </section>
 
   <section class="welcome wrap section-space" aria-labelledby="welcome-title">
-    <div class="welcome-heading"><p class="eyebrow">BIENVENIDO A ROMA</p><h2 id="welcome-title">Un lugar para bajar<br>el ritmo. <em>Y sentirte bien.</em></h2></div>
+    <div class="welcome-heading"><p class="eyebrow">BIENVENIDO A {{ roma_content.hotel_name }}</p><h2 id="welcome-title">Un lugar para bajar<br>el ritmo. <em>Y sentirte bien.</em></h2></div>
     <div class="welcome-copy"><p>{{ roma_content.presentation|default('Entre nuevos caminos y días por descubrir, siempre hay espacio para una pausa. Esta propuesta reúne ambientes acogedores, detalles sencillos y la inspiración del altiplano.') }}</p><p class="muted">Explora nuestro catálogo ficticio y descubre cómo será la experiencia de este proyecto académico.</p><a class="text-link" href="#servicios">Los detalles que importan {{ ui.icon('arrow') }}</a></div>
   </section>
 
@@ -58,8 +58,8 @@
   </section>
 
   <section class="location-section wrap section-space" id="ubicacion" aria-labelledby="location-title">
-    <div class="location-art" role="img" aria-label="Ilustración conceptual del altiplano; no es un mapa ni una ubicación exacta"><div class="art-sun"></div><div class="art-mountain mountain-back"></div><div class="art-mountain mountain-front"></div><div class="art-lake"></div><span class="art-coordinate">PUNO · PERÚ</span><div class="art-place">Juliaca<span>EL ALTIPLANO TE INSPIRA</span></div><span class="art-caption">Ilustración conceptual del entorno andino</span></div>
-    <div class="location-copy"><p class="eyebrow">UN DESTINO, MUCHAS HISTORIAS</p><h2 id="location-title">El viaje empieza<br>en <em>Juliaca.</em></h2><p>{{ roma_content.location_text|default('El altiplano es el escenario de esta propuesta. Juliaca, en Puno, Perú, es la ciudad de referencia de nuestro proyecto académico.') }}</p><div class="location-address">{{ ui.icon('pin') }}<div><strong>{{ roma_content.address|default('Nueva Zelandia 196, Juliaca 21101, Puno, Perú') }}</strong><span>Establecimiento de referencia · enlace facilitado por el usuario</span></div></div><p class="muted small">Dirección del establecimiento de referencia, según el enlace compartido. Este prototipo no está afiliado al hostal.</p><a class="text-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hostal+ROMA%2C+Nueva+Zelandia+196%2C+Juliaca+21101%2C+Peru" target="_blank" rel="noopener noreferrer">Cómo llegar · Google Maps {{ ui.icon('diagonal') }}</a></div>
+    <div class="location-art" role="img" aria-label="Ilustración conceptual del altiplano; no es un mapa ni una ubicación exacta"><div class="art-sun"></div><div class="art-mountain mountain-back"></div><div class="art-mountain mountain-front"></div><div class="art-lake"></div><span class="art-coordinate">{{ roma_content.region }} · {{ roma_content.country }}</span><div class="art-place">{{ roma_content.city }}<span>EL ALTIPLANO TE INSPIRA</span></div><span class="art-caption">Ilustración conceptual del entorno andino</span></div>
+    <div class="location-copy"><p class="eyebrow">UN DESTINO, MUCHAS HISTORIAS</p><h2 id="location-title">El viaje empieza<br>en <em>{{ roma_content.city }}.</em></h2><p>{{ roma_content.location_text|default('El altiplano es el escenario de esta propuesta. Juliaca, en Puno, Perú, es la ciudad de referencia de nuestro proyecto académico.') }}</p><div class="location-address">{{ ui.icon('pin') }}<div><strong>{{ roma_content.address|default('Nueva Zelandia 196, Juliaca 21101, Puno, Perú') }}</strong><span>Establecimiento de referencia · enlace facilitado por el usuario</span></div></div><p class="muted small">Dirección del establecimiento de referencia, según el enlace compartido. Este prototipo no está afiliado al hostal.</p><a class="text-link" href="{{ roma_maps_url }}" target="_blank" rel="noopener noreferrer">Cómo llegar · Google Maps {{ ui.icon('diagonal') }}</a></div>
   </section>
 
   <section class="closing-section"><div class="wrap closing-inner"><div><p class="eyebrow">TU PRÓXIMA PAUSA</p><h2>Todo buen viaje merece<br>un <em>buen descanso.</em></h2></div><div><a class="button button-dark" href="#planifica">Planifica tu estadía {{ ui.icon('diagonal') }}</a><p>Una experiencia de demostración, por ahora.</p></div></div></section>

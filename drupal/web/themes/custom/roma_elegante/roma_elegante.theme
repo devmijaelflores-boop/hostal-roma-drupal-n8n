@@ -20,5 +20,8 @@ function roma_elegante_preprocess_page(array &$variables): void {
     $variables['roma_services'] = $hotel->services();
   }
   $variables['roma_content'] = \Drupal::config('roma_booking.content')->getRawData();
+  $variables['roma_content'] += ['hotel_name'=>'ROMA','brand_subtitle'=>'GOLDEN · JULIACA','city'=>'Juliaca','region'=>'Puno','country'=>'Perú'];
+  $variables['roma_maps_url'] = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($variables['roma_content']['address'] ?? 'Nueva Zelandia 196, Juliaca, Perú');
+  \Drupal::service('renderer')->addCacheableDependency($variables, \Drupal::config('roma_booking.content'));
   $variables['roma_notice'] = 'Prototipo académico no oficial. Habitaciones, disponibilidad y tarifas de demostración';
 }
