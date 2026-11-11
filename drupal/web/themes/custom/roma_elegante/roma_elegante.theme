@@ -36,5 +36,7 @@ function roma_elegante_preprocess_page(array &$variables): void {
   $variables['roma_hero']=$gallery('hero',[$variables['roma_assets'].'/images/individual.jpg',$variables['roma_assets'].'/images/matrimonial.jpg',$variables['roma_assets'].'/images/doble.jpg']);
   foreach($variables['roma_rooms'] as &$room){$room['gallery']=$gallery('room_'.$room['id'],[$variables['roma_assets'].'/images/'.$room['image']]);}unset($room);
   \Drupal::service('renderer')->addCacheableDependency($variables,$photos);
+  $prices=array_column($variables['roma_rooms'],'amount');
+  $variables['roma_min_price']=$prices ? \Drupal\roma_booking\Service\HotelService::money((int)min($prices)) : NULL;
   $variables['roma_notice'] = 'Encuentra tu habitación y planifica tu estadía';
 }

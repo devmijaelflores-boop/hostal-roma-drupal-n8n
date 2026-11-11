@@ -146,7 +146,24 @@ const translations = {
   "propuesta de alojamiento.": "hospitality experience.",
   "Servicios del catálogo; consulta sus condiciones con recepción.": "Listed amenities; check conditions with reception.",
   "Encuentra una opción para tu próximo viaje.": "Find an option for your next trip.",
-  "Distribución de la habitación": "Room layout"
+  "Distribución de la habitación": "Room layout",
+  "Reservar": "Book a stay",
+  "Elige tu habitación, consulta las fechas y prepara tu próxima estadía.": "Choose your room, check your dates and plan your next stay.",
+  "TU PRÓXIMA ESTADÍA": "YOUR NEXT STAY",
+  "Encuentra tu habitación.": "Find your room.",
+  "por noche · según habitación": "per night · depending on room",
+  "Compara habitaciones y capacidad.": "Compare rooms and capacity.",
+  "Consulta el total para tus fechas.": "Check the total for your dates.",
+  "Revisa el estado de tu solicitud.": "Track your request.",
+  "Ver disponibilidad": "Check availability",
+  "La solicitud queda pendiente hasta su confirmación.": "Your request remains pending until confirmed.",
+  "Ver habitaciones": "See rooms",
+  "Elige fechas y huéspedes para consultar habitaciones y el total de tu estadía.": "Choose dates and guests to see rooms and your estimated stay total.",
+  "Elige con calma.": "Take your time.",
+  "Reserva con claridad.": "Book with clarity.",
+  "Compara las habitaciones": "Compare rooms",
+  "Opciones para tu estadía.": "Options for your stay.",
+  "Compara tipos de habitación, capacidad y tarifas en un solo lugar. Consulta tus fechas y envía una solicitud; podrás revisar su estado con tu código y clave privada.": "Compare room types, capacity and rates in one place. Check your dates and submit a request; track it using your code and private key."
 };
 (() => {
  const selector=document.querySelector('#hotel-language');if(!selector)return;

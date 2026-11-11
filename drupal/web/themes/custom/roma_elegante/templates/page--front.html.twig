@@ -7,12 +7,12 @@
     <div class="gallery-controls hero-gallery-controls"><button type="button" data-gallery-play aria-label="Pausar carrusel" aria-pressed="false">Ⅱ</button><button type="button" data-gallery-prev aria-label="Foto anterior">←</button><span data-gallery-count aria-live="polite">1 / 3</span><button type="button" data-gallery-next aria-label="Foto siguiente">→</button><button type="button" data-gallery-expand aria-label="Ampliar fotografía">⤢</button></div>
     <div class="hero-shade"></div>
     {% if not roma_hero.custom %}<div class="hero-credit">Fotografía ilustrativa · Unsplash</div>{% endif %}
-    <div class="wrap hero-content">
+    <div class="wrap hero-content"><div class="hero-intro">
       <p class="eyebrow light">{{ ui.icon('pin') }} {{ roma_content.city }} · {{ roma_content.region }} · {{ roma_content.country }}</p>
-      <h1 id="hero-title">Tu pausa en el<br>corazón del <em>altiplano.</em></h1>
-      <p class="hero-description">Hay viajes que merecen un buen descanso.<br>Imagina el tuyo con nosotros.</p>
+      <h1 id="hero-title">{{ roma_content.hotel_name }}</h1><p class="hero-brand-subtitle">{{ roma_content.brand_subtitle }}</p>
+      <p class="hero-description">Elige tu habitación, consulta las fechas y prepara tu próxima estadía.</p>
       <a class="button button-cream" href="#habitaciones">Descubre las habitaciones {{ ui.icon('arrow') }}</a>
-      <div class="hero-footnote"><span></span> UNA PROPUESTA DE HOSPITALIDAD, HECHA CON CALMA</div>
+      </div><aside class="hero-booking-card" aria-label="Planifica tu reserva"><p class="eyebrow">TU PRÓXIMA ESTADÍA</p><h2>Encuentra tu habitación.</h2>{% if roma_min_price %}<p class="hero-from">Desde <strong>{{ roma_min_price }}</strong><span>por noche · según habitación</span></p>{% endif %}<ul><li>Compara habitaciones y capacidad.</li><li>Consulta el total para tus fechas.</li><li>Revisa el estado de tu solicitud.</li></ul><a href="#planifica" class="button button-dark">Ver disponibilidad {{ ui.icon('arrow') }}</a><p class="hero-booking-note">La solicitud queda pendiente hasta su confirmación.</p></aside>
     </div>
     <div class="hero-seal" aria-hidden="true"><span>DESCANSA</span>✧<span>SIGUE EL VIAJE</span></div>
   </section>
@@ -22,21 +22,21 @@
       <div class="planner-field"><label for="arrival">{{ ui.icon('calendar') }} Llegada</label><input type="date" id="arrival" name="arrival" required></div>
       <div class="planner-field"><label for="departure">{{ ui.icon('calendar') }} Salida</label><input type="date" id="departure" name="departure" required></div>
       <div class="planner-field"><label for="guests">{{ ui.icon('user') }} Huéspedes</label><select id="guests" name="guests"><option value="1">1 huésped</option><option value="2" selected>2 huéspedes</option><option value="3">3 huéspedes</option><option value="4">4 huéspedes</option></select></div>
-      <button class="button button-dark planner-submit" type="submit">Consultar {{ ui.icon('arrow') }}</button>
+      <button class="button button-dark planner-submit" type="submit">Ver habitaciones {{ ui.icon('arrow') }}</button>
     </form>
-    <div class="planner-caption"><span class="small-label">DISPONIBILIDAD</span><span>Consulta fechas y huéspedes. Solo las reservas confirmadas bloquean habitaciones.</span></div>
+    <div class="planner-caption"><span>Elige fechas y huéspedes para consultar habitaciones y el total de tu estadía.</span></div>
     <p id="planner-result" class="planner-result" role="status" hidden></p>
     <noscript><p>Puedes consultar la disponibilidad sin JavaScript usando este formulario.</p></noscript>
   </section>
 
   <section class="welcome wrap section-space" aria-labelledby="welcome-title">
-    <div class="welcome-heading"><p class="eyebrow">BIENVENIDO A {{ roma_content.hotel_name }}</p><h2 id="welcome-title">Un lugar para bajar<br>el ritmo. <em>Y sentirte bien.</em></h2></div>
-    <div class="welcome-copy"><p>{{ roma_content.presentation|default('Entre nuevos caminos y días por descubrir, siempre hay espacio para una pausa. Esta propuesta reúne ambientes acogedores, detalles sencillos y la inspiración del altiplano.') }}</p><p class="muted">Explora nuestro catálogo ficticio y descubre cómo será la experiencia de este proyecto académico.</p><a class="text-link" href="#servicios">Los detalles que importan {{ ui.icon('arrow') }}</a></div>
+    <div class="welcome-heading"><p class="eyebrow">BIENVENIDO A {{ roma_content.hotel_name }}</p><h2 id="welcome-title">Elige con calma.<br><em>Reserva con claridad.</em></h2></div>
+    <div class="welcome-copy"><p>{{ roma_content.presentation|default('Compara tipos de habitación, capacidad y tarifas en un solo lugar. Consulta tus fechas y envía una solicitud; podrás revisar su estado con tu código y clave privada.') }}</p><a class="text-link" href="#habitaciones">Compara las habitaciones {{ ui.icon('arrow') }}</a></div>
   </section>
 
   <section class="rooms-section section-space" id="habitaciones" aria-labelledby="rooms-title">
     <div class="wrap">
-      <div class="section-heading"><div><p class="eyebrow">ESPACIOS PARA DESCONECTAR</p><h2 id="rooms-title">Encuentra tu <em>descanso.</em></h2></div><p>Tres formas de imaginar tu estadía.<br><span class="muted">Catálogo de habitaciones y tarifas.</span></p></div>
+      <div class="section-heading"><div><p class="eyebrow">ESPACIOS PARA DESCONECTAR</p><h2 id="rooms-title">Encuentra tu <em>descanso.</em></h2></div><p>Opciones para tu estadía.<br><span class="muted">Catálogo de habitaciones y tarifas.</span></p></div>
       <div class="room-filters" role="group" aria-label="Filtrar habitaciones de muestra"><button type="button" data-room-filter="all" aria-pressed="true">Todas las habitaciones</button><button type="button" data-room-filter="1" aria-pressed="false">Para una persona</button><button type="button" data-room-filter="2" aria-pressed="false">Para dos personas</button></div>
       <div class="room-grid">
         {% for room in roma_rooms %}

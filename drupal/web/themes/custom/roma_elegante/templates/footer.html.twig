@@ -2,7 +2,7 @@
 <footer class="site-footer" id="contacto">
   <div class="wrap footer-top">
     <div><a class="brand footer-brand" href="{{ path('<front>') }}"><span class="brand-mark" aria-hidden="true">{{ roma_content.hotel_name|slice(0, 1) }}</span><span class="brand-text"><strong>{{ roma_content.hotel_name }}</strong><span>{{ roma_content.brand_subtitle }}</span></span></a><p>Una pausa en el camino.<br>Una nueva forma de imaginar tu descanso.</p></div>
-    <div><h2>Explora</h2><a href="{{ path('<front>') }}#habitaciones">Habitaciones</a><a href="{{ path('<front>') }}#servicios">Servicios</a><a href="{{ path('<front>') }}#ubicacion">{{ roma_content.city }}, {{ roma_content.region }}, {{ roma_content.country }}</a></div>
+    <div><h2>Explora</h2><a href="{{ path('roma_shop.catalog') }}">Estadías adicionales</a><a href="{{ path('roma_shop.cart') }}">Mi selección</a><a href="{{ path('<front>') }}#habitaciones">Habitaciones</a><a href="{{ path('<front>') }}#servicios">Servicios</a><a href="{{ path('<front>') }}#ubicacion">{{ roma_content.city }}, {{ roma_content.region }}, {{ roma_content.country }}</a></div>
     <div class="footer-project"><h2>Información</h2><a href="{{ path('roma_booking.lookup') }}">Consultar mi solicitud</a><a href="{{ path('roma_booking.contact') }}">Contacto</a><p>Sistema independiente. Las solicitudes y mensajes se procesan en modo de prueba.</p><a href="{{ path('user.login') }}">Acceso administrativo {{ ui.icon('diagonal') }}</a></div>
   </div>
   <div class="wrap footer-bottom"><span>{{ roma_content.hotel_name }}</span><span>Importes en soles peruanos (PEN)</span></div>

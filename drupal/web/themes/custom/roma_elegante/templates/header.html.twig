@@ -1,5 +1,5 @@
 {% import '@roma_elegante/icons.html.twig' as ui %}
-<div class="academic-notice"><span class="notice-dot"></span>{{ roma_notice }}</div>
+<div class="hotel-topbar"><div class="wrap hotel-topbar-inner"><span>{{ roma_content.city }} · {{ roma_content.region }} · {{ roma_content.country }}</span><div class="hotel-topbar-actions">{% if roma_whatsapp_url %}<a href="{{ roma_whatsapp_url }}" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>{% endif %}<label class="hotel-language"><span class="visually-hidden">Idioma / Language</span><select id="hotel-language" aria-label="Idioma / Language"><option value="es">ES · Español</option><option value="en">EN · English</option></select></label></div></div></div>
 <header class="site-header">
   <div class="header-inner wrap">
     <a class="brand" href="{{ path('<front>') }}" aria-label="{{ roma_content.hotel_name }} — Inicio">
@@ -7,16 +7,13 @@
       <span class="brand-text"><strong>{{ roma_content.hotel_name }}</strong><span>{{ roma_content.brand_subtitle }}</span></span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">{{ ui.icon('menu') }}</button>
-    <label class="hotel-language"><span class="visually-hidden">Idioma / Language</span><select id="hotel-language" aria-label="Idioma / Language"><option value="es">ES · Español</option><option value="en">EN · English</option></select></label>
     <nav id="main-navigation" class="main-navigation" aria-label="Navegación principal">
       <a href="{{ path('<front>') }}#inicio"{% if is_front %} class="is-current"{% endif %}>Inicio</a>
       <a href="{{ path('<front>') }}#habitaciones">Habitaciones</a>
-      <a href="{{ path('roma_shop.catalog') }}">Estadías adicionales</a>
-      <a href="{{ path('roma_shop.cart') }}">Mi selección</a>
       <a href="{{ path('<front>') }}#servicios">Servicios</a>
       <a href="{{ path('<front>') }}#ubicacion">Ubicación</a>
       <a href="{{ path('roma_booking.contact') }}">Contacto</a>
     </nav>
-    <a class="button button-dark header-cta" href="{{ path('<front>') }}#planifica">Consulta disponibilidad {{ ui.icon('diagonal') }}</a>
+    <a class="button button-dark header-cta" href="{{ path('<front>') }}#planifica">Reservar {{ ui.icon('diagonal') }}</a>
   </div>
 </header>
