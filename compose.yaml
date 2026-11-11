@@ -8,6 +8,7 @@ x-drupal-environment: &drupal-environment
   ROMA_INTEGRATION_TOKEN: ${ROMA_INTEGRATION_TOKEN:?Genera la clave de integración}
   ROMA_N8N_WEBHOOK_TOKEN: ${ROMA_N8N_WEBHOOK_TOKEN:?Genera la clave n8n}
   ROMA_PUBLIC_URL: ${ROMA_PUBLIC_URL:-http://localhost:8080}
+  ROMA_TRUSTED_HOSTS: ${ROMA_TRUSTED_HOSTS:-localhost,127.0.0.1}
   ROMA_CHAT_MODE: ${ROMA_CHAT_MODE:-deterministic}
   TZ: ${TZ:-America/Lima}
 
@@ -78,13 +79,14 @@ services:
       TZ: ${TZ:-America/Lima}
       DB_TYPE: sqlite
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Falta clave cifrado}
-      N8N_HOST: localhost
+      N8N_HOST: ${N8N_HOST:-localhost}
       N8N_PORT: 5678
-      N8N_PROTOCOL: http
-      N8N_EDITOR_BASE_URL: http://localhost:${N8N_PORT:-5678}/
-      N8N_WEBHOOK_URL: http://localhost:${N8N_PORT:-5678}/
+      N8N_PROTOCOL: ${N8N_PROTOCOL:-http}
+      N8N_EDITOR_BASE_URL: ${N8N_EDITOR_BASE_URL:-http://localhost:${N8N_PORT:-5678}/}
+      N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL:-http://localhost:${N8N_PORT:-5678}/}
+      N8N_PROXY_HOPS: ${N8N_PROXY_HOPS:-0}
       N8N_UNVERIFIED_PACKAGES_ENABLED: "false"
-      N8N_SECURE_COOKIE: "false"
+      N8N_SECURE_COOKIE: ${N8N_SECURE_COOKIE:-false}
       N8N_DIAGNOSTICS_ENABLED: "false"
       N8N_PERSONALIZATION_ENABLED: "false"
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
@@ -96,6 +98,26 @@ services:
       timeout: 10s
       retries: 15
       start_period: 60s
+
+  caddy:
+    image: caddy:2.10-alpine
+    profiles: [aws]
+    restart: unless-stopped
+    depends_on:
+      drupal:
+        condition: service_healthy
+      n8n:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
 
   mailpit:
     image: axllent/mailpit:v1.33.1
@@ -114,3 +136,5 @@ volumes:
   drupal_files:
   n8n_data:
   mailpit_data:
+  caddy_data:
+  caddy_config:

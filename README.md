@@ -49,6 +49,7 @@ Usuario Drupal: `admin_demo`; contraseña en `.env`. El usuario de integración 
 - [Chat, workflows y automatizaciones n8n](docs/n8n.md).
 - [IA opcional](docs/fase-6-ia-opcional.md).
 - [Pagos: simulador y límite de la pasarela externa](docs/pagos.md).
+- [Despliegue en AWS EC2 con HTTPS y n8n privado](docs/despliegue-aws-ec2.md) (guía preparada; no indica que ya esté publicado).
 - [Arquitectura](docs/arquitectura.md) y [guion de demostración](docs/guion-demostracion.md).
 - [Referencias web, GitHub y YouTube](docs/referencias-implementacion.md).
 - [Propuesta académica Word/PDF](docs/propuesta/README.md).

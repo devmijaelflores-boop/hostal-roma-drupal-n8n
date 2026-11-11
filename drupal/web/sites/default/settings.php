@@ -19,7 +19,8 @@ $databases['default']['default'] = [
   'prefix' => '',
 ];
 $settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
-$settings['trusted_host_patterns'] = ['^localhost$', '^127\\.0\\.0\\.1$', '^drupal$'];
+$trusted_hosts = array_unique([...array_filter(array_map('trim', explode(',', getenv('ROMA_TRUSTED_HOSTS') ?: 'localhost,127.0.0.1'))), 'drupal']);
+$settings['trusted_host_patterns'] = array_map(static fn(string $host): string => '^' . preg_quote($host, '/') . '$', $trusted_hosts);
 $settings['config_sync_directory'] = '../config/sync';
 $settings['file_scan_ignore_directories'] = ['node_modules', 'bower_components'];
 $settings['update_free_access'] = FALSE;
